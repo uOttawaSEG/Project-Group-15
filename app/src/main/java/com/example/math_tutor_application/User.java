@@ -12,6 +12,9 @@ public class User {
         this.userId = userId;
         this.name = name;
         this.password = password;
+        if (!role.equals("student") && !role.equals("tutor")) {
+            throw new IllegalArgumentException("Invalid role: " + role);
+        }
         this.role = role;
     }
 

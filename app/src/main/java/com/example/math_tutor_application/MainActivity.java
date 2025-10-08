@@ -33,6 +33,6 @@ public class MainActivity extends AppCompatActivity {
         userList.add(user2);
         userList.add(user3);
         userList.add(user4);
-        
+
     }
 }
