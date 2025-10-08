@@ -2,6 +2,7 @@ package com.example.math_tutor_application;
 
 import java.util.Date;
 
+
 public class Session {
     //A class that represents a session.
 
@@ -10,9 +11,7 @@ public class Session {
     private String tutorName;
     private Boolean isCancelled;
 
-    public Session(String studentName, String tutorName, Date sessionTime) {
-        this.studentName = studentName;
-        this.tutorName = tutorName;
+    public Session(Date sessionTime) {
         this.sessionTime = sessionTime;
         this.isCancelled = false;
     }
@@ -27,6 +26,16 @@ public class Session {
         }
 
         return isCancelled;
+    }
+
+    public void setSessionTime(Date sessionTime) {
+        this.sessionTime = sessionTime;
+    }
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+    public void setTutorName(String tutorName) {
+        this.tutorName = tutorName;
     }
 
     public String getStudentName() {

@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.util.*;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //adds the users to the list
         userList.add(user1);
         userList.add(user2);
         userList.add(user3);
@@ -47,6 +50,49 @@ public class MainActivity extends AppCompatActivity {
         tutorList.add(tutor1);
         tutorList.add(tutor2);
 
+        //adds sessions to the list
+        generateSession();
+        System.out.println("Session list: " + sessionList);
+
+
+
+
 
     }
+
+    public void generateSession() {
+        //Function that will add session the list, 5 for day 0. 5 for day 1
+        Calendar cal = Calendar.getInstance();
+
+        cal.set(Calendar.HOUR_OF_DAY, 8);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+
+        //Day 0: Five session added
+        for (int i = 0; i < 5; i++) {
+            // Add 30 minutes to the calendar's current time
+            cal.add(Calendar.MINUTE, 30);
+            Date nextTime = cal.getTime();
+            sessionList.add(new Session(nextTime));
+            System.out.println("Generated time: " + nextTime);
+        }
+
+        //Day 1: Five session added
+        cal.add(Calendar.DAY_OF_YEAR, 1);
+        for (int i = 0; i < 5; i++) {
+            // Add 30 minutes to the calendar's current time
+            cal.add(Calendar.MINUTE, 30);
+            Date nextTime = cal.getTime();
+            sessionList.add(new Session(nextTime));
+            System.out.println("Generated time: " + nextTime);
+        }
+
+
+
+
+
+    }
+
+
 }
