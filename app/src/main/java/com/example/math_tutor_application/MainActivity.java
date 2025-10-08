@@ -1,6 +1,8 @@
 package com.example.math_tutor_application;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -95,4 +97,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void studentHandler(View view) {
+
+
+
+
+        Intent intent = new Intent(this, StudentActivity.class);
+        intent.putExtra("sessionList", sessionList);
+        startActivity(intent);
+    }
 }

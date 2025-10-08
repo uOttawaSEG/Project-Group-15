@@ -91,6 +91,7 @@
 
     <Button
         android:id="@+id/studentButton"
+        android:onClick="studentHandler"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Student"

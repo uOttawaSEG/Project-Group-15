@@ -1,11 +1,13 @@
 package com.example.math_tutor_application;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
-public class Session {
+public class Session implements Serializable {
     //A class that represents a session.
 
+    private static final long serialVersionUID = 1L;
     private String studentName;
     private Date sessionTime;
     private String tutorName;
