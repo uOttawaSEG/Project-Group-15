@@ -15,11 +15,22 @@ public class MainActivity extends AppCompatActivity {
     //creates a list of user. Should be on firebase later
     User user1 = new User("user1", "password1", "Alice", "student");
     User user2 = new User("user2", "password2", "Bob", "tutor");
+    Tutor tutor1 = (Tutor) user2;
     User user3 = new User("user3", "password3", "Charlie", "student");
     User user4 = new User("user4", "password4", "David", "tutor");
+    Tutor tutor2 = (Tutor) user4;
 
     //adds the users to the list
     static ArrayList<User> userList = new ArrayList<>();
+
+    //creates o list of session which can be accessed by student and tutors. Should be on firebase later
+    static ArrayList<Session> sessionList = new ArrayList<>();
+
+    //creates a list of Tutors. Should be on firebase later
+    static ArrayList<Tutor> tutorList = new ArrayList<>();
+
+
+
 
 
 
@@ -33,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
         userList.add(user2);
         userList.add(user3);
         userList.add(user4);
+        tutorList.add(tutor1);
+        tutorList.add(tutor2);
+
 
     }
 }
