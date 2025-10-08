@@ -8,17 +8,31 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.*;
+
 public class MainActivity extends AppCompatActivity {
+
+    //creates a list of user. Should be on firebase later
+    User user1 = new User("user1", "password1", "Alice", "student");
+    User user2 = new User("user2", "password2", "Bob", "tutor");
+    User user3 = new User("user3", "password3", "Charlie", "student");
+    User user4 = new User("user4", "password4", "David", "tutor");
+
+    //adds the users to the list
+    static ArrayList<User> userList = new ArrayList<>();
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        userList.add(user1);
+        userList.add(user2);
+        userList.add(user3);
+        userList.add(user4);
+        
     }
 }
