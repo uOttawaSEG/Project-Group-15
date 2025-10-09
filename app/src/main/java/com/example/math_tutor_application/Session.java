@@ -13,16 +13,26 @@ public class Session implements Serializable {
 
     private String studentName;
     private Date sessionTime;
-    private String tutorName;
+    private Tutor tutor;
     private Boolean isCancelled;
 
     private String course;
 
+    //Constructor for uncompleted courses
     public Session(Date sessionTime, String course) {
         this.sessionTime = sessionTime;
         this.course = course;
         this.isCancelled = false;
     }
+
+    //Constructor for completed courses
+    public Session(Date sessionTime, String course, Tutor tutor) {
+        this.sessionTime = sessionTime;
+        this.course = course;
+        this.tutor = tutor;
+        this.isCancelled = false;
+    }
+
 
     public boolean cancelSession() {
         Date now = new Date();
@@ -42,9 +52,7 @@ public class Session implements Serializable {
     public void setStudentName(String studentName) {
         this.studentName = studentName;
     }
-    public void setTutorName(String tutorName) {
-        this.tutorName = tutorName;
-    }
+
 
     public String getStudentName() {
         return studentName;
@@ -55,7 +63,7 @@ public class Session implements Serializable {
     }
 
     public String getTutorName() {
-        return tutorName;
+        return tutor.getName();
     }
 
     public String getCourse() {
@@ -66,6 +74,10 @@ public class Session implements Serializable {
     public Boolean getIsCancelled() {
         return isCancelled;
 
+    }
+
+    public void addRating(Tutor tutor, int rating) {
+        tutor.addRating(rating);
     }
 
 

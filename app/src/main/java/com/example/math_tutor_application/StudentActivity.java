@@ -28,7 +28,7 @@ public class StudentActivity extends AppCompatActivity {
 
         TextView textView = (TextView) findViewById(R.id.sessions);
 
-        textView.setText(sessionList.get(0).getSessionTime().toString() + "\n" + sessionList.get(0).getCourse());
+        textView.setText(sessionList.get(0).getSessionTime().toString() + "\n" + sessionList.get(0).getCourse() + "\n");
 
 
 

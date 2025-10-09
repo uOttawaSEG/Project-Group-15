@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
             // Add 30 minutes to the calendar's current time
             cal.add(Calendar.MINUTE, 30);
             Date nextTime = cal.getTime();
-            sessionList.add(new Session(nextTime, courses[i]));
+            sessionList.add(new Session(nextTime, courses[i], tutor1));
         }
 
         //Day 1: Five session added
