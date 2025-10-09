@@ -5,16 +5,22 @@ import java.util.Date;
 
 
 public class Session implements Serializable {
+
     //A class that represents a session.
 
     private static final long serialVersionUID = 1L;
+
+
     private String studentName;
     private Date sessionTime;
     private String tutorName;
     private Boolean isCancelled;
 
-    public Session(Date sessionTime) {
+    private String course;
+
+    public Session(Date sessionTime, String course) {
         this.sessionTime = sessionTime;
+        this.course = course;
         this.isCancelled = false;
     }
 
@@ -51,6 +57,11 @@ public class Session implements Serializable {
     public String getTutorName() {
         return tutorName;
     }
+
+    public String getCourse() {
+        return course;
+    }
+
 
     public Boolean getIsCancelled() {
         return isCancelled;

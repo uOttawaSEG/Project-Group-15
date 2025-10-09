@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void generateSession() {
+        String[] courses = {"Linear Algebra", "Calculus", "Statistics", "Data Science", "Discreet Mathematics", "Pre-Calculus"};
         //Function that will add session the list, 5 for day 0. 5 for day 1
         Calendar cal = Calendar.getInstance();
 
@@ -72,27 +73,21 @@ public class MainActivity extends AppCompatActivity {
         cal.set(Calendar.MILLISECOND, 0);
 
         //Day 0: Five session added
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 3; i++) {
             // Add 30 minutes to the calendar's current time
             cal.add(Calendar.MINUTE, 30);
             Date nextTime = cal.getTime();
-            sessionList.add(new Session(nextTime));
-            System.out.println("Generated time: " + nextTime);
+            sessionList.add(new Session(nextTime, courses[i]));
         }
 
         //Day 1: Five session added
         cal.add(Calendar.DAY_OF_YEAR, 1);
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 3; i++) {
             // Add 30 minutes to the calendar's current time
             cal.add(Calendar.MINUTE, 30);
             Date nextTime = cal.getTime();
-            sessionList.add(new Session(nextTime));
-            System.out.println("Generated time: " + nextTime);
+            sessionList.add(new Session(nextTime, courses[5 - i]));
         }
-
-
-
-
 
     }
 
