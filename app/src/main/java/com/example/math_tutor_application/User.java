@@ -5,35 +5,28 @@ package com.example.math_tutor_application;
 public class User  {
     //an object to represent Users. Will contain thier userId, names and passwords.
 
-    private String userId;
-    private String name;
+    private String firstName;
+    private String lastName;
+    private String email;
     private String password;
+    private String phoneNumber;
 
-    private String role; // stores the role of the user such as student or tutor
-
-    public User(String userId, String password, String name, String role) {
-        this.userId = userId;
-        this.name = name;
+    public User(String firstName, String lastName, String email, String password, String phoneNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
         this.password = password;
-        if (!role.equals("student") && !role.equals("tutor")) {
-            throw new IllegalArgumentException("Invalid role: " + role);
-        }
-        this.role = role;
+        this.phoneNumber = phoneNumber;
+
     }
 
-    public String getUserId() {
-        return userId;
+    public User(){
+
     }
 
-    public String getName() {
-        return name;
-    }
+    //add getters
 
-    public String getPassword() {
-        return password;
-    }
+    //add setters
 
-    public String getRole() {
-        return role;
-    }
+
 }

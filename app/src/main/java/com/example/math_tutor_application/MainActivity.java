@@ -6,7 +6,10 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 public class MainActivity extends AppCompatActivity {
+
+
 
 
 
@@ -32,9 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void studentHandler(View view) {
-
-
-
 
         Intent intent = new Intent(this, StudentActivity.class);
 
