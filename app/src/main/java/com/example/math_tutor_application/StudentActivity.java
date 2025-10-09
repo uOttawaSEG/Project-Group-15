@@ -66,7 +66,10 @@ public class StudentActivity extends AppCompatActivity {
         Student student = new Student(firstName, lastName, email, password, phoneNumber, programOfStudy);
         studentList.add(student);
 
-        Intent intent = new Intent(this, MainActivity.class);
+        String message = "Welcome! You are logged in as Student";
+
+        Intent intent = new Intent(this, Welcome.class);
+        intent.putExtra("message", message);
         startActivity(intent);
 
 

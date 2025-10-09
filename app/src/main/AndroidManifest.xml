@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Math_tutor_application">
         <activity
+            android:name=".Welcome"
+            android:exported="false" />
+        <activity
             android:name=".StudentActivity"
             android:exported="false" />
         <activity
