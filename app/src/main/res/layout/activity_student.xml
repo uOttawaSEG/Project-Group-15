@@ -7,18 +7,65 @@
     android:layout_height="match_parent"
     tools:context=".StudentActivity">
 
-    <TextView
-        android:id="@+id/sessions"
-        android:layout_width="344dp"
-        android:layout_height="399dp"
-        android:gravity="center"
-        android:text=""
-        android:textSize="16sp"
+
+
+    <EditText
+        android:id="@+id/userID"
+        android:layout_width="183dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="272dp"
+        android:autofillHints="username"
+        android:gravity="start"
+        android:hint="UserID"
+        android:inputType="text"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintHorizontal_bias="0.736"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.716" />
+        app:layout_constraintVertical_bias="0.099" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="188dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="272dp"
+        android:autofillHints="username"
+        android:gravity="start"
+        android:hint="password"
+        android:inputType="text"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.753"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.28" />
+
+    <TextView
+        android:layout_width="66dp"
+        android:layout_height="45dp"
+        android:gravity="start"
+        android:text="UserId"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.231"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.483" />
+
+    <TextView
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:text="Password"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.234"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.592" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

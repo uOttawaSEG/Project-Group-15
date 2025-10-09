@@ -1,10 +1,10 @@
 package com.example.math_tutor_application;
 
-import java.io.Serializable;
 
-public class User implements Serializable {
+
+public class User  {
     //an object to represent Users. Will contain thier userId, names and passwords.
-    private static final long serialVersionUID = 1L;
+
     private String userId;
     private String name;
     private String password;
