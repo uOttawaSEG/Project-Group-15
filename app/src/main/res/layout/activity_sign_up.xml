@@ -5,14 +5,12 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-
+    tools:context=".SignUpActivity">
     <TextView
         android:layout_width="251dp"
         android:layout_height="53dp"
         android:gravity="center"
-        android:text="Welcome to the Tutor Application!"
+        android:text="Sign Up"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,7 +21,7 @@
     <TextView
         android:layout_width="251dp"
         android:layout_height="53dp"
-        android:text="If you are new to the application, please Sign up. Otherwise, you may LogIn"
+        android:text="Choose the role you wish to be assigned"
         android:textSize="14sp"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -35,11 +33,11 @@
 
 
     <Button
-        android:id="@+id/logInButton"
+        android:id="@+id/studentButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="logInHandler"
-        android:text="Log In"
+        android:onClick="studentHandler"
+        android:text="Student"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.281"
@@ -48,11 +46,11 @@
         app:layout_constraintVertical_bias="0.424" />
 
     <Button
-        android:id="@+id/signUpButton"
+        android:id="@+id/passwordButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign up"
-        android:onClick="signUpHandler"
+        android:text="Tutor"
+        android:onClick="tutorHandler"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.752"

@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Math_tutor_application">
         <activity
-            android:name=".LogIn"
+            android:name=".LogInActivity"
             android:exported="false" />
         <activity
-            android:name=".SingUp"
+            android:name=".SignUpActivity"
             android:exported="false" />
         <activity
             android:name=".TutorActivity"

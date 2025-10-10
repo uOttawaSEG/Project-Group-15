@@ -19,16 +19,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-    public void studentHandler(View view) {
-
-        Intent intent = new Intent(this, StudentActivity.class);
+    public void signUpHandler(View view){
+        Intent intent = new Intent(this, SignUpActivity.class);
 
         startActivity(intent);
     }
 
-    public void tutorHandler(View view) {
-        Intent intent = new Intent(this, TutorActivity.class);
+    public void logInHandler(View view){
+        Intent intent = new Intent(this, LogInActivity.class);
+
         startActivity(intent);
     }
 
