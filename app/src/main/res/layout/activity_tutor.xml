@@ -11,6 +11,8 @@
         android:padding="20dp">
 
         <!-- First Name Section -->
+
+        <!-- Last Name Section -->
         <LinearLayout
             android:id="@+id/first_name_section"
             android:layout_width="match_parent"
@@ -40,7 +42,6 @@
                 android:visibility="gone" />
         </LinearLayout>
 
-        <!-- Last Name Section -->
         <LinearLayout
             android:id="@+id/last_name_section"
             android:layout_width="match_parent"
@@ -264,6 +265,14 @@
                 android:layout_weight="1"
                 android:text="Submit" />
         </LinearLayout>
+
+        <EditText
+            android:id="@+id/firstName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Enter first name"
+            android:inputType="textPersonName" />
 
     </LinearLayout>
 </ScrollView>
