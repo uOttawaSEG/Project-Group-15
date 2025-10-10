@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -88,12 +89,37 @@ public class TutorActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         degreeSpinner.setAdapter(adapter);
 
-        // Show each section when the previous one is filled
+        // Reveal each section in order
         revealOnInput(firstName, lastNameSection, arrowFirstName);
         revealOnInput(lastName, emailSection, arrowLastName);
         revealOnInput(email, passwordSection, arrowEmail);
         revealOnInput(password, phoneNumberSection, arrowPassword);
         revealOnInput(phone, degreeSection, arrowPhone);
+
+        // Reveal courses section after degree is selected
+        degreeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position > 0) {
+                    if (coursesOfferedSection.getVisibility() != View.VISIBLE) {
+                        coursesOfferedSection.setVisibility(View.VISIBLE);
+                        coursesOfferedSection.setAlpha(0f);
+                        coursesOfferedSection.animate().alpha(1f).setDuration(300).start();
+                    }
+
+                    if (arrowDegree.getVisibility() != View.VISIBLE) {
+                        arrowDegree.setVisibility(View.VISIBLE);
+                        arrowDegree.setAlpha(0f);
+                        arrowDegree.animate().alpha(1f).setDuration(300).start();
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
+        // Reveal submit button after courses are filled
         revealOnInput(coursesOffered, submitButton, arrowCourses);
 
         // When user clicks submit, check password and show message
@@ -113,14 +139,12 @@ public class TutorActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (!s.toString().trim().isEmpty()) {
-                    // Show next section with fade-in effect
                     if (nextSection.getVisibility() != View.VISIBLE) {
                         nextSection.setVisibility(View.VISIBLE);
                         nextSection.setAlpha(0f);
                         nextSection.animate().alpha(1f).setDuration(300).start();
                     }
 
-                    // Show arrow icon with fade-in effect
                     if (arrowIcon.getVisibility() != View.VISIBLE) {
                         arrowIcon.setVisibility(View.VISIBLE);
                         arrowIcon.setAlpha(0f);
@@ -154,10 +178,9 @@ public class TutorActivity extends AppCompatActivity {
         return true;
     }
 
-    //If the user wants to go back to the selection menu and doesn't have button (iPhone user)
-    public void signUPHandler(View view){
+    // Optional: go back to sign-up screen
+    public void signUPHandler(View view) {
         Intent intent = new Intent(this, SignUpActivity.class);
-
         startActivity(intent);
     }
 }

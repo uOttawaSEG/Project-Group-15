@@ -178,39 +178,6 @@
                 android:visibility="gone" />
         </LinearLayout>
 
-
-
-        <!-- Courses Offered Section -->
-        <LinearLayout
-            android:id="@+id/courses_offered_section"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-            <TextView
-                android:layout_width="90dp"
-                android:layout_height="wrap_content"
-                android:text="Courses Offered" />
-
-            <EditText
-                android:id="@+id/courses_offered"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="List all the courses that you are offering"
-                android:inputType="text" />
-
-            <ImageView
-                android:id="@+id/arrow_courses"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:contentDescription="Arrow icon for Courses Offered"
-                android:src="@drawable/arrow"
-                android:visibility="gone" />
-        </LinearLayout>
-
         <!-- Highest Degree Section -->
         <LinearLayout
             android:id="@+id/degree_section"
@@ -240,6 +207,38 @@
                 android:contentDescription="Arrow icon for Degree"
                 android:src="@drawable/arrow"
                 android:visibility="gone" />
+
+            <!-- Courses Offered Section -->
+            <LinearLayout
+                android:id="@+id/courses_offered_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="Courses Offered" />
+
+                <EditText
+                    android:id="@+id/courses_offered"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="List all the courses that you are offering"
+                    android:inputType="text" />
+
+                <ImageView
+                    android:id="@+id/arrow_courses"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="Arrow icon for Courses Offered"
+                    android:src="@drawable/arrow"
+                    android:visibility="gone" />
+            </LinearLayout>
+            
         </LinearLayout>
 
 
