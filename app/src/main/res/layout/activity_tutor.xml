@@ -35,7 +35,6 @@
                 android:id="@+id/arrowFirstName"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_arrow_down"
                 android:visibility="gone" />
         </LinearLayout>
 
@@ -46,7 +45,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <TextView
                 android:layout_width="90dp"
@@ -65,7 +64,6 @@
                 android:id="@+id/arrowLastName"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_arrow_down"
                 android:visibility="gone" />
         </LinearLayout>
 
@@ -76,7 +74,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <TextView
                 android:layout_width="90dp"
@@ -95,11 +93,132 @@
                 android:id="@+id/arrowEmail"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_arrow_down"
                 android:visibility="gone" />
         </LinearLayout>
 
         <!-- Add more sections for password, phone number, field of study as needed -->
+
+        <!--Password -->
+        <LinearLayout
+            android:id="@+id/passwordSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:text="Password" />
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Enter Password"
+                android:inputType="textPassword" />
+        </LinearLayout>
+
+        <!--Phone Number-->
+        <LinearLayout
+            android:id="@+id/phoneSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:text="Phone"/>
+
+
+            <EditText
+                android:id="@+id/phoneNumber"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Enter phone number"
+                android:inputType="phone" />
+        </LinearLayout>
+
+
+        <!-- Highest Degree -->
+
+        <LinearLayout
+            android:id="@+id/degreeSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:visibility="visible" >
+
+            <TextView
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:text="Degree" />
+
+            <EditText
+                android:id="@+id/highestDegree"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Enter highest degree"
+                android:inputType="text" />
+
+        </LinearLayout>
+
+        <!-- Courses Offered -->
+        <LinearLayout
+            android:id="@+id/coursesSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:text="Courses" />
+
+
+
+            <EditText
+                android:id="@+id/coursesOffered"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="e.g. ITI1120, MAT1348"
+                android:inputType="text" />
+
+        </LinearLayout>
+
+        <!-- Error Message -->
+
+        <TextView
+            android:id="@+id/errorText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#B00020"
+            android:paddingTop="8dp"
+            android:textSize="14sp" />
+
+        <!-- Go Back Button -->
+
+        <Button
+            android:id="@+id/goBackButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Go Back"
+            android:layout_marginTop="8dp" />
+
+
+
+        <!-- Submit Button -->
 
         <Button
             android:id="@+id/submitButton"
