@@ -8,15 +8,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="20dp">
 
         <!-- First Name Section -->
         <LinearLayout
-            android:id="@+id/firstNameSection"
+            android:id="@+id/first_name_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="90dp"
@@ -24,7 +24,7 @@
                 android:text="First Name" />
 
             <EditText
-                android:id="@+id/firstName"
+                android:id="@+id/first_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -32,20 +32,21 @@
                 android:inputType="textPersonName" />
 
             <ImageView
-                android:id="@+id/arrowFirstName"
+                android:id="@+id/arrow_first_name"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_arrow_down"
+                android:contentDescription="Arrow icon for First Name"
+                android:src="@drawable/arrow"
                 android:visibility="gone" />
         </LinearLayout>
 
         <!-- Last Name Section -->
         <LinearLayout
-            android:id="@+id/lastNameSection"
+            android:id="@+id/last_name_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:visibility="gone">
 
             <TextView
@@ -54,7 +55,7 @@
                 android:text="Last Name" />
 
             <EditText
-                android:id="@+id/lastName"
+                android:id="@+id/last_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -62,20 +63,21 @@
                 android:inputType="textPersonName" />
 
             <ImageView
-                android:id="@+id/arrowLastName"
+                android:id="@+id/arrow_last_name"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_arrow_down"
+                android:contentDescription="Arrow icon for Last Name"
+                android:src="@drawable/arrow"
                 android:visibility="gone" />
         </LinearLayout>
 
         <!-- Email Section -->
         <LinearLayout
-            android:id="@+id/emailSection"
+            android:id="@+id/email_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:visibility="gone">
 
             <TextView
@@ -92,22 +94,176 @@
                 android:inputType="textEmailAddress" />
 
             <ImageView
-                android:id="@+id/arrowEmail"
+                android:id="@+id/arrow_email"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_arrow_down"
+                android:contentDescription="Arrow icon for Email"
+                android:src="@drawable/arrow"
                 android:visibility="gone" />
         </LinearLayout>
 
-        <!-- Add more sections for password, phone number, field of study as needed -->
-
-        <Button
-            android:id="@+id/submitButton"
-            android:layout_width="wrap_content"
+        <!-- Password Section -->
+        <LinearLayout
+            android:id="@+id/password_section"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Submit"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="24dp" />
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:text="Password" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter password"
+                    android:inputType="textPassword" />
+
+                <EditText
+                    android:id="@+id/confirm_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Re-enter your password"
+                    android:inputType="textPassword" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/arrow_password"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="Arrow icon for Password"
+                android:src="@drawable/arrow"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <!-- Phone Number Section -->
+        <LinearLayout
+            android:id="@+id/phone_number_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:text="Phone Number" />
+
+            <EditText
+                android:id="@+id/phone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Enter phone number"
+                android:inputType="phone" />
+
+            <ImageView
+                android:id="@+id/arrow_phone"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="Arrow icon for Phone Number"
+                android:src="@drawable/arrow"
+                android:visibility="gone" />
+        </LinearLayout>
+
+
+
+        <!-- Courses Offered Section -->
+        <LinearLayout
+            android:id="@+id/courses_offered_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:text="Courses Offered" />
+
+            <EditText
+                android:id="@+id/courses_offered"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="List all the courses that you are offering"
+                android:inputType="text" />
+
+            <ImageView
+                android:id="@+id/arrow_courses"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="Arrow icon for Courses Offered"
+                android:src="@drawable/arrow"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <!-- Highest Degree Section -->
+        <LinearLayout
+            android:id="@+id/degree_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:text="Highest Degree" />
+
+            <Spinner
+                android:id="@+id/degree_spinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:spinnerMode="dropdown"
+                android:prompt="@string/degree_prompt" />
+
+            <ImageView
+                android:id="@+id/arrow_degree"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="Arrow icon for Degree"
+                android:src="@drawable/arrow"
+                android:visibility="gone" />
+        </LinearLayout>
+
+
+        <!-- Submit and Back Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="24dp">
+
+            <Button
+                android:id="@+id/go_back_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Back to\nUser Selection" />
+
+            <Button
+                android:id="@+id/submit_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Submit" />
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

@@ -11,27 +11,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
-
-
-
-
-
     }
-
-
 
 
     public void studentHandler(View view) {
@@ -40,4 +26,10 @@ public class MainActivity extends AppCompatActivity {
 
         startActivity(intent);
     }
+
+    public void tutorHandler(View view) {
+        Intent intent = new Intent(this, TutorActivity.class);
+        startActivity(intent);
+    }
+
 }

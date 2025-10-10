@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">math_tutor_application</string>
+
+    <string name="degree_prompt">Select your highest degree</string>
+    <string-array name="degree_options">
+        <item>High School</item>
+        <item>Undergraduate</item>
+        <item>Master</item>
+        <item>PhD</item>
+    </string-array>
+
 </resources>

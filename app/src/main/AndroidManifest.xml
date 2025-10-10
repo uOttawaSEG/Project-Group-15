@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Math_tutor_application">
         <activity
+            android:name=".LogIn"
+            android:exported="false" />
+        <activity
+            android:name=".SingUp"
+            android:exported="false" />
+        <activity
             android:name=".TutorActivity"
             android:exported="false" />
         <activity
