@@ -57,7 +57,7 @@ public class TutorActivity extends AppCompatActivity {
         arrowLastName = findViewById(R.id.arrowLastName);
 
         submitButton = findViewById(R.id.submitButton);
-        goBackButton = findViewById(R.id.submitButton);//forgot to add it to the activity_tutor.xml file
+       // goBackButton = findViewById(R.id.submitButton);//forgot to add it to the activity_tutor.xml file
 
         // Add a listener to the First Name field
         // When the user types something, reveal the Last Name section and arrow
