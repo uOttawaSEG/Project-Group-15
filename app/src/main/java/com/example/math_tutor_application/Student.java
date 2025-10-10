@@ -19,8 +19,14 @@ public class Student extends User{
     }
 
     //add getters
+    public String getProgramOfStudy() {
+        return programOfStudy;
+    }
 
-    //add setters
+    public void setProgramOfStudy(String programOfStudy) {
+        this.programOfStudy = programOfStudy;
+    }
+
 
 
 
