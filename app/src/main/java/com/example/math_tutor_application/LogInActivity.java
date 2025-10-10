@@ -1,6 +1,8 @@
 package com.example.math_tutor_application;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,4 +23,14 @@ public class LogInActivity extends AppCompatActivity {
             return insets;
         });
     }
+
+
+    public void welcomeHandler(View view){
+        Intent intent = new Intent(this, Welcome.class);
+
+        startActivity(intent);
+    }
+
+    //adding methods linked to the firebase
+
 }

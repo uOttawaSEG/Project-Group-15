@@ -1,5 +1,6 @@
 package com.example.math_tutor_application;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -151,5 +152,12 @@ public class TutorActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    //If the user wants to go back to the selection menu and doesn't have button (iPhone user)
+    public void signUPHandler(View view){
+        Intent intent = new Intent(this, SignUpActivity.class);
+
+        startActivity(intent);
     }
 }

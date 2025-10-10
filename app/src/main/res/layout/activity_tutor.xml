@@ -256,7 +256,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Back to\nUser Selection" />
+                android:text="Back to\nUser Selection"
+                android:onClick="signUpHandler"/>
 
             <Button
                 android:id="@+id/submit_button"
