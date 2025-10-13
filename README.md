@@ -1,4 +1,4 @@
-    user1 = ("Bob", "1111"}
+    student1 = ("Bob", "1111"}
     tutor1 = {"Alice", "2222"}
     admin1 = ("Micheal", "3333"}
 
