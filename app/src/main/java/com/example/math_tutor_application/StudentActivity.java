@@ -6,9 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.content.res.ColorStateList;
+
 
 import androidx.appcompat.app.AppCompatActivity;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,102 +43,31 @@ public class StudentActivity extends AppCompatActivity {
 
     public void submitHandler(View view) {
 
-
+        // --- Step 1: Get all the views and their string values ---
         EditText firstNameText = findViewById(R.id.firstName);
         EditText lastNameText = findViewById(R.id.lastName);
         EditText emailText = findViewById(R.id.email);
         EditText passwordText = findViewById(R.id.password);
         EditText phoneNumberText = findViewById(R.id.phoneNumber);
         EditText fieldOfStudyText = findViewById(R.id.fieldOfStudy);
-
-        String valFirstName = firstNameText.getText().toString().trim();
-        String valLastName = lastNameText.getText().toString().trim();
-        String valEmail = emailText.getText().toString().trim();
-        String valPassword = passwordText.getText().toString().trim();
-        String valPhoneNumber = phoneNumberText.getText().toString().trim();
-        String valFieldofStudy = fieldOfStudyText.getText().toString().trim();
-
-
-        // Storing these so it becomes easier to check for incomplete fields
-        // by just running a small loop
-        EditText[] fields = {firstNameText, lastNameText, emailText, passwordText, phoneNumberText, fieldOfStudyText};
-        String[] values = {valFirstName, valLastName, valEmail, valPassword, valPhoneNumber, valFieldofStudy};
-
-
-        // red = incomplete, grey = default (nothing wrong)
-        int redColor = getColor(android.R.color.holo_red_light);
-        int defaultColor = getColor(android.R.color.darker_gray);
-        boolean incompleteFields = false;
-        boolean invalidEmail = false;
         TextView errorText = findViewById(R.id.errorText);
 
-        // Looping throuhg each element and highlighting the incomplete ones
-        int mistakeCount = 0;
-        for (int i = 0; i < fields.length; i++) {
-            EditText f = fields[i];
-            String v = values[i];
-            f.setBackgroundTintList(android.content.res.ColorStateList.valueOf(defaultColor));
-            if (v.isEmpty()) {
-                f.setBackgroundTintList(android.content.res.ColorStateList.valueOf(redColor));
-                mistakeCount++;
-                incompleteFields = true;
-            }
-        }
-
-        if (!valEmail.isEmpty() && !android.util.Patterns.EMAIL_ADDRESS.matcher(valEmail).matches()) {
-            emailText.setBackgroundTintList(ColorStateList.valueOf(redColor));
-            invalidEmail = true;
-            mistakeCount++;
-        }
-
-        // Password length making sure, but only if the user entered something to begin with
-        Boolean invalidPassword = false;
-        if (!valPassword.isEmpty() && valPassword.length() < 6) {
-            passwordText.setBackgroundTintList(ColorStateList.valueOf(redColor));
-            invalidPassword = true;
-            mistakeCount++;
-        }
-
-        if (mistakeCount > 1) {
-            errorText.setText("Please fill in all the required fields correctly!");
-            return;
-        }
-        else if (invalidEmail) {
-            errorText.setText("Please enter a valid email address");
-            return;
-        } else if (invalidPassword) {
-            errorText.setText("Password must be at least 6 charcters");
-            return;
-        } else if (incompleteFields) {
-            errorText.setText("Please fill in all the required fields correctly!");
-            return;
-        } else {
-             errorText.setText("");
-         }
-
-        this.firstName = valFirstName;
-        this.lastName = valLastName;
-        this.email = valEmail;
-        this.password = valPassword;
-        this.phoneNumber = valPhoneNumber;
-        this.programOfStudy = valFieldofStudy;
-
-        firstName = firstNameText.getText().toString().trim();
+        firstName = firstNameText.getText().toString().trim(); // Use trim() to remove whitespace
         lastName = lastNameText.getText().toString().trim();
         email = emailText.getText().toString().trim();
         password = passwordText.getText().toString().trim();
         phoneNumber = phoneNumberText.getText().toString().trim();
         programOfStudy = fieldOfStudyText.getText().toString().trim();
 
-
+        // --- Step 2: Validate each field and track overall validity ---
         boolean isFormValid = true;
 
         // Validate First Name
         if (firstName.isEmpty()) {
-            firstNameText.setBackgroundColor(Color.RED);
+            firstNameText.setBackgroundColor(Color.RED); // Use Color.RED for simplicity
             isFormValid = false;
         } else {
-            firstNameText.setBackgroundColor(Color.TRANSPARENT);
+            firstNameText.setBackgroundColor(Color.TRANSPARENT); // Or your default color
         }
 
         // Validate Last Name
@@ -180,7 +110,7 @@ public class StudentActivity extends AppCompatActivity {
             fieldOfStudyText.setBackgroundColor(Color.TRANSPARENT);
         }
 
-
+        // --- Step 3: Act based on the final validation result ---
         if (isFormValid) {
             // All fields are valid, proceed with submission
             errorText.setText(""); // Clear any previous error message
@@ -195,6 +125,7 @@ public class StudentActivity extends AppCompatActivity {
             startActivity(intent);
 
         } else {
+            // At least one field is invalid, show the error message
             errorText.setText("Please fill in all highlighted fields");
         }
     }

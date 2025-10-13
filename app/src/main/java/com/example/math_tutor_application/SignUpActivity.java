@@ -35,4 +35,12 @@ public class SignUpActivity extends AppCompatActivity {
         Intent intent = new Intent(this, TutorActivity.class);
         startActivity(intent);
     }
+
+    public void adminHandler(View view) {
+
+        String message = "Welcome! You are registered as a Administer";
+        Intent intent = new Intent(this, Welcome.class);
+        intent.putExtra("message", message);
+        startActivity(intent);
+    }
 }
