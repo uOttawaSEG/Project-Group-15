@@ -242,13 +242,11 @@ public class TutorActivity extends AppCompatActivity {
     }
 
     public boolean isPhoneValid() {
-        String phoneNum = phone.getText().toString();
+        String phoneNum = phone.getText().toString().trim();
 
         // if the phone field contains characters
-        try {
-            Integer.parseInt(phoneNum);
-        } catch (NumberFormatException e) {
-            phone.setError("Please enter a valid phone number.");
+        if (!phoneNum.matches("\\d+")) {
+            phone.setError("Please enter a valid phone number PARSE ERROR.");
             return false;
         }
 

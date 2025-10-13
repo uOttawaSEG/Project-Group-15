@@ -75,5 +75,5 @@ public class User  {
         this.phoneNumber = phoneNumber;
     }
 
-
+    public String getId() { return id; }
 }

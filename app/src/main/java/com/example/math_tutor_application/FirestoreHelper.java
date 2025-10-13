@@ -19,7 +19,7 @@ public class FirestoreHelper {
     // upload methods for firebase\
     public void uploadStudent(Student s) {
         db.collection("students")
-                .document().set(s)
+                .document(s.getId()).set(s)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
@@ -41,7 +41,7 @@ public class FirestoreHelper {
 
     public void uploadTutor(Tutor t) {
         db.collection("tutors")
-                .document().set(t)
+                .document(t.getId()).set(t)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
