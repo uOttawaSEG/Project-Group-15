@@ -43,71 +43,89 @@ public class StudentActivity extends AppCompatActivity {
 
     public void submitHandler(View view) {
 
+
         EditText firstNameText = findViewById(R.id.firstName);
         EditText lastNameText = findViewById(R.id.lastName);
         EditText emailText = findViewById(R.id.email);
         EditText passwordText = findViewById(R.id.password);
         EditText phoneNumberText = findViewById(R.id.phoneNumber);
         EditText fieldOfStudyText = findViewById(R.id.fieldOfStudy);
+        TextView errorText = findViewById(R.id.errorText);
+
+        firstName = firstNameText.getText().toString().trim(); 
+        lastName = lastNameText.getText().toString().trim();
+        email = emailText.getText().toString().trim();
+        password = passwordText.getText().toString().trim();
+        phoneNumber = phoneNumberText.getText().toString().trim();
+        programOfStudy = fieldOfStudyText.getText().toString().trim();
 
 
-         firstName = firstNameText.getText().toString();
-         lastName = lastNameText.getText().toString();
-         email = emailText.getText().toString();
-         password = passwordText.getText().toString();
-         phoneNumber = phoneNumberText.getText().toString();
-         programOfStudy = fieldOfStudyText.getText().toString();
+        boolean isFormValid = true;
 
-         if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || phoneNumber.isEmpty() || programOfStudy.isEmpty()) {
-             TextView errorText = findViewById(R.id.errorText);
+        // Validate First Name
+        if (firstName.isEmpty()) {
+            firstNameText.setBackgroundColor(Color.RED);
+            isFormValid = false;
+        } else {
+            firstNameText.setBackgroundColor(Color.TRANSPARENT);
+        }
 
-             if (firstName.isEmpty()) {
-                 firstNameText.setError("Please enter a valid first name.");
-                 firstNameText.setBackgroundColor(Color.parseColor("#FF0000"));
+        // Validate Last Name
+        if (lastName.isEmpty()) {
+            lastNameText.setBackgroundColor(Color.RED);
+            isFormValid = false;
+        } else {
+            lastNameText.setBackgroundColor(Color.TRANSPARENT);
+        }
 
-             }
-             if (lastName.isEmpty()) {
-                 lastNameText.setError("Please enter a valid last name.");
-                 lastNameText.setBackgroundColor(Color.parseColor("#FF0000"));
-             }
+        // Validate Email
+        if (email.isEmpty()) {
+            emailText.setBackgroundColor(Color.RED);
+            isFormValid = false;
+        } else {
+            emailText.setBackgroundColor(Color.TRANSPARENT);
+        }
 
-             if (email.isEmpty()) {
-                 emailText.setError("Please enter a valid email.");
-                 emailText.setBackgroundColor(Color.parseColor("#FF0000"));
+        // Validate Password
+        if (password.isEmpty()) {
+            passwordText.setBackgroundColor(Color.RED);
+            isFormValid = false;
+        } else {
+            passwordText.setBackgroundColor(Color.TRANSPARENT);
+        }
 
+        // Validate Phone Number
+        if (phoneNumber.isEmpty()) {
+            phoneNumberText.setBackgroundColor(Color.RED);
+            isFormValid = false;
+        } else {
+            phoneNumberText.setBackgroundColor(Color.TRANSPARENT);
+        }
 
-             }
-             if (password.isEmpty()) {
-                 passwordText.setError("Please enter a valid password.");
-                 passwordText.setBackgroundColor(Color.parseColor("#FF0000"));
-             }
-
-             if (phoneNumber.isEmpty()) {
-                 phoneNumberText.setError("Please enter a valid phone number.");
-                 phoneNumberText.setBackgroundColor(Color.parseColor("#FF0000"));
-             }
-
-            if (programOfStudy.isEmpty()) {
-                fieldOfStudyText.setError("Please enter a valid field of study.");
-                fieldOfStudyText.setBackgroundColor(Color.parseColor("#FF0000"));
-            }
-
-             errorText.setText("Please fill in all fields");
-             return;
-         } else {
-             TextView errorText = findViewById(R.id.errorText);
-             errorText.setText("");
-         }
+        // Validate Program of Study
+        if (programOfStudy.isEmpty()) {
+            fieldOfStudyText.setBackgroundColor(Color.RED);
+            isFormValid = false;
+        } else {
+            fieldOfStudyText.setBackgroundColor(Color.TRANSPARENT);
+        }
 
 
-        Student student = new Student(firstName, lastName, email, password, phoneNumber, programOfStudy);
-        studentList.add(student);
-        db.uploadStudent(student); // upload the student to firebase
+        if (isFormValid) {
+            // All fields are valid, proceed with submission
+            errorText.setText(""); // Clear any previous error message
 
-        String message = "Welcome! You are logged in as Student";
+            Student student = new Student(firstName, lastName, email, password, phoneNumber, programOfStudy);
+            studentList.add(student);
+            db.uploadStudent(student); // upload the student to firebase
 
-        Intent intent = new Intent(this, Welcome.class);
-        intent.putExtra("message", message);
-        startActivity(intent);
+            String message = "Welcome! You are registered as a Student";
+            Intent intent = new Intent(this, Welcome.class);
+            intent.putExtra("message", message);
+            startActivity(intent);
+
+        } else {
+            errorText.setText("Please fill in all highlighted fields");
+        }
     }
 }
