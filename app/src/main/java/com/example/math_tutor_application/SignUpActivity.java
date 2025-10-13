@@ -43,6 +43,8 @@ public class SignUpActivity extends AppCompatActivity {
         Intent intent = new Intent(this, Welcome.class);
         intent.putExtra("message", message);
         startActivity(intent);
+
+
     }
 
     public void backToMainHandler(View view){
