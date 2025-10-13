@@ -59,65 +59,51 @@ public class StudentActivity extends AppCompatActivity {
         phoneNumber = phoneNumberText.getText().toString().trim();
         programOfStudy = fieldOfStudyText.getText().toString().trim();
 
-        // --- Step 2: Validate each field and track overall validity ---
         boolean isFormValid = true;
 
         // Validate First Name
         if (firstName.isEmpty()) {
-            firstNameText.setBackgroundColor(Color.RED); // Use Color.RED for simplicity
             isFormValid = false;
-        } else {
-            firstNameText.setBackgroundColor(Color.TRANSPARENT); // Or your default color
+            firstNameText.setError("Please enter a valid first name.");
         }
-
         // Validate Last Name
         if (lastName.isEmpty()) {
-            lastNameText.setBackgroundColor(Color.RED);
             isFormValid = false;
-        } else {
-            lastNameText.setBackgroundColor(Color.TRANSPARENT);
+            lastNameText.setError("Please enter a valid last name.");
         }
-
         // Validate Email
         if (email.isEmpty()) {
-            emailText.setBackgroundColor(Color.RED);
+
             isFormValid = false;
-        } else {
-            emailText.setBackgroundColor(Color.TRANSPARENT);
+            emailText.setError("Please enter a valid email.");
         }
 
         // Validate Password
         if (password.isEmpty()) {
-            passwordText.setBackgroundColor(Color.RED);
+            passwordText.setError("Please enter a valid password.");
             isFormValid = false;
-        } else {
-            passwordText.setBackgroundColor(Color.TRANSPARENT);
         }
 
         // Validate Phone Number
         if (phoneNumber.isEmpty()) {
-            phoneNumberText.setBackgroundColor(Color.RED);
+           phoneNumberText.setError("Please enter a valid phone number.");
             isFormValid = false;
-        } else {
-            phoneNumberText.setBackgroundColor(Color.TRANSPARENT);
         }
 
         // Validate Program of Study
         if (programOfStudy.isEmpty()) {
-            fieldOfStudyText.setBackgroundColor(Color.RED);
+            fieldOfStudyText.setError("Please enter a valid program of study.");
             isFormValid = false;
-        } else {
-            fieldOfStudyText.setBackgroundColor(Color.TRANSPARENT);
         }
 
-        // --- Step 3: Act based on the final validation result ---
+        // final validation result
         if (isFormValid) {
-            // All fields are valid, proceed with submission
-            errorText.setText(""); // Clear any previous error message
+
+            errorText.setText("");
 
             Student student = new Student(firstName, lastName, email, password, phoneNumber, programOfStudy);
             studentList.add(student);
-            db.uploadStudent(student); // upload the student to firebase
+            db.uploadStudent(student);
 
             String message = "Welcome! You are registered as a Student";
             Intent intent = new Intent(this, Welcome.class);
@@ -125,7 +111,6 @@ public class StudentActivity extends AppCompatActivity {
             startActivity(intent);
 
         } else {
-            // At least one field is invalid, show the error message
             errorText.setText("Please fill in all highlighted fields");
         }
     }
