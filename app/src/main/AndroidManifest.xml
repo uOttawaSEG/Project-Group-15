@@ -26,7 +26,7 @@
         <activity
             android:name=".StudentActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan" />
+             />
 
         <activity
             android:name=".MainActivity"
