@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "497941431083",
+    "project_id": "seg2105-project-f61d6",
+    "storage_bucket": "seg2105-project-f61d6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:497941431083:android:70750d26391cf682347b6e",
+        "android_client_info": {
+          "package_name": "com.example.math_tutor_application"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeo99Qgp0nYxK51DpUF0Q-SBxNqecV6pw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

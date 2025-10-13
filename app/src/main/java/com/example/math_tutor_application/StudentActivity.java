@@ -22,6 +22,9 @@ public class StudentActivity extends AppCompatActivity {
     protected String phoneNumber;
     protected String programOfStudy;
 
+    // firebase
+    private FirestoreHelper db;
+
     List<Student> studentList= new ArrayList<>(); //should be added to FireBase
 
 
@@ -33,7 +36,8 @@ public class StudentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
 
-
+        // firebase
+        db = new FirestoreHelper(); // create database "assistant"
     }
 
     public void submitHandler(View view) {
@@ -65,16 +69,12 @@ public class StudentActivity extends AppCompatActivity {
 
         Student student = new Student(firstName, lastName, email, password, phoneNumber, programOfStudy);
         studentList.add(student);
+        db.uploadStudent(student); // upload the student to firebase
 
         String message = "Welcome! You are logged in as Student";
 
         Intent intent = new Intent(this, Welcome.class);
         intent.putExtra("message", message);
         startActivity(intent);
-
-
-
-
-
     }
 }

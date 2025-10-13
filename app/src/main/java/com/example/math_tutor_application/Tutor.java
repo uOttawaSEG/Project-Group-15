@@ -1,20 +1,24 @@
 package com.example.math_tutor_application;
 
+import java.util.ArrayList;
+
 public class Tutor extends User{
 
     private String highestDegree;
 
     //private int coursesOffered; imstead of asking for the number i can just do a list
 
-    private String[] coursesOffered;
+    private ArrayList<String> coursesOffered;
 
 
 
-    public Tutor(String firstName, String lastName, String email, String password, String phoneNumber, String highestDegree, String[] coursesOffered) {
+    public Tutor(String firstName, String lastName, String email, String password, String phoneNumber, String highestDegree, ArrayList<String> coursesOffered) {
         super(firstName, lastName, email, password, phoneNumber);
         this.highestDegree = highestDegree;
         this.coursesOffered = coursesOffered;
     }
+
+    public Tutor() {} // REQUIRED FOR FIREBASE
 
 
     //add getters & Setters
@@ -22,7 +26,7 @@ public class Tutor extends User{
         return highestDegree;
     }
 
-    public String[] getCoursesOffered() {
+    public ArrayList<String> getCoursesOffered() {
         return coursesOffered;
     }
 
@@ -30,8 +34,6 @@ public class Tutor extends User{
         this.highestDegree = highestDegree;
     }
 
-    public void setCoursesOffered(String[] coursesOffered) {
-        this.coursesOffered = coursesOffered;
-    }
+    public void setCoursesOffered(ArrayList<String> coursesOffered) { this.coursesOffered = coursesOffered; }
 
 }
