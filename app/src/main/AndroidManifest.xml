@@ -35,6 +35,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="firebase_firestore_emulator_host"
+            android:value="10.0.2.2:8080" />
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package com.example.math_tutor_application;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -21,6 +22,9 @@ public class StudentActivity extends AppCompatActivity {
     protected String phoneNumber;
     protected String programOfStudy;
 
+    // firebase
+    private FirestoreHelper db;
+
     List<Student> studentList= new ArrayList<>(); //should be added to FireBase
 
 
@@ -32,10 +36,12 @@ public class StudentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
 
-
+        // firebase
+        db = new FirestoreHelper(); // create database "assistant"
     }
 
     public void submitHandler(View view) {
+
 
         EditText firstNameText = findViewById(R.id.firstName);
         EditText lastNameText = findViewById(R.id.lastName);
@@ -125,9 +131,82 @@ public class StudentActivity extends AppCompatActivity {
         intent.putExtra("message", message);
         startActivity(intent);
 
+        TextView errorText = findViewById(R.id.errorText);
+
+        firstName = firstNameText.getText().toString().trim();
+        lastName = lastNameText.getText().toString().trim();
+        email = emailText.getText().toString().trim();
+        password = passwordText.getText().toString().trim();
+        phoneNumber = phoneNumberText.getText().toString().trim();
+        programOfStudy = fieldOfStudyText.getText().toString().trim();
 
 
+        boolean isFormValid = true;
+
+        // Validate First Name
+        if (firstName.isEmpty()) {
+            firstNameText.setBackgroundColor(Color.RED);
+            isFormValid = false;
+        } else {
+            firstNameText.setBackgroundColor(Color.TRANSPARENT);
+        }
+
+        // Validate Last Name
+        if (lastName.isEmpty()) {
+            lastNameText.setBackgroundColor(Color.RED);
+            isFormValid = false;
+        } else {
+            lastNameText.setBackgroundColor(Color.TRANSPARENT);
+        }
+
+        // Validate Email
+        if (email.isEmpty()) {
+            emailText.setBackgroundColor(Color.RED);
+            isFormValid = false;
+        } else {
+            emailText.setBackgroundColor(Color.TRANSPARENT);
+        }
+
+        // Validate Password
+        if (password.isEmpty()) {
+            passwordText.setBackgroundColor(Color.RED);
+            isFormValid = false;
+        } else {
+            passwordText.setBackgroundColor(Color.TRANSPARENT);
+        }
+
+        // Validate Phone Number
+        if (phoneNumber.isEmpty()) {
+            phoneNumberText.setBackgroundColor(Color.RED);
+            isFormValid = false;
+        } else {
+            phoneNumberText.setBackgroundColor(Color.TRANSPARENT);
+        }
+
+        // Validate Program of Study
+        if (programOfStudy.isEmpty()) {
+            fieldOfStudyText.setBackgroundColor(Color.RED);
+            isFormValid = false;
+        } else {
+            fieldOfStudyText.setBackgroundColor(Color.TRANSPARENT);
+        }
 
 
+        if (isFormValid) {
+            // All fields are valid, proceed with submission
+            errorText.setText(""); // Clear any previous error message
+
+            Student student = new Student(firstName, lastName, email, password, phoneNumber, programOfStudy);
+            studentList.add(student);
+            db.uploadStudent(student); // upload the student to firebase
+
+            String message = "Welcome! You are registered as a Student";
+            Intent intent = new Intent(this, Welcome.class);
+            intent.putExtra("message", message);
+            startActivity(intent);
+
+        } else {
+            errorText.setText("Please fill in all highlighted fields");
+        }
     }
 }

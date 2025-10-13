@@ -166,7 +166,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Enter phone number"
+                android:hint="Ex: 1234567890"
                 android:inputType="phone" />
 
             <ImageView
@@ -227,7 +227,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="List all the courses that you are offering"
+                    android:hint="Separate courses by commas"
                     android:inputType="text" />
 
                 <ImageView
