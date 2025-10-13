@@ -151,6 +151,11 @@ public class TutorActivity extends AppCompatActivity {
 
                 Tutor t = new Tutor(firstName0, lastName0, email0, phoneNum, confirmedPassword, highestDegree, courses);
                 db.uploadTutor(t);
+
+                String message = "Welcome! You are registered as a Tutor";
+                Intent intent = new Intent(this, Welcome.class);
+                intent.putExtra("message", message);
+                startActivity(intent);
             }
         });
     }
