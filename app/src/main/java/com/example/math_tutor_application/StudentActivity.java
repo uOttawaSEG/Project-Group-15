@@ -76,17 +76,26 @@ public class StudentActivity extends AppCompatActivity {
 
             isFormValid = false;
             emailText.setError("Please enter a valid email.");
+        } else if(!email.contains("@") || !email.contains(".")){
+            isFormValid = false;
+            emailText.setError("Please enter a valid email.");
         }
 
         // Validate Password
         if (password.isEmpty()) {
             passwordText.setError("Please enter a valid password.");
             isFormValid = false;
+        } else if (password.length() < 6) {
+            passwordText.setError("Password must be at least 6 characters.");
+            isFormValid = false;
         }
 
         // Validate Phone Number
         if (phoneNumber.isEmpty()) {
            phoneNumberText.setError("Please enter a valid phone number.");
+            isFormValid = false;
+        } else if (!phoneNumber.matches("\\d+")) {
+            phoneNumberText.setError("Please enter a valid phone number.");
             isFormValid = false;
         }
 
