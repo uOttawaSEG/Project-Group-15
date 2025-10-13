@@ -5,7 +5,7 @@ public class Student extends User{
     private String programOfStudy;
 
     public Student(String programOfStudy){
-
+        this.programOfStudy = programOfStudy;
     }
 
     public Student() {

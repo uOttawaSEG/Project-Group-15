@@ -23,7 +23,7 @@
     <TextView
         android:layout_width="251dp"
         android:layout_height="53dp"
-        android:text="If you are new to the application, please Sign up. Otherwise, you may LogIn"
+        android:text="If you are new to the application, please Sign up. Otherwise, you may Login"
         android:textSize="14sp"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -3,7 +3,7 @@ package com.example.math_tutor_application;
 
 
 public class User  {
-    //an object to represent Users. Will contain thier userId, names and passwords.
+    //an object to represent Users. Will contain their userId, names and passwords.
 
     private String firstName;
     private String lastName;

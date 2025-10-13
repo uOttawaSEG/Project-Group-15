@@ -39,7 +39,7 @@
         android:layout_width="188dp"
         android:layout_height="56dp"
         android:gravity="start|center"
-        android:hint="Emai"
+        android:hint="Email"
         android:inputType="text"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
