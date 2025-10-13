@@ -31,6 +31,12 @@ public class LogInActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void backToMainHandler(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+
     //adding methods linked to the firebase
 
 }
