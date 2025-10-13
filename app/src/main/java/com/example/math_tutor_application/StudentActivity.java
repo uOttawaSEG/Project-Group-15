@@ -52,7 +52,7 @@ public class StudentActivity extends AppCompatActivity {
         EditText fieldOfStudyText = findViewById(R.id.fieldOfStudy);
         TextView errorText = findViewById(R.id.errorText);
 
-        firstName = firstNameText.getText().toString().trim(); 
+        firstName = firstNameText.getText().toString().trim();
         lastName = lastNameText.getText().toString().trim();
         email = emailText.getText().toString().trim();
         password = passwordText.getText().toString().trim();
