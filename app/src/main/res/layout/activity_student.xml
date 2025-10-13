@@ -10,7 +10,7 @@
 
     <EditText
         android:id="@+id/firstName"
-        android:background="@color/design_default_color_background"
+        android:background="@android:color/transparent"
         android:layout_width="188dp"
         android:layout_height="56dp"
         android:gravity="start|center"
@@ -26,7 +26,7 @@
 
     <EditText
         android:id="@+id/lastName"
-        android:background="@color/design_default_color_background"
+        android:background="@android:color/transparent"
         android:layout_width="188dp"
         android:layout_height="56dp"
         android:gravity="start|center"
@@ -42,7 +42,7 @@
 
     <EditText
         android:id="@+id/email"
-        android:background="@color/design_default_color_background"
+        android:background="@android:color/transparent"
         android:layout_width="188dp"
         android:layout_height="56dp"
         android:gravity="start|center"
@@ -58,7 +58,7 @@
 
     <EditText
         android:id="@+id/password"
-        android:background="@color/design_default_color_background"
+        android:background="@android:color/transparent"
         android:layout_width="188dp"
         android:layout_height="56dp"
         android:gravity="start|center"
@@ -75,7 +75,7 @@
 
     <EditText
         android:id="@+id/phoneNumber"
-        android:background="@color/design_default_color_background"
+        android:background="@android:color/transparent"
         android:layout_width="188dp"
         android:layout_height="56dp"
         android:gravity="start|center"
@@ -91,7 +91,7 @@
 
     <EditText
         android:id="@+id/fieldOfStudy"
-        android:background="@color/design_default_color_background"
+        android:background="@android:color/transparent"
         android:layout_width="188dp"
         android:layout_height="56dp"
         android:gravity="start|center"
