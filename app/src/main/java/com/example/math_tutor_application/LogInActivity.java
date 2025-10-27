@@ -42,32 +42,46 @@ public class LogInActivity extends AppCompatActivity {
     }
 
 
-    public void welcomeHandler(View view){
-
-        User loggedUser;
+    public void welcomeHandler(View view) {
         TextView errorText = findViewById(R.id.errorText);
-        errorText.setText("");
         EditText emailText = findViewById(R.id.Email);
         EditText passwordText = findViewById(R.id.password);
 
         String email = emailText.getText().toString().trim().toLowerCase();
         String password = passwordText.getText().toString().trim();
 
-        if (email.equals(admin1.getEmail().toLowerCase()) && password.equals(admin1.getPassword())) {
-            String message = "Welcome! You are registered as an Administrator";
-            message += "\n\nWelcome, " + admin1.getFirstName() + " " + admin1.getLastName() + "!";
+        // Clear previous errors
+        errorText.setText("");
 
-            Intent intent = new Intent(this, Welcome.class);
-            intent.putExtra("message", message);
-            startActivity(intent);
-        }else {
-            FirestoreHelper db = new FirestoreHelper();
-            db.checkLogin("students", email, password,  this);
-            db.checkLogin("tutors", email, password, this);
+        if (email.isEmpty() || password.isEmpty()) {
+            errorText.setText("Please enter email and password.");
+            return;
         }
 
-    }
+        // 1. First, check if the user is an Admin in Firestore
+        db.collection("admins")
+                .whereEqualTo("email", email)
+                .whereEqualTo("password", password)
+                .limit(1)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && task.getResult() != null && !task.getResult().isEmpty()) {
 
+                        QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
+                        Administrator admin = document.toObject(Administrator.class); // Convert document to Administrator object
+
+                        String message = "Welcome! You are registered as an Administrator";
+                        message += "\n\nWelcome, " + admin.getFirstName() + " " + admin.getLastName() + "!";
+
+                        Intent intent = new Intent(LogInActivity.this, Welcome.class);
+                        intent.putExtra("message", message);
+                        startActivity(intent);
+
+                    } else {
+                        errorText.setText("An error occurred during login. Please try again.");
+                    }
+                });
+    }
     public void backToMainHandler(View view){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
