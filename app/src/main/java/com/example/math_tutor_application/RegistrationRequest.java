@@ -15,10 +15,10 @@ public class RegistrationRequest {
 
     private String documentId;
 
-    private boolean status;
+    private String status;
 
 
-    public RegistrationRequest(String role, String firstName, String lastName, String email, String phoneNumber, String programOfStudy, String coursesOffered, boolean status) {
+    public RegistrationRequest(String role, String firstName, String lastName, String email, String phoneNumber, String programOfStudy, String coursesOffered, String status) {
         this.role = role;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -40,7 +40,7 @@ public class RegistrationRequest {
     public String getPhoneNumber() { return phoneNumber; }
     public String getProgramOfStudy() { return programOfStudy; }
     public String getCoursesOffered() { return coursesOffered; }
-    public boolean getStatus() { return status; }
+    public String getStatus() { return status; }
 
     // Setters
     public void setRole(String role) { this.role = role; }
@@ -50,7 +50,7 @@ public class RegistrationRequest {
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
     public void setProgramOfStudy(String programOfStudy) { this.programOfStudy = programOfStudy; }
     public void setCoursesOffered(String coursesOffered) { this.coursesOffered = coursesOffered; }
-    public void setStatus(boolean status) { this.status = status; }
+    public void setStatus(String status) { this.status = status; }
 
      public String getDocumentId() {
         return documentId;

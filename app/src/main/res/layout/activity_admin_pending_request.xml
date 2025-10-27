@@ -42,6 +42,7 @@
             android:orientation="horizontal">
 
             <Button
+                android:onClick="approveStudent1"
                 android:id="@+id/approve1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -49,6 +50,7 @@
                 android:text="Approve" />
 
             <Button
+                android:onClick="rejectStudent1"
                 android:id="@+id/reject1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -93,6 +95,7 @@
             android:orientation="horizontal">
 
             <Button
+                android:onClick="approveStudent2"
                 android:id="@+id/approve2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -100,6 +103,7 @@
                 android:text="Approve" />
 
             <Button
+                android:onClick="rejectStudent2"
                 android:id="@+id/reject2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -145,6 +149,7 @@
             android:orientation="horizontal">
 
             <Button
+                android:onClick="approveStudent3"
                 android:id="@+id/approve3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -152,6 +157,7 @@
                 android:text="Approve" />
 
             <Button
+                android:onClick="rejectStudent3"
                 android:id="@+id/reject3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -197,6 +203,7 @@
             android:orientation="horizontal">
 
             <Button
+                android:onClick="approveStudent4"
                 android:id="@+id/approve4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -204,6 +211,7 @@
                 android:text="Approve" />
 
             <Button
+                android:onClick="rejectStudent4"
                 android:id="@+id/reject4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -249,6 +257,7 @@
             android:orientation="horizontal">
 
             <Button
+                android:onClick="approveStudent5"
                 android:id="@+id/approve5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -256,6 +265,7 @@
                 android:text="Approve" />
 
             <Button
+                android:onClick="rejectStudent5"
                 android:id="@+id/reject5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

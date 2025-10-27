@@ -34,7 +34,7 @@ public class AdminPendingRequest extends AppCompatActivity {
 
     private void fetchAndDisplayPendingRequests() {
         db.collection("registration_requests")
-                .whereEqualTo("status", false)
+                .whereEqualTo("status", "pending")
                 .limit(5)
                 .get()
                 .addOnCompleteListener(task -> {
@@ -108,4 +108,49 @@ public class AdminPendingRequest extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void approveStudent1(View view) {
+        RegistrationRequest request = pendingRequests.get(0);
+        request.setStatus("approved");
+        db.collection("registration_requests")
+                .document(request.getDocumentId())
+                .set(request)
+                .addOnSuccessListener(aVoid -> {
+                    pendingRequests.remove(0);
+                    updateUiViews();
+                });
+
+    }
+
+    public void rejectStudent1(View view) {
+    }
+
+    public void approveStudent2(View view) {
+    }
+
+    public void rejectStudent2(View view) {
+    }
+
+
+    public void approveStudent3(View view) {
+    }
+
+    public void rejectStudent3(View view) {
+    }
+
+
+    public void approveStudent4(View view) {
+    }
+
+    public void rejectStudent4(View view) {
+    }
+
+
+    public void approveStudent5(View view) {
+    }
+    public void rejectStudent5(View view) {
+    }
+
+
+
 }

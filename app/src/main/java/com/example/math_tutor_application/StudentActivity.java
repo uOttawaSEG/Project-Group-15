@@ -119,7 +119,7 @@ public class StudentActivity extends AppCompatActivity {
                     phoneNumber,
                     programOfStudy,
                     null,
-                    false
+                    "pending"
             );
 
             db.uploadRegistrationRequest(request);
