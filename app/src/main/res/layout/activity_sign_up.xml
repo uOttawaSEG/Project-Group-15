@@ -68,7 +68,7 @@
         android:width="200dp"
         android:height="50dp"
         android:onClick="adminHandler"
-        android:text="Administer"
+        android:text="Administor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"

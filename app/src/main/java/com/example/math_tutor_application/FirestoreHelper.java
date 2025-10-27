@@ -11,6 +11,13 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
+import android.content.Context;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import android.content.Intent;
+import android.app.Activity;
+import android.widget.TextView;
+
+
 public class FirestoreHelper {
     private FirebaseFirestore db;
 
@@ -65,6 +72,8 @@ public class FirestoreHelper {
 
     public void uploadAdmin() {} // to be implemented upon creation of Administrator class
 
+
+
     public void uploadRegistrationRequest(RegistrationRequest request) {
         // Access the "registration_requests" collection in Firestore
         db.collection("registration_requests")
@@ -78,5 +87,38 @@ public class FirestoreHelper {
                 // If the upload fails, log an error message with the exception
                 .addOnFailureListener(e -> Log.e("Firestore", "Failed to save registration request", e));
     }
+
+
+    //Helper function for login activity
+    public void checkLogin(String collectionName, String email, String password, Context context) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection(collectionName)
+                .whereEqualTo("email", email)
+                .whereEqualTo("password", password)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                        for (QueryDocumentSnapshot doc : task.getResult()) {
+                            String firstName = doc.getString("firstName");
+                            String lastName = doc.getString("lastName");
+
+                            String message = "Welcome back " + firstName + " " + lastName;
+
+                            Intent intent = new Intent(context, Welcome.class);
+                            intent.putExtra("message", message);
+                            context.startActivity(intent);
+                            return;
+                        }
+                    } else {
+                        if (context instanceof Activity) {
+                            TextView errorText = ((Activity) context).findViewById(R.id.errorText);
+                            errorText.setText("Invalid username or password");
+                        }
+                    }
+                });
+    }
+
+
 
 }

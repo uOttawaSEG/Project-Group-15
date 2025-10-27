@@ -124,7 +124,8 @@ public class StudentActivity extends AppCompatActivity {
 
             db.uploadRegistrationRequest(request);
 
-            String message = "Welcome! You are registered as a Student";
+            String message = "Your registration is currently being reviewed./n" +
+                            " Thank you for your patience";
             Intent intent = new Intent(this, Welcome.class);
             intent.putExtra("message", message);
             startActivity(intent);
