@@ -118,14 +118,13 @@ public class StudentActivity extends AppCompatActivity {
                     email,
                     phoneNumber,
                     programOfStudy,
-                    null, // coursesOffered is null for students
-                    "pending"
+                    null,
+                    false
             );
 
             db.uploadRegistrationRequest(request);
 
-            String message = "Your registration is currently being reviewed./n" +
-                            " Thank you for your patience";
+            String message = "Your registration is currently being reviewed.\nThank you for your patience";
             Intent intent = new Intent(this, Welcome.class);
             intent.putExtra("message", message);
             startActivity(intent);

@@ -9,7 +9,18 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class AdminPendingRequest extends AppCompatActivity {
+
+    //
+    private FirebaseFirestore db;
+    private FirebaseAuth mAuth;
+    private List<RegistrationRequest> pendingRequests = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
