@@ -26,7 +26,7 @@ public class LogInActivity extends AppCompatActivity {
 */
 
     FirebaseFirestore db= FirebaseFirestore.getInstance();
-    TextView errorText = findViewById(R.id.errorText);
+    private TextView errorText;
 
 
 
@@ -37,6 +37,8 @@ public class LogInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_log_in);
+        errorText = findViewById(R.id.errorText);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
