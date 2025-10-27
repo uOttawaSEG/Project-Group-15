@@ -1,5 +1,6 @@
 package com.example.math_tutor_application;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -33,9 +34,13 @@ public class Dashboard_admin extends AppCompatActivity {
     }
 
     public void pendingRequestHandler(View view) {
+        Intent intent = new Intent(this, AdminPendingRequest.class);
+        startActivity(intent);
     }
 
     public void acceptedRequstHandler(View view) {
+
+
     }
 
     public void rejectedStudnetHandler(View view) {
