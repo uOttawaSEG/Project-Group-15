@@ -110,11 +110,22 @@ public class StudentActivity extends AppCompatActivity {
 
             errorText.setText("");
 
-            Student student = new Student(firstName, lastName, email, password, phoneNumber, programOfStudy);
-            studentList.add(student);
-            db.uploadStudent(student);
+            // Create a RegistrationRequest instead of uploading the Student directly
+            RegistrationRequest request = new RegistrationRequest(
+                    "student",
+                    firstName,
+                    lastName,
+                    email,
+                    phoneNumber,
+                    programOfStudy,
+                    null, // coursesOffered is null for students
+                    "pending"
+            );
 
-            String message = "Welcome! You are registered as a Student";
+            db.uploadRegistrationRequest(request);
+
+            String message = "Your registration is currently being reviewed./n" +
+                            " Thank you for your patience";
             Intent intent = new Intent(this, Welcome.class);
             intent.putExtra("message", message);
             startActivity(intent);

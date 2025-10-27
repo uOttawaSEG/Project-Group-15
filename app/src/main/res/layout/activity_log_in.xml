@@ -25,7 +25,7 @@
         android:layout_width="251dp"
         android:layout_height="53dp"
         android:gravity="center"
-        android:text="You may enter you First Name and Password"
+        android:text="You may enter you Email and Password"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -50,11 +50,11 @@
         app:layout_constraintVertical_bias="0.592" />
 
     <EditText
-        android:id="@+id/name"
+        android:id="@+id/Email"
         android:layout_width="188dp"
         android:layout_height="56dp"
         android:gravity="start|center"
-        android:hint="enter your first name"
+        android:hint="enter your first email"
         android:inputType="text"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"

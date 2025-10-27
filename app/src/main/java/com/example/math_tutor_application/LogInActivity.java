@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +23,7 @@ public class LogInActivity extends AppCompatActivity {
     Tutor tutor1 = new Tutor("Alice", "Borderland", "aliceintheborderlands@gmail.com", "2222", "123-456-7890", "PHD", new ArrayList<String>(Arrays.asList("Math", "Science")));
     Administrator admin1 = new Administrator("Micheal", "Jordan", "michealjordan@gmail.com", "3333", "647-888-9999");
 
-
+    FirebaseFirestore db= FirebaseFirestore.getInstance();
 
 
 
@@ -42,34 +44,28 @@ public class LogInActivity extends AppCompatActivity {
 
     public void welcomeHandler(View view){
 
-
         User loggedUser;
         TextView errorText = findViewById(R.id.errorText);
         errorText.setText("");
-        EditText nameText = findViewById(R.id.name);
+        EditText emailText = findViewById(R.id.email);
         EditText passwordText = findViewById(R.id.password);
 
-        String name = nameText.getText().toString().trim().toLowerCase();
+        String email = emailText.getText().toString().trim().toLowerCase();
         String password = passwordText.getText().toString().trim();
 
-        if (name.equals(user1.getFirstName().toLowerCase()) && password.equals(user1.getPassword())) {
-            loggedUser = user1;
-        } else if (name.equals(tutor1.getFirstName().toLowerCase()) && password.equals(tutor1.getPassword())) {
-            loggedUser = tutor1;
-        } else if (name.equals(admin1.getFirstName().toLowerCase()) && password.equals(admin1.getPassword())) {
-            loggedUser = admin1;
+        if (email.equals(admin1.getFirstName().toLowerCase()) && password.equals(admin1.getPassword())) {
+            String message = "Welcome! You are registered as an Administrator";
+            message += "\n\nWelcome, " + admin1.getFirstName() + " " + admin1.getLastName() + "!";
+
+            Intent intent = new Intent(this, Welcome.class);
+            intent.putExtra("message", message);
+            startActivity(intent);
         } else {
-            errorText.setText("Invalid username or password");
-            return;
+            FirestoreHelper db = new FirestoreHelper();
+            db.checkLogin("students", email, password,  this);
+            db.checkLogin("tutors", email, password, this);
         }
 
-        String message = "Welcome! You are registered as a " + loggedUser.getClass().getSimpleName();
-        message += "\n\nWelcome, " + loggedUser.getFirstName() + " " + loggedUser.getLastName() + "!";
-
-
-        Intent intent = new Intent(this, Welcome.class);
-        intent.putExtra("message", message);
-        startActivity(intent);
     }
 
     public void backToMainHandler(View view){
