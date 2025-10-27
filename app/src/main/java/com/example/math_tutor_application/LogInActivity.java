@@ -47,20 +47,20 @@ public class LogInActivity extends AppCompatActivity {
         User loggedUser;
         TextView errorText = findViewById(R.id.errorText);
         errorText.setText("");
-        EditText emailText = findViewById(R.id.email);
+        EditText emailText = findViewById(R.id.Email);
         EditText passwordText = findViewById(R.id.password);
 
         String email = emailText.getText().toString().trim().toLowerCase();
         String password = passwordText.getText().toString().trim();
 
-        if (email.equals(admin1.getFirstName().toLowerCase()) && password.equals(admin1.getPassword())) {
+        if (email.equals(admin1.getEmail().toLowerCase()) && password.equals(admin1.getPassword())) {
             String message = "Welcome! You are registered as an Administrator";
             message += "\n\nWelcome, " + admin1.getFirstName() + " " + admin1.getLastName() + "!";
 
             Intent intent = new Intent(this, Welcome.class);
             intent.putExtra("message", message);
             startActivity(intent);
-        } else {
+        }else {
             FirestoreHelper db = new FirestoreHelper();
             db.checkLogin("students", email, password,  this);
             db.checkLogin("tutors", email, password, this);
