@@ -13,9 +13,10 @@ public class RegistrationRequest {
     // Will only be used for registration requested of tutors
     private String coursesOffered;
 
-    private boolean status; // pending, approved or rejected
+    private String documentId;
 
-    public RegistrationRequest(String firstName, String lastName, String email, String password, String phoneNumber, String programOfStudy) {}
+    private boolean status;
+
 
     public RegistrationRequest(String role, String firstName, String lastName, String email, String phoneNumber, String programOfStudy, String coursesOffered, boolean status) {
         this.role = role;
@@ -27,6 +28,9 @@ public class RegistrationRequest {
         this.coursesOffered = coursesOffered;
         this.status = status;
     }
+
+    public RegistrationRequest() {}
+
 
     // Getters
     public String getRole() { return role; }
@@ -47,5 +51,13 @@ public class RegistrationRequest {
     public void setProgramOfStudy(String programOfStudy) { this.programOfStudy = programOfStudy; }
     public void setCoursesOffered(String coursesOffered) { this.coursesOffered = coursesOffered; }
     public void setStatus(boolean status) { this.status = status; }
+
+     public String getDocumentId() {
+        return documentId;
+    }
+
+     public void setDocumentId(String documentId) {
+        this.documentId = documentId;
+    }
 }
 
