@@ -15,6 +15,8 @@ public class User  {
 
     private static int count = 0;
 
+    protected boolean isapproved;
+
 
 
 
@@ -25,6 +27,7 @@ public class User  {
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.id = "ss-"+ String.valueOf(count++);
+        this.isapproved = false;
 
     }
 
@@ -76,4 +79,9 @@ public class User  {
     }
 
     public String getId() { return id; }
+
+    public boolean getIsApproved() { return isapproved; }
+
+    public void setIsApproved(boolean isapproved) { this.isapproved = isapproved; }
+
 }
