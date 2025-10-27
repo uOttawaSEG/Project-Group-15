@@ -1,6 +1,7 @@
 package com.example.math_tutor_application;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,5 +30,14 @@ public class Dashboard_admin extends AppCompatActivity {
 
 
 
+    }
+
+    public void pendingRequestHandler(View view) {
+    }
+
+    public void acceptedRequstHandler(View view) {
+    }
+
+    public void rejectedStudnetHandler(View view) {
     }
 }

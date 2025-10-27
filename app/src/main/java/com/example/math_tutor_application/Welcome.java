@@ -34,6 +34,8 @@ public class Welcome extends AppCompatActivity {
     }
 
     public void dashBoardHandler(View view) {
+        Intent intent = new Intent(this, Dashboard_admin.class);
+        startActivity(intent);
 
     }
 }
