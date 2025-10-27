@@ -162,6 +162,8 @@ public class TutorActivity extends AppCompatActivity {
                         "pending"
                 );
 
+                db.uploadRegistrationRequest(request);
+
                 String message = "Welcome! You are registered as a Tutor";
                 Intent intent = new Intent(this, Welcome.class);
                 intent.putExtra("message", message);
