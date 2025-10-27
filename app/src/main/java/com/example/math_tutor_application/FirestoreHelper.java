@@ -61,5 +61,22 @@ public class FirestoreHelper {
                 });
     }
 
+
+
     public void uploadAdmin() {} // to be implemented upon creation of Administrator class
+
+    public void uploadRegistrationRequest(RegistrationRequest request) {
+        // Access the "registration_requests" collection in Firestore
+        db.collection("registration_requests")
+
+                // Add the request object as a new document (Firestore auto-generates the document ID)
+                .add(request)
+
+                // If the upload is successful, log a confirmation message
+                .addOnSuccessListener(unused -> Log.d("Firestore", "Registration request saved"))
+
+                // If the upload fails, log an error message with the exception
+                .addOnFailureListener(e -> Log.e("Firestore", "Failed to save registration request", e));
+    }
+
 }
