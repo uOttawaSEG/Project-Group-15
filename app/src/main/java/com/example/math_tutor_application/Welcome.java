@@ -32,4 +32,10 @@ public class Welcome extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
+    public void dashBoardHandler(View view) {
+        Intent intent = new Intent(this, Dashboard_admin.class);
+        startActivity(intent);
+
+    }
 }

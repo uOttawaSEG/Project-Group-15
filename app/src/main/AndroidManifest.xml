@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Math_tutor_application">
         <activity
-            android:name=".WaitingApproval"
+            android:name=".AdminPendingRequest"
             android:exported="false" />
         <activity
-            android:name=".AdminActivity"
+            android:name=".Dashboard_admin"
             android:exported="false" />
         <activity
             android:name=".LogInActivity"

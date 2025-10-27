@@ -5,43 +5,44 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Welcome">
+    tools:context=".Dashboard_admin">
 
-    <TextView
-        android:id="@+id/welcomeMessage"
-        android:layout_width="335dp"
-        android:layout_height="250dp"
-        android:gravity="center|center"
-        android:text=""
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.176" />
 
     <Button
-        android:id="@+id/dashboardButton"
+        android:id="@+id/pendingRequest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="312dp"
+        android:onClick="pendingRequestHandler"
+        android:text="Pending requests"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/acceptedRequest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="384dp"
-        android:onClick="dashBoardHandler"
-        android:text="Dashboard"
+        android:onClick="acceptedRequstHandler"
+        android:text="Accepted Students"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/logoutButton"
+        android:id="@+id/rejectedRequest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="448dp"
-        android:onClick="logoutHandler"
-        android:text="Logout"
+        android:onClick="rejectedStudnetHandler"
+        android:text="Rejected Student "
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
 
         app:layout_constraintTop_toTopOf="parent" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
