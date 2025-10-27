@@ -41,7 +41,7 @@ public class Dashboard_admin extends AppCompatActivity {
     public void acceptedRequstHandler(View view) {
         Intent intent = new Intent(this, AdminAcceptedRequest.class);
         startActivity(intent);
-        
+
     }
 
     public void rejectedStudnetHandler(View view) {
