@@ -17,6 +17,9 @@ import android.content.Intent;
 import android.app.Activity;
 import android.widget.TextView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class FirestoreHelper {
     private FirebaseFirestore db;
@@ -86,6 +89,49 @@ public class FirestoreHelper {
 
                 // If the upload fails, log an error message with the exception
                 .addOnFailureListener(e -> Log.e("Firestore", "Failed to save registration request", e));
+    }
+
+    public void updateRequestStatus(String docId, String newStatus, OnSuccessListener<Void> ok, OnFailureListener fail) {
+        db.collection("registration_requests")
+                .document(docId)
+                .update("status", newStatus)
+                .addOnSuccessListener(ok)
+                .addOnFailureListener(fail);
+    }
+
+    public void approveRequestAndCreateUser(String docId, RegistrationRequest req, OnSuccessListener<Void> ok, OnFailureListener fail) {
+
+
+        String role = req.getRole() == null ? "": req.getRole().toLowerCase();
+        String target = role.equals("student") ? "students": "tutors";
+
+        Map<String, Object> user = new HashMap<>();
+        user.put("firstName", req.getFirstName());
+        user.put("lastName", req.getLastName());
+        user.put("email", req.getEmail());
+        user.put("phoneNumber", req.getPhoneNumber());
+        user.put("isapproved", true);
+
+        if ("students".equals(target)){
+            user.put("programOfStudy", req.getProgramOfStudy());
+        } else{
+            user.put("coursesOffered", req.getCoursesOffered());
+        }
+
+        db.collection(target).document()
+                .set(user)
+                .addOnSuccessListener(v ->
+                        db.collection("registration_requests")
+                                .document(docId)
+                                .update("status", "approved")
+                                .addOnSuccessListener(ok)
+                                .addOnFailureListener(fail)
+                )
+                .addOnFailureListener(fail);
+
+
+
+
     }
 
 
