@@ -21,7 +21,7 @@ public class LogInActivity extends AppCompatActivity {
 
     Student user1 = new Student("Bob", "Smith", "bob.smith@hotmail.com", "1111", "123-456-7890", "Computer Science");
     Tutor tutor1 = new Tutor("Alice", "Borderland", "aliceintheborderlands@gmail.com", "2222", "123-456-7890", "PHD", new ArrayList<String>(Arrays.asList("Math", "Science")));
-    Administrator admin1 = new Administrator("Micheal", "Jordan", "michealjordan@gmail.com", "3333", "647-888-9999");
+    //Administrator admin1 = new Administrator("Micheal", "Jordan", "michealjordan@gmail.com", "3333", "647-888-9999");
 
     FirebaseFirestore db= FirebaseFirestore.getInstance();
 
