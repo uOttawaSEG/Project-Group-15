@@ -7,4 +7,72 @@
     android:layout_height="match_parent"
     tools:context=".AdminRejectedStudent">
 
+    <TextView
+        android:id="@+id/RejectedRequestTitle"
+        android:layout_width="335dp"
+        android:layout_height="100dp"
+        android:gravity="center|center"
+        android:text="Rejected Requests"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.011" />
+
+    <TextView
+        android:id="@+id/rejectedRequest1"
+        android:layout_width="335dp"
+        android:layout_height="50dp"
+        android:text="Click to re-approve"
+        android:textSize="12sp"
+        android:background="#FFCCCC"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.33" />
+
+    <TextView
+        android:id="@+id/rejectedRequest2"
+        android:layout_width="335dp"
+        android:layout_height="50dp"
+        android:text="Click to re-approve"
+        android:textSize="12sp"
+        android:background="#FFCCCC"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499" />
+
+    <TextView
+        android:id="@+id/rejectedRequest3"
+        android:layout_width="335dp"
+        android:layout_height="50dp"
+        android:text="Click to re-approve"
+        android:textSize="12sp"
+        android:background="#FFCCCC"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.688" />
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="632dp"
+        android:onClick="backHandler"
+        android:text="Back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
