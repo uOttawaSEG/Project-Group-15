@@ -1,6 +1,7 @@
 package com.example.math_tutor_application;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,5 +21,26 @@ public class AdminPendingRequest extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    public void logoutHandler(View view) {
+    }
+
+    public void approveHandler1(View view) {
+    }
+
+    public void rejectHandler1(View view) {
+    }
+
+    public void approveHandler2(View view) {
+    }
+
+    public void rejectHandler2(View view) {
+    }
+
+    public void approveHandler3(View view) {
+    }
+
+    public void rejectHandler3(View view) {
     }
 }
