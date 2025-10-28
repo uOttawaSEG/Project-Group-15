@@ -111,8 +111,6 @@ public class AdminAcceptedRequest extends AppCompatActivity {
     }
 
 
-
-
     public void logoutHandler(View view) {
         mAuth.signOut();
         Intent intent = new Intent(this, LogInActivity.class);

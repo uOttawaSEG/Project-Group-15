@@ -123,6 +123,4 @@ public class AdminRejectedStudent extends AppCompatActivity {
 
 
 
-
-
 }

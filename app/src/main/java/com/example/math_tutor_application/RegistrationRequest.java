@@ -17,8 +17,10 @@ public class RegistrationRequest {
 
     private String status;
 
+    private String password;
 
-    public RegistrationRequest(String role, String firstName, String lastName, String email, String phoneNumber, String programOfStudy, String coursesOffered, String status) {
+
+    public RegistrationRequest(String role, String firstName, String lastName, String email, String phoneNumber, String programOfStudy, String coursesOffered, String status, String password) {
         this.role = role;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -27,6 +29,7 @@ public class RegistrationRequest {
         this.programOfStudy = programOfStudy;
         this.coursesOffered = coursesOffered;
         this.status = status;
+        this.password = password;
     }
 
     public RegistrationRequest() {}
@@ -58,6 +61,14 @@ public class RegistrationRequest {
 
      public void setDocumentId(String documentId) {
         this.documentId = documentId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
 

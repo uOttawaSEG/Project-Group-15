@@ -159,7 +159,8 @@ public class TutorActivity extends AppCompatActivity {
                         phoneNum,
                         null, // programOfStudy is null for tutors
                         coursesOffered.getText().toString(),
-                        "pending"
+                        "pending",
+                        confirmedPassword
                 );
 
                 db.uploadRegistrationRequest(request);

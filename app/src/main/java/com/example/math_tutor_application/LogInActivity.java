@@ -19,9 +19,7 @@ import java.util.Arrays;
 
 public class LogInActivity extends AppCompatActivity {
 
-    Student user1 = new Student("Bob", "Smith", "bob.smith@hotmail.com", "1111", "123-456-7890", "Computer Science");
-    Tutor tutor1 = new Tutor("Alice", "Borderland", "aliceintheborderlands@gmail.com", "2222", "123-456-7890", "PHD", new ArrayList<String>(Arrays.asList("Math", "Science")));
-    //Administrator admin1 = new Administrator("Micheal", "Jordan", "michealjordan@gmail.com", "3333", "647-888-9999");
+
 
     FirebaseFirestore db= FirebaseFirestore.getInstance();
 
@@ -76,11 +74,38 @@ public class LogInActivity extends AppCompatActivity {
                         Intent intent = new Intent(LogInActivity.this, Welcome.class);
                         intent.putExtra("message", message);
                         startActivity(intent);
+                        return;
 
-                    } else {
-                        errorText.setText("An error occurred during login. Please try again.");
                     }
                 });
+        // 2. If not an Admin, check if the user is a Student in Firestore
+        db.collection("registration_requests")
+                .whereEqualTo("email", email)
+                .whereEqualTo("password", password)
+                .limit(1)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && task.getResult() != null && !task.getResult().isEmpty()) {
+
+                        QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
+                        RegistrationRequest admin = document.toObject(RegistrationRequest.class);
+
+                        String message = "Welcome! You are registered as an ";
+                        message += admin.getRole();
+                        message += "\n\nWelcome, " + admin.getFirstName() + " " + admin.getLastName() + "!\n";
+                        message += "Your current registration status is " + admin.getStatus();
+                        message += "\n Please contact Administrator Micheal @ 647-888-9999 to inquire about your registration status";
+
+                        Intent intent = new Intent(LogInActivity.this, Welcome_non_admin.class);
+                        intent.putExtra("message", message);
+                        startActivity(intent);
+                        return;
+
+                    }
+                });
+
+
+        errorText.setText("An error occurred during login. Please try again.");
     }
     public void backToMainHandler(View view){
         Intent intent = new Intent(this, MainActivity.class);
