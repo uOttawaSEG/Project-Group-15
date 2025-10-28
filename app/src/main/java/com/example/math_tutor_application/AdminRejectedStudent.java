@@ -21,4 +21,8 @@ public class AdminRejectedStudent extends AppCompatActivity {
             return insets;
         });
     }
+
+
+
+
 }
