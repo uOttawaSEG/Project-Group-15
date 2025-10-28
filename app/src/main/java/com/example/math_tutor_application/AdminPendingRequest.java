@@ -1,10 +1,19 @@
 package com.example.math_tutor_application;
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -118,6 +127,7 @@ public class AdminPendingRequest extends AppCompatActivity {
                 .document(request.getDocumentId())
                 .set(request);
 
+        sendSMS(request.getPhoneNumber(), true);
     }
 
     public void rejectStudent1(View view) {
@@ -127,6 +137,7 @@ public class AdminPendingRequest extends AppCompatActivity {
                 .document(request.getDocumentId())
                 .set(request);
 
+        sendSMS(request.getPhoneNumber(), false);
     }
 
 
@@ -138,6 +149,7 @@ public class AdminPendingRequest extends AppCompatActivity {
                 .document(request.getDocumentId())
                 .set(request);
 
+        sendSMS(request.getPhoneNumber(), true);
     }
 
     public void rejectStudent2(View view) {
@@ -147,6 +159,7 @@ public class AdminPendingRequest extends AppCompatActivity {
                 .document(request.getDocumentId())
                 .set(request);
 
+        sendSMS(request.getPhoneNumber(), false);
     }
 
 
@@ -159,6 +172,7 @@ public class AdminPendingRequest extends AppCompatActivity {
                 .document(request.getDocumentId())
                 .set(request);
 
+        sendSMS(request.getPhoneNumber(), true);
     }
 
     //3
@@ -169,6 +183,7 @@ public class AdminPendingRequest extends AppCompatActivity {
                 .document(request.getDocumentId())
                 .set(request);
 
+        sendSMS(request.getPhoneNumber(), false);
     }
 
 
@@ -180,6 +195,7 @@ public class AdminPendingRequest extends AppCompatActivity {
                 .document(request.getDocumentId())
                 .set(request);
 
+        sendSMS(request.getPhoneNumber(), true);
     }
 
     //4
@@ -189,7 +205,7 @@ public class AdminPendingRequest extends AppCompatActivity {
         db.collection("registration_requests")
                 .document(request.getDocumentId())
                 .set(request);
-
+        sendSMS(request.getPhoneNumber(), false);
     }
 
     //5
@@ -200,6 +216,7 @@ public class AdminPendingRequest extends AppCompatActivity {
                 .document(request.getDocumentId())
                 .set(request);
 
+        sendSMS(request.getPhoneNumber(), true);
     }
     public void rejectStudent5(View view) {
         RegistrationRequest request = pendingRequests.get(4);
@@ -207,6 +224,23 @@ public class AdminPendingRequest extends AppCompatActivity {
         db.collection("registration_requests")
                 .document(request.getDocumentId())
                 .set(request);
+
+        sendSMS(request.getPhoneNumber(), false);
     }
 
+    public void sendSMS(String phoneNumber, boolean approved) {
+        if (ContextCompat.checkSelfPermission(AdminPendingRequest.this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
+            SmsManager smsManager = SmsManager.getDefault();
+
+            String msg;
+
+            if (approved) { msg = "Your registration request has been approved"; }
+            else { msg = "Your registration request has been denied"; }
+
+            smsManager.sendTextMessage(phoneNumber, null, msg, null, null);
+            Toast.makeText(this, "SMS Sent!", Toast.LENGTH_SHORT).show();
+        } else {
+            ActivityCompat.requestPermissions(AdminPendingRequest.this, new String[]{Manifest.permission.SEND_SMS}, 100);
+        }
+    }
 }
