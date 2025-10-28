@@ -15,10 +15,13 @@ import java.util.List;
 
 public class AdminPendingRequest extends AppCompatActivity {
 
+
+
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
 
     private List<RegistrationRequest> pendingRequests = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +119,9 @@ public class AdminPendingRequest extends AppCompatActivity {
         request.setStatus("approved");
         db.collection("registration_requests")
                 .document(request.getDocumentId())
-                .set(request);
+                .set(request).addOnSuccessListener(aVoid -> {
+                    fetchAndDisplayPendingRequests();
+                });
 
     }
 
@@ -125,7 +130,9 @@ public class AdminPendingRequest extends AppCompatActivity {
         request.setStatus("rejected");
         db.collection("registration_requests")
                 .document(request.getDocumentId())
-                .set(request);
+                .set(request).addOnSuccessListener(aVoid -> {
+            fetchAndDisplayPendingRequests();
+        });
 
     }
 
@@ -136,7 +143,10 @@ public class AdminPendingRequest extends AppCompatActivity {
         request.setStatus("approved");
         db.collection("registration_requests")
                 .document(request.getDocumentId())
-                .set(request);
+                .set(request).addOnSuccessListener(aVoid -> {
+                    fetchAndDisplayPendingRequests();
+                });
+
 
     }
 
@@ -145,7 +155,9 @@ public class AdminPendingRequest extends AppCompatActivity {
         request.setStatus("rejected");
         db.collection("registration_requests")
                 .document(request.getDocumentId())
-                .set(request);
+                .set(request).addOnSuccessListener(aVoid -> {
+                    fetchAndDisplayPendingRequests();
+                });
 
     }
 
@@ -157,7 +169,9 @@ public class AdminPendingRequest extends AppCompatActivity {
         request.setStatus("approved");
         db.collection("registration_requests")
                 .document(request.getDocumentId())
-                .set(request);
+                .set(request).addOnSuccessListener(aVoid -> {
+                    fetchAndDisplayPendingRequests();
+                });
 
     }
 
@@ -167,28 +181,34 @@ public class AdminPendingRequest extends AppCompatActivity {
         request.setStatus("rejected");
         db.collection("registration_requests")
                 .document(request.getDocumentId())
-                .set(request);
+                .set(request).addOnSuccessListener(aVoid -> {
+                    fetchAndDisplayPendingRequests();
+                });
 
     }
 
 
-    //3
+    //4
     public void approveStudent4(View view) {
         RegistrationRequest request = pendingRequests.get(3);
         request.setStatus("approved");
         db.collection("registration_requests")
                 .document(request.getDocumentId())
-                .set(request);
+                .set(request).addOnSuccessListener(aVoid -> {
+                    fetchAndDisplayPendingRequests();
+                });
 
     }
 
-    //4
     public void rejectStudent4(View view) {
         RegistrationRequest request = pendingRequests.get(3);
         request.setStatus("rejected");
         db.collection("registration_requests")
                 .document(request.getDocumentId())
-                .set(request);
+                .set(request).addOnSuccessListener(aVoid -> {
+                    fetchAndDisplayPendingRequests();
+                });
+
 
     }
 
@@ -198,7 +218,9 @@ public class AdminPendingRequest extends AppCompatActivity {
         request.setStatus("approved");
         db.collection("registration_requests")
                 .document(request.getDocumentId())
-                .set(request);
+                .set(request).addOnSuccessListener(aVoid -> {
+                    fetchAndDisplayPendingRequests();
+                });
 
     }
     public void rejectStudent5(View view) {
@@ -206,7 +228,9 @@ public class AdminPendingRequest extends AppCompatActivity {
         request.setStatus("rejected");
         db.collection("registration_requests")
                 .document(request.getDocumentId())
-                .set(request);
+                .set(request).addOnSuccessListener(aVoid -> {
+                    fetchAndDisplayPendingRequests();
+                });
     }
 
 }
