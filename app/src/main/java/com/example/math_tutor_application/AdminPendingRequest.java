@@ -1,5 +1,4 @@
 package com.example.math_tutor_application;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,9 +8,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 public class AdminPendingRequest extends AppCompatActivity {
 
@@ -109,6 +109,8 @@ public class AdminPendingRequest extends AppCompatActivity {
         finish();
     }
 
+    //0
+
     public void approveStudent1(View view) {
         RegistrationRequest request = pendingRequests.get(0);
         request.setStatus("approved");
@@ -123,33 +125,132 @@ public class AdminPendingRequest extends AppCompatActivity {
     }
 
     public void rejectStudent1(View view) {
+        RegistrationRequest request = pendingRequests.get(0);
+        request.setStatus("rejected");
+        db.collection("registration_requests")
+                .document(request.getDocumentId())
+                .set(request)
+                .addOnSuccessListener(aVoid -> {
+                    pendingRequests.remove(0);
+                    updateUiViews();
+                });
+
     }
 
+
+    //1
     public void approveStudent2(View view) {
+        RegistrationRequest request = pendingRequests.get(1);
+        request.setStatus("rejected");
+        db.collection("registration_requests")
+                .document(request.getDocumentId())
+                .set(request)
+                .addOnSuccessListener(aVoid -> {
+                    pendingRequests.remove(1);
+                    updateUiViews();
+                });
+
     }
 
     public void rejectStudent2(View view) {
+        RegistrationRequest request = pendingRequests.get(1);
+        request.setStatus("rejected");
+        db.collection("registration_requests")
+                .document(request.getDocumentId())
+                .set(request)
+                .addOnSuccessListener(aVoid -> {
+                    pendingRequests.remove(1);
+                    updateUiViews();
+                });
+
     }
 
 
+
+    //2
     public void approveStudent3(View view) {
+        RegistrationRequest request = pendingRequests.get(2);
+        request.setStatus("rejected");
+        db.collection("registration_requests")
+                .document(request.getDocumentId())
+                .set(request)
+                .addOnSuccessListener(aVoid -> {
+                    pendingRequests.remove(2);
+                    updateUiViews();
+                });
+
     }
 
+    //3
     public void rejectStudent3(View view) {
+        RegistrationRequest request = pendingRequests.get(2);
+        request.setStatus("rejected");
+        db.collection("registration_requests")
+                .document(request.getDocumentId())
+                .set(request)
+                .addOnSuccessListener(aVoid -> {
+                    pendingRequests.remove(2);
+                    updateUiViews();
+                });
+
     }
 
 
+    //3
     public void approveStudent4(View view) {
+        RegistrationRequest request = pendingRequests.get(3);
+        request.setStatus("rejected");
+        db.collection("registration_requests")
+                .document(request.getDocumentId())
+                .set(request)
+                .addOnSuccessListener(aVoid -> {
+                    pendingRequests.remove(3);
+                    updateUiViews();
+                });
+
     }
 
+    //4
     public void rejectStudent4(View view) {
+        RegistrationRequest request = pendingRequests.get(3);
+        request.setStatus("rejected");
+        db.collection("registration_requests")
+                .document(request.getDocumentId())
+                .set(request)
+                .addOnSuccessListener(aVoid -> {
+                    pendingRequests.remove(3);
+                    updateUiViews();
+                });
+
     }
 
-
+    //5
     public void approveStudent5(View view) {
+        RegistrationRequest request = pendingRequests.get(4);
+        request.setStatus("rejected");
+        db.collection("registration_requests")
+                .document(request.getDocumentId())
+                .set(request)
+                .addOnSuccessListener(aVoid -> {
+                    pendingRequests.remove(4);
+                    updateUiViews();
+                });
+
     }
     public void rejectStudent5(View view) {
+        RegistrationRequest request = pendingRequests.get(4);
+        request.setStatus("rejected");
+        db.collection("registration_requests")
+                .document(request.getDocumentId())
+                .set(request)
+                .addOnSuccessListener(aVoid -> {
+                    pendingRequests.remove(4);
+                    updateUiViews();
+                });
+
     }
+
+
 
 
 
