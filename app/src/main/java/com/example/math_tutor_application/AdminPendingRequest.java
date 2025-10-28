@@ -133,7 +133,7 @@ public class AdminPendingRequest extends AppCompatActivity {
     //1
     public void approveStudent2(View view) {
         RegistrationRequest request = pendingRequests.get(1);
-        request.setStatus("rejected");
+        request.setStatus("approved");
         db.collection("registration_requests")
                 .document(request.getDocumentId())
                 .set(request);
@@ -154,7 +154,7 @@ public class AdminPendingRequest extends AppCompatActivity {
     //2
     public void approveStudent3(View view) {
         RegistrationRequest request = pendingRequests.get(2);
-        request.setStatus("rejected");
+        request.setStatus("approved");
         db.collection("registration_requests")
                 .document(request.getDocumentId())
                 .set(request);
@@ -175,7 +175,7 @@ public class AdminPendingRequest extends AppCompatActivity {
     //3
     public void approveStudent4(View view) {
         RegistrationRequest request = pendingRequests.get(3);
-        request.setStatus("rejected");
+        request.setStatus("approved");
         db.collection("registration_requests")
                 .document(request.getDocumentId())
                 .set(request);
@@ -195,7 +195,7 @@ public class AdminPendingRequest extends AppCompatActivity {
     //5
     public void approveStudent5(View view) {
         RegistrationRequest request = pendingRequests.get(4);
-        request.setStatus("rejected");
+        request.setStatus("approved");
         db.collection("registration_requests")
                 .document(request.getDocumentId())
                 .set(request);
