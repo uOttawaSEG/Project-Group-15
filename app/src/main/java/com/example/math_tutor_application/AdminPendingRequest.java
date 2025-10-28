@@ -116,11 +116,7 @@ public class AdminPendingRequest extends AppCompatActivity {
         request.setStatus("approved");
         db.collection("registration_requests")
                 .document(request.getDocumentId())
-                .set(request)
-                .addOnSuccessListener(aVoid -> {
-                    pendingRequests.remove(0);
-                    updateUiViews();
-                });
+                .set(request);
 
     }
 
@@ -129,11 +125,7 @@ public class AdminPendingRequest extends AppCompatActivity {
         request.setStatus("rejected");
         db.collection("registration_requests")
                 .document(request.getDocumentId())
-                .set(request)
-                .addOnSuccessListener(aVoid -> {
-                    pendingRequests.remove(0);
-                    updateUiViews();
-                });
+                .set(request);
 
     }
 
@@ -144,11 +136,7 @@ public class AdminPendingRequest extends AppCompatActivity {
         request.setStatus("rejected");
         db.collection("registration_requests")
                 .document(request.getDocumentId())
-                .set(request)
-                .addOnSuccessListener(aVoid -> {
-                    pendingRequests.remove(1);
-                    updateUiViews();
-                });
+                .set(request);
 
     }
 
@@ -157,11 +145,7 @@ public class AdminPendingRequest extends AppCompatActivity {
         request.setStatus("rejected");
         db.collection("registration_requests")
                 .document(request.getDocumentId())
-                .set(request)
-                .addOnSuccessListener(aVoid -> {
-                    pendingRequests.remove(1);
-                    updateUiViews();
-                });
+                .set(request);
 
     }
 
@@ -173,11 +157,7 @@ public class AdminPendingRequest extends AppCompatActivity {
         request.setStatus("rejected");
         db.collection("registration_requests")
                 .document(request.getDocumentId())
-                .set(request)
-                .addOnSuccessListener(aVoid -> {
-                    pendingRequests.remove(2);
-                    updateUiViews();
-                });
+                .set(request);
 
     }
 
@@ -187,11 +167,7 @@ public class AdminPendingRequest extends AppCompatActivity {
         request.setStatus("rejected");
         db.collection("registration_requests")
                 .document(request.getDocumentId())
-                .set(request)
-                .addOnSuccessListener(aVoid -> {
-                    pendingRequests.remove(2);
-                    updateUiViews();
-                });
+                .set(request);
 
     }
 
@@ -202,11 +178,7 @@ public class AdminPendingRequest extends AppCompatActivity {
         request.setStatus("rejected");
         db.collection("registration_requests")
                 .document(request.getDocumentId())
-                .set(request)
-                .addOnSuccessListener(aVoid -> {
-                    pendingRequests.remove(3);
-                    updateUiViews();
-                });
+                .set(request);
 
     }
 
@@ -216,11 +188,7 @@ public class AdminPendingRequest extends AppCompatActivity {
         request.setStatus("rejected");
         db.collection("registration_requests")
                 .document(request.getDocumentId())
-                .set(request)
-                .addOnSuccessListener(aVoid -> {
-                    pendingRequests.remove(3);
-                    updateUiViews();
-                });
+                .set(request);
 
     }
 
@@ -230,11 +198,7 @@ public class AdminPendingRequest extends AppCompatActivity {
         request.setStatus("rejected");
         db.collection("registration_requests")
                 .document(request.getDocumentId())
-                .set(request)
-                .addOnSuccessListener(aVoid -> {
-                    pendingRequests.remove(4);
-                    updateUiViews();
-                });
+                .set(request);
 
     }
     public void rejectStudent5(View view) {
@@ -242,16 +206,7 @@ public class AdminPendingRequest extends AppCompatActivity {
         request.setStatus("rejected");
         db.collection("registration_requests")
                 .document(request.getDocumentId())
-                .set(request)
-                .addOnSuccessListener(aVoid -> {
-                    pendingRequests.remove(4);
-                    updateUiViews();
-                });
-
+                .set(request);
     }
-
-
-
-
 
 }
