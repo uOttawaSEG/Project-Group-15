@@ -165,9 +165,8 @@ public class TutorActivity extends AppCompatActivity {
 
                 db.uploadRegistrationRequest(request);
 
-                String message = "Your registration is currently being reviewed./n" +
-                                    "Thank you for your patience";
-                Intent intent = new Intent(this, Welcome.class);
+                String message = "Your registration is currently being reviewed.\n Thank you for your patience";
+                Intent intent = new Intent(this, Welcome_non_admin.class);
                 intent.putExtra("message", message);
                 startActivity(intent);
             }
