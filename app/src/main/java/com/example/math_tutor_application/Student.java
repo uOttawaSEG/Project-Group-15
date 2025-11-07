@@ -1,16 +1,17 @@
 package com.example.math_tutor_application;
 
-public class StudentProfile {
-
+public class Student extends User {
     private String programOfStudy;
 
 
 
-    public StudentProfile() {
+    public Student() {
 
     }
 
-    public StudentProfile(String programOfStudy) {
+    public Student(String firstName, String lastName, String email, String password, String phoneNumber, String role, String status, String programOfStudy) {
+        super(firstName, lastName, email, password, phoneNumber, role, status);
+
         this.programOfStudy = programOfStudy;
     }
 
@@ -22,8 +23,4 @@ public class StudentProfile {
     public void setProgramOfStudy(String programOfStudy) {
         this.programOfStudy = programOfStudy;
     }
-
-
-
-
 }

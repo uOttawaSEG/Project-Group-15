@@ -34,6 +34,9 @@ public class StudentActivity extends AppCompatActivity {
         // firebase
         db = new FirestoreHelper(); // create database "assistant"
 
+
+
+
     }
 
     public void submitHandler(View view) {
@@ -107,10 +110,9 @@ public class StudentActivity extends AppCompatActivity {
 
 
             // Uploading User to Firebase, new version
-            StudentProfile studentProfile = new StudentProfile(programOfStudy);
-            User user = new User(firstName, lastName, email, password, phoneNumber, "student", "pending", studentProfile, null);
+            Student user = new Student(firstName, lastName, email, password, phoneNumber, "Student", "pending", programOfStudy);
+            db.uploadStudent(user);
 
-            db.uploadUser(user);
 
 
 

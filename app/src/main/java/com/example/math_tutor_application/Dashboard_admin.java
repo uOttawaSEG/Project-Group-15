@@ -23,14 +23,6 @@ public class Dashboard_admin extends AppCompatActivity {
             return insets;
         });
 
-        //
-
-
-
-
-
-
-
     }
 
     public void pendingRequestHandler(View view) {
@@ -47,6 +39,24 @@ public class Dashboard_admin extends AppCompatActivity {
     public void rejectedStudnetHandler(View view) {
         Intent intent = new Intent(this, AdminRejectedStudent.class);
         startActivity(intent);
+
+    }
+
+    public void pendingRequestHandler2(View view) {
+        Intent intent = new Intent(this, AdminPendingRequestTutor.class);
+        startActivity(intent);
+    }
+
+    public void acceptedRequstHandler2(View view) {
+        Intent intent = new Intent(this, AdminAcceptedRequestTutor.class);
+        startActivity(intent);
+
+    }
+
+    public void rejectedStudnetHandler2(View view) {
+        Intent intent = new Intent(this, AdminRejectedTutor.class);
+        startActivity(intent);
+
 
     }
 }

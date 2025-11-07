@@ -15,15 +15,14 @@ public class User  {
 
     private String role;
 
-    public StudentProfile studentProfile;
-    public TutorProfile tutorProfile;
+
 
     private String documentId;
 
 
 
 
-    public User(String firstName, String lastName, String email, String password, String phoneNumber, String role, String status, StudentProfile studentProfile, TutorProfile tutorProfile) {
+    public User(String firstName, String lastName, String email, String password, String phoneNumber, String role, String status) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -31,8 +30,6 @@ public class User  {
         this.phoneNumber = phoneNumber;
         this.status = status;
         this.role = role;
-        this.studentProfile = studentProfile;
-        this.tutorProfile = tutorProfile;
 
     }
 
@@ -69,13 +66,6 @@ public class User  {
         return role;
     }
 
-    public StudentProfile getStudentProfile() {
-        return studentProfile;
-    }
-
-    public TutorProfile getTutorProfile() {
-        return tutorProfile;
-    }
 
     public String getDocumentId() {
         return documentId;
@@ -112,12 +102,6 @@ public class User  {
 
     public void setRole(String role) {
         this.role = role;
-    }
-    public void setStudentProfile(StudentProfile studentProfile) {
-        this.studentProfile = studentProfile;
-    }
-    public void setTutorProfile(TutorProfile tutorProfile) {
-        this.tutorProfile = tutorProfile;
     }
 
     public void setDocumentId(String documentId) {

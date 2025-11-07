@@ -41,6 +41,39 @@ public class FirestoreHelper {
 
     }
 
+    public void uploadStudent(Student student) {
+        db.collection("Students")
+                .add(student)
+                .addOnSuccessListener(documentRef -> {
+                    String generatedId = documentRef.getId();
+                    student.setDocumentId(generatedId);
+                    documentRef.update("documentId", generatedId);
+                });
+
+    }
+
+    public void uploadTutor(Tutor tutor) {
+        db.collection("Tutors")
+                .add(tutor)
+                .addOnSuccessListener(documentRef -> {
+                    String generatedId = documentRef.getId();
+                    tutor.setDocumentId(generatedId);
+                    documentRef.update("documentId", generatedId);
+                });
+
+    }
+
+    public void uploadAdmin(User tutor) {
+        db.collection("Admins")
+                .add(tutor)
+                .addOnSuccessListener(documentRef -> {
+                    String generatedId = documentRef.getId();
+                    tutor.setDocumentId(generatedId);
+                    documentRef.update("documentId", generatedId);
+                });
+
+    }
+
 
 
     //Helper function for login activity

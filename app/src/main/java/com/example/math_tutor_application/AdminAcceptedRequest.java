@@ -21,9 +21,9 @@ import java.util.List;
 public class AdminAcceptedRequest extends AppCompatActivity {
 
     private FirebaseFirestore db;
-    private FirebaseAuth mAuth;
 
-    private List<User> pendingRequests = new ArrayList<>();
+
+    private List<Student> pendingRequests = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +38,13 @@ public class AdminAcceptedRequest extends AppCompatActivity {
 
 
         db = FirebaseFirestore.getInstance();
-        mAuth = FirebaseAuth.getInstance();
+
 
         fetchAndDisplayPendingRequests();
     }
 
     private void fetchAndDisplayPendingRequests() {
-        db.collection("User")
+        db.collection("Students")
                 .whereEqualTo("status", "approved")
                 .limit(5)
                 .get()
@@ -52,7 +52,7 @@ public class AdminAcceptedRequest extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         pendingRequests.clear();
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            User request = document.toObject(User.class);
+                            Student request = document.toObject(Student.class);
                             request.setDocumentId(document.getId());
                             pendingRequests.add(request);
                         }
@@ -65,7 +65,7 @@ public class AdminAcceptedRequest extends AppCompatActivity {
 
         //1
         if (pendingRequests.size() <= 0) return;
-        User request = pendingRequests.get(0);
+        Student request = pendingRequests.get(0);
         TextView nameText = findViewById(R.id.student1);
         nameText.setText(request.getFirstName() + " " + request.getLastName() + " (" + request.getRole() + ")");
         TextView emailText = findViewById(R.id.studentEmailTextView1);
@@ -74,7 +74,7 @@ public class AdminAcceptedRequest extends AppCompatActivity {
 
         //2
         if (pendingRequests.size() <= 1) return;
-        User request2 = pendingRequests.get(1);
+        Student request2 = pendingRequests.get(1);
         TextView nameText2 = findViewById(R.id.student2);
         nameText2.setText(request2.getFirstName() + " " + request2.getLastName() + " (" + request2.getRole() + ")");
         TextView emailText2 = findViewById(R.id.studentEmailTextView2);
@@ -83,7 +83,7 @@ public class AdminAcceptedRequest extends AppCompatActivity {
 
         //3
         if (pendingRequests.size() <= 2) return;
-        User request3 = pendingRequests.get(2);
+        Student request3 = pendingRequests.get(2);
         TextView nameText3 = findViewById(R.id.student3);
         nameText3.setText(request3.getFirstName() + " " + request3.getLastName() + " (" + request3.getRole() + ")");
         TextView emailText3 = findViewById(R.id.studentEmailTextView3);
@@ -92,7 +92,7 @@ public class AdminAcceptedRequest extends AppCompatActivity {
 
         //4
         if (pendingRequests.size() <= 3) return;
-        User request4 = pendingRequests.get(3);
+        Student request4 = pendingRequests.get(3);
         TextView nameText4 = findViewById(R.id.student4);
         nameText4.setText(request4.getFirstName() + " " + request4.getLastName() + " (" + request4.getRole() + ")");
         TextView emailText4 = findViewById(R.id.studentEmailTextView4);
@@ -101,7 +101,7 @@ public class AdminAcceptedRequest extends AppCompatActivity {
 
         //5
         if (pendingRequests.size() <= 4) return;
-        User request5 = pendingRequests.get(4);
+        Student request5 = pendingRequests.get(4);
         TextView nameText5 = findViewById(R.id.student5);
         nameText5.setText(request5.getFirstName() + " " + request5.getLastName() + " (" + request5.getRole() + ")");
         TextView emailText5 = findViewById(R.id.studentEmailTextView5);
@@ -110,13 +110,6 @@ public class AdminAcceptedRequest extends AppCompatActivity {
 
     }
 
-
-    public void logoutHandler(View view) {
-        mAuth.signOut();
-        Intent intent = new Intent(this, LogInActivity.class);
-        startActivity(intent);
-        finish();
-    }
 
 
 

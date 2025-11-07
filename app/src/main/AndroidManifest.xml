@@ -5,6 +5,7 @@
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="false" />
+
     <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
@@ -16,6 +17,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Math_tutor_application">
+        <activity
+            android:name=".AdminAcceptedRequestTutor"
+            android:exported="false" />
+        <activity
+            android:name=".AdminRejectedTutor"
+            android:exported="false" />
+        <activity
+            android:name=".AdminPendingRequestTutor"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity2"
+            android:exported="false"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/Theme.Math_tutor_application.NoActionBar" />
         <activity
             android:name=".Welcome_non_admin"
             android:exported="false" />

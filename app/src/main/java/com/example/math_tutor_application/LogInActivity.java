@@ -55,8 +55,9 @@ public class LogInActivity extends AppCompatActivity {
             return;
         }
 
+
         // 1. First, check if the user is an Admin in Firestore
-        db.collection("User")
+        db.collection("Admins")
                 .whereEqualTo("email", email)
                 .whereEqualTo("password", password)
                 .limit(1)
@@ -66,38 +67,62 @@ public class LogInActivity extends AppCompatActivity {
 
                         QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
                         User user = document.toObject(User.class); // Convert document to User object
-
-                        if (user.getRole().equals("Admin")) {
-
-                            String message = "Welcome! You are registered as an Administrator";
-                            message += "\n\nWelcome, " + user.getFirstName() + " " + user.getLastName() + "!";
-
-                            Intent intent = new Intent(LogInActivity.this, Welcome.class);
-                            intent.putExtra("message", message);
-                            startActivity(intent);
-
-                        } else {
-
-                            String message = "Welcome! You are registered as an ";
-                            message += user.getRole();
-                            message += "\n\nWelcome, " + user.getFirstName() + " " + user.getLastName() + "!\n";
-                            message += "Your current registration status is " + user.getStatus();
-                            message += "\n Please contact Administrator Micheal @ 647-888-9999 to inquire about your registration status";
-
-                            Intent intent = new Intent(LogInActivity.this, Welcome_non_admin.class);
-                            intent.putExtra("message", message);
-                            startActivity(intent);
-
-                        }
+                        String message = "Welcome! You are registered as an Administrator";
+                        message += "\n\nWelcome, " + user.getFirstName() + " " + user.getLastName() + "!";
+                        Intent intent = new Intent(LogInActivity.this, Welcome.class);
+                        intent.putExtra("message", message);
+                        startActivity(intent);
 
                     } else {
-                        errorText.setText("An error occurred during login. Please try again.");
+                        db.collection("Students")
+                                .whereEqualTo("email", email)
+                                .whereEqualTo("password", password)
+                                .limit(1)
+                                .get()
+                                .addOnCompleteListener(task2 -> {
+                                    if (task2.isSuccessful() && task2.getResult() != null && !task2.getResult().isEmpty()) {
+                                        QueryDocumentSnapshot document = (QueryDocumentSnapshot) task2.getResult().getDocuments().get(0);
+                                        Student student = document.toObject(Student.class); // Convert document to Student object
+                                        String message = "Welcome! You are registered as an ";
+                                        message += student.getRole();
+                                        message += "\n\nWelcome, " + student.getFirstName() + " " + student.getLastName() + "!\n";
+                                        message += "Your current registration status is " + student.getStatus();
+                                        message += "\n Please contact Administrator Micheal @ 647-888-9999 to inquire about your registration status";
+
+                                        Intent intent = new Intent(LogInActivity.this, Welcome_non_admin.class);
+                                        intent.putExtra("message", message);
+                                        startActivity(intent);
+                                    } else {
+                                        db.collection("Tutors")
+                                                .whereEqualTo("email", email)
+                                                .whereEqualTo("password", password)
+                                                .limit(1)
+                                                .get()
+                                                .addOnCompleteListener(task3 -> {
+                                                    if (task3.isSuccessful() && task3.getResult() != null && !task3.getResult().isEmpty()) {
+                                                        QueryDocumentSnapshot document = (QueryDocumentSnapshot) task3.getResult().getDocuments().get(0);
+                                                        Tutor tutor = document.toObject(Tutor.class); // Convert document to Tutor object
+                                                        String message = "Welcome! You are registered as an ";
+                                                        message += tutor.getRole();
+                                                        message += "\n\nWelcome, " + tutor.getFirstName() + " " + tutor.getLastName() + "!\n";
+                                                        message += "Your current registration status is " + tutor.getStatus();
+                                                        message += "\n Please contact Administrator Micheal @ 647-888-9999 to inquire about your registration status";
+                                                        Intent intent = new Intent(LogInActivity.this, Welcome_non_admin.class);
+                                                        intent.putExtra("message", message);
+                                                        startActivity(intent);
+                                                    } else {
+                                                        errorText.setText("Invalid username or password");
+                                                    }
+                                                });
+                                    }
+                                });
                     }
                 });
-
-
-
     }
+
+
+
+
     public void backToMainHandler(View view){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

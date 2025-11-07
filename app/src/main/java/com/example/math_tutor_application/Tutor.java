@@ -2,7 +2,7 @@ package com.example.math_tutor_application;
 
 import java.util.ArrayList;
 
-public class TutorProfile {
+public class Tutor extends User {
 
     private String highestDegree;
 
@@ -11,12 +11,13 @@ public class TutorProfile {
     private ArrayList<String> coursesOffered;
 
 
-    public TutorProfile(String highestDegree, ArrayList<String> coursesOffered) {
+    public Tutor(String firstName, String lastName, String email, String password, String phoneNumber, String role, String status, String highestDegree, ArrayList<String> coursesOffered ) {
+        super(firstName, lastName, email, password, phoneNumber, role, status);
         this.highestDegree = highestDegree;
         this.coursesOffered = coursesOffered;
     }
 
-    public TutorProfile() {
+    public Tutor() {
     } // REQUIRED FOR FIREBASE
 
 
@@ -36,4 +37,6 @@ public class TutorProfile {
     public void setCoursesOffered(ArrayList<String> coursesOffered) {
         this.coursesOffered = coursesOffered;
     }
+
+
 }

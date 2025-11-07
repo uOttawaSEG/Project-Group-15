@@ -153,9 +153,8 @@ public class TutorActivity extends AppCompatActivity {
 
 
                 //New version of uploading the user
-                TutorProfile tutorProfile = new TutorProfile(highestDegree, courses);
-                User user = new User(firstName0, lastName0, email0, confirmedPassword, phoneNum, "tutor", "pending", null, tutorProfile);
-                db.uploadUser(user);
+                Tutor tutor = new Tutor(firstName0, lastName0, email0, confirmedPassword, phoneNum, "Tutor", "pending", highestDegree, courses);
+                db.uploadTutor(tutor);
 
                 String message = "Your registration is currently being reviewed.\n Thank you for your patience";
                 Intent intent = new Intent(this, Welcome_non_admin.class);
