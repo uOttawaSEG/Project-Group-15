@@ -90,11 +90,13 @@ public class LogInActivity extends AppCompatActivity {
 
                         }
 
+                    } else {
+                        errorText.setText("An error occurred during login. Please try again.");
                     }
                 });
 
 
-        errorText.setText("An error occurred during login. Please try again.");
+
     }
     public void backToMainHandler(View view){
         Intent intent = new Intent(this, MainActivity.class);
