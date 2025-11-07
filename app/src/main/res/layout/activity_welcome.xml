@@ -27,6 +27,8 @@
         android:layout_marginTop="384dp"
         android:onClick="dashBoardHandler"
         android:text="Dashboard"
+        android:width="150dp"
+        android:height="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -38,6 +40,8 @@
         android:layout_marginTop="448dp"
         android:onClick="logoutHandler"
         android:text="Logout"
+        android:width="150dp"
+        android:height="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
 

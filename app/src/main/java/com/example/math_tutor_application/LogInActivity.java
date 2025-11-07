@@ -24,9 +24,6 @@ public class LogInActivity extends AppCompatActivity {
     FirebaseFirestore db= FirebaseFirestore.getInstance();
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +34,8 @@ public class LogInActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+
     }
 
 
@@ -57,7 +56,7 @@ public class LogInActivity extends AppCompatActivity {
         }
 
         // 1. First, check if the user is an Admin in Firestore
-        db.collection("admins")
+        db.collection("User")
                 .whereEqualTo("email", email)
                 .whereEqualTo("password", password)
                 .limit(1)
@@ -66,40 +65,30 @@ public class LogInActivity extends AppCompatActivity {
                     if (task.isSuccessful() && task.getResult() != null && !task.getResult().isEmpty()) {
 
                         QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
-                        Administrator admin = document.toObject(Administrator.class); // Convert document to Administrator object
+                        User user = document.toObject(User.class); // Convert document to User object
 
-                        String message = "Welcome! You are registered as an Administrator";
-                        message += "\n\nWelcome, " + admin.getFirstName() + " " + admin.getLastName() + "!";
+                        if (user.getRole().equals("Admin")) {
 
-                        Intent intent = new Intent(LogInActivity.this, Welcome.class);
-                        intent.putExtra("message", message);
-                        startActivity(intent);
-                        return;
+                            String message = "Welcome! You are registered as an Administrator";
+                            message += "\n\nWelcome, " + user.getFirstName() + " " + user.getLastName() + "!";
 
-                    }
-                });
-        // 2. If not an Admin, check if the user is a Student in Firestore
-        db.collection("registration_requests")
-                .whereEqualTo("email", email)
-                .whereEqualTo("password", password)
-                .limit(1)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful() && task.getResult() != null && !task.getResult().isEmpty()) {
+                            Intent intent = new Intent(LogInActivity.this, Welcome.class);
+                            intent.putExtra("message", message);
+                            startActivity(intent);
 
-                        QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
-                        RegistrationRequest admin = document.toObject(RegistrationRequest.class);
+                        } else {
 
-                        String message = "Welcome! You are registered as an ";
-                        message += admin.getRole();
-                        message += "\n\nWelcome, " + admin.getFirstName() + " " + admin.getLastName() + "!\n";
-                        message += "Your current registration status is " + admin.getStatus();
-                        message += "\n Please contact Administrator Micheal @ 647-888-9999 to inquire about your registration status";
+                            String message = "Welcome! You are registered as an ";
+                            message += user.getRole();
+                            message += "\n\nWelcome, " + user.getFirstName() + " " + user.getLastName() + "!\n";
+                            message += "Your current registration status is " + user.getStatus();
+                            message += "\n Please contact Administrator Micheal @ 647-888-9999 to inquire about your registration status";
 
-                        Intent intent = new Intent(LogInActivity.this, Welcome_non_admin.class);
-                        intent.putExtra("message", message);
-                        startActivity(intent);
-                        return;
+                            Intent intent = new Intent(LogInActivity.this, Welcome_non_admin.class);
+                            intent.putExtra("message", message);
+                            startActivity(intent);
+
+                        }
 
                     }
                 });

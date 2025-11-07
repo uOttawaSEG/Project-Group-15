@@ -23,70 +23,24 @@ public class FirestoreHelper {
 
     public FirestoreHelper() { db = FirebaseFirestore.getInstance(); }
 
-    // upload methods for firebase\
-    public void uploadStudent(Student s) {
-        db.collection("students")
-                .document(s.getId()).set(s)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Log.d("Firestore", "Student successfully uploaded.");
-
-                        // success handling
-                    }
-                })
-
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d("Firestore", "Failed to upload student.");
-
-                        // failure handling
-                    }
-                });
-    }
-
-    public void uploadTutor(Tutor t) {
-        db.collection("tutors")
-                .document(t.getId()).set(t)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Log.d("Firestore", "Tutor successfully uploaded.");
-
-                        // success handling
-                    }
-                })
-
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d("Firestore", "Failed to upload tutor.");
-
-                        // failure handling
-                    }
-                });
-    }
-
-
-
     public void uploadAdmin() {} // to be implemented upon creation of Administrator class
 
 
 
-    public void uploadRegistrationRequest(RegistrationRequest request) {
-        // Access the "registration_requests" collection in Firestore
-        db.collection("registration_requests")
 
-                // Add the request object as a new document (Firestore auto-generates the document ID)
-                .add(request)
 
-                // If the upload is successful, log a confirmation message
-                .addOnSuccessListener(unused -> Log.d("Firestore", "Registration request saved"))
+    //new version that will store the user in the database
+    public void uploadUser(User user) {
+        db.collection("User")
+                .add(user)
+                .addOnSuccessListener(documentRef -> {
+                    String generatedId = documentRef.getId();
+                    user.setDocumentId(generatedId);
+                    documentRef.update("documentId", generatedId);
+                });
 
-                // If the upload fails, log an error message with the exception
-                .addOnFailureListener(e -> Log.e("Firestore", "Failed to save registration request", e));
     }
+
 
 
     //Helper function for login activity

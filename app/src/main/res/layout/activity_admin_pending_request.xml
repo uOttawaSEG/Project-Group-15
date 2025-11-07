@@ -24,7 +24,7 @@
             android:id="@+id/student1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Student Name"
+            android:text="User Name"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -32,7 +32,7 @@
             android:id="@+id/studentEmailTextView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="student.email@example.com"
+            android:text="User@example.com"
             android:textSize="14sp" />
 
         <LinearLayout
@@ -77,7 +77,7 @@
             android:id="@+id/student2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Student Name"
+            android:text="User Name"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -85,7 +85,7 @@
             android:id="@+id/studentEmailTextView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="student.email@example.com"
+            android:text="User@example.com"
             android:textSize="14sp" />
 
         <LinearLayout
@@ -131,7 +131,7 @@
             android:id="@+id/student3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Student Name"
+            android:text="User Name"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -139,7 +139,7 @@
             android:id="@+id/studentEmailTextView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="student.email@example.com"
+            android:text="User@example.com"
             android:textSize="14sp" />
 
         <LinearLayout
@@ -185,7 +185,7 @@
             android:id="@+id/student4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Student Name"
+            android:text="User Name"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -193,7 +193,7 @@
             android:id="@+id/studentEmailTextView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="student.email@example.com"
+            android:text="User@example.com"
             android:textSize="14sp" />
 
         <LinearLayout
@@ -239,7 +239,7 @@
             android:id="@+id/student5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Student Name"
+            android:text="User Name"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -247,7 +247,7 @@
             android:id="@+id/studentEmailTextView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="student.email@example.com"
+            android:text="User@example.com"
             android:textSize="14sp" />
 
         <LinearLayout

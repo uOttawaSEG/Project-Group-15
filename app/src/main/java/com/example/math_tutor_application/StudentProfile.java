@@ -1,21 +1,17 @@
 package com.example.math_tutor_application;
 
-public class Student extends User{
+public class StudentProfile {
 
     private String programOfStudy;
 
-    public Student(String programOfStudy){
+
+
+    public StudentProfile() {
 
     }
 
-    public Student() {
-
-    }
-
-    public Student(String firstName, String lastName, String email, String password, String phoneNumber, String programOfStudy) {
-        super(firstName, lastName, email, password, phoneNumber);
+    public StudentProfile(String programOfStudy) {
         this.programOfStudy = programOfStudy;
-
     }
 
     //add getters

@@ -29,6 +29,14 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LogInActivity.class);
 
         startActivity(intent);
+
+    }
+
+    public void adminHandler(View view){
+
+        Intent intent = new Intent(this, AdminActivity.class);
+
+        startActivity(intent);
     }
 
 }

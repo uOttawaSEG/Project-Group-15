@@ -11,23 +11,28 @@ public class User  {
     private String password;
     private String phoneNumber;
 
-    private String id;
+    public String status;
 
-    private static int count = 0;
+    private String role;
 
-    protected boolean isapproved;
+    public StudentProfile studentProfile;
+    public TutorProfile tutorProfile;
+
+    private String documentId;
 
 
 
 
-    public User(String firstName, String lastName, String email, String password, String phoneNumber) {
+    public User(String firstName, String lastName, String email, String password, String phoneNumber, String role, String status, StudentProfile studentProfile, TutorProfile tutorProfile) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
-        this.id = "ss-"+ String.valueOf(count++);
-        this.isapproved = false;
+        this.status = status;
+        this.role = role;
+        this.studentProfile = studentProfile;
+        this.tutorProfile = tutorProfile;
 
     }
 
@@ -56,6 +61,28 @@ public class User  {
         return phoneNumber;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public StudentProfile getStudentProfile() {
+        return studentProfile;
+    }
+
+    public TutorProfile getTutorProfile() {
+        return tutorProfile;
+    }
+
+    public String getDocumentId() {
+        return documentId;
+    }
+
+
+
 
     //add setters
     public void setFirstName(String firstName) {
@@ -78,10 +105,23 @@ public class User  {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getId() { return id; }
 
-    public boolean getIsApproved() { return isapproved; }
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-    public void setIsApproved(boolean isapproved) { this.isapproved = isapproved; }
+    public void setRole(String role) {
+        this.role = role;
+    }
+    public void setStudentProfile(StudentProfile studentProfile) {
+        this.studentProfile = studentProfile;
+    }
+    public void setTutorProfile(TutorProfile tutorProfile) {
+        this.tutorProfile = tutorProfile;
+    }
+
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
+    }
 
 }

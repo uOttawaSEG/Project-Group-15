@@ -36,17 +36,6 @@ public class SignUpActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void adminHandler(View view) {
-
-        Administrator admin = new Administrator(); //maybe add it to firebase
-        String message = "Unauthorized access, please contact the administrator at michealjordan@gmail.com";
-        Intent intent = new Intent(this, Welcome_non_admin.class);
-        intent.putExtra("message", message);
-        startActivity(intent);
-
-
-    }
-
     public void backToMainHandler(View view){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

@@ -150,20 +150,12 @@ public class TutorActivity extends AppCompatActivity {
                 Toast.makeText(this, "Form submitted", Toast.LENGTH_SHORT).show();
 
 
-                //Uploading the registration request of the tutor
-                RegistrationRequest request = new RegistrationRequest(
-                        "tutor",
-                        firstName0,
-                        lastName0,
-                        email0,
-                        phoneNum,
-                        null, // programOfStudy is null for tutors
-                        coursesOffered.getText().toString(),
-                        "pending",
-                        confirmedPassword
-                );
 
-                db.uploadRegistrationRequest(request);
+
+                //New version of uploading the user
+                TutorProfile tutorProfile = new TutorProfile(highestDegree, courses);
+                User user = new User(firstName0, lastName0, email0, confirmedPassword, phoneNum, "tutor", "pending", null, tutorProfile);
+                db.uploadUser(user);
 
                 String message = "Your registration is currently being reviewed.\n Thank you for your patience";
                 Intent intent = new Intent(this, Welcome_non_admin.class);

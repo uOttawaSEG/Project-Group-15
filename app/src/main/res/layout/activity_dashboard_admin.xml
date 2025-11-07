@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="384dp"
         android:onClick="acceptedRequstHandler"
-        android:text="Accepted Students"
+        android:text="Accepted Users"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
 
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="448dp"
         android:onClick="rejectedStudnetHandler"
-        android:text="Rejected Student "
+        android:text="Rejected Users "
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
 

@@ -26,10 +26,6 @@ public class StudentActivity extends AppCompatActivity {
     // firebase
     private FirestoreHelper db;
 
-    List<Student> studentList= new ArrayList<>(); //should be added to FireBase
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +33,7 @@ public class StudentActivity extends AppCompatActivity {
 
         // firebase
         db = new FirestoreHelper(); // create database "assistant"
+
     }
 
     public void submitHandler(View view) {
@@ -108,20 +105,15 @@ public class StudentActivity extends AppCompatActivity {
 
             errorText.setText("");
 
-            // Create a RegistrationRequest instead of uploading the Student directly
-            RegistrationRequest request = new RegistrationRequest(
-                    "student",
-                    firstName,
-                    lastName,
-                    email,
-                    phoneNumber,
-                    programOfStudy,
-                    null,
-                    "pending",
-                    password
-            );
 
-            db.uploadRegistrationRequest(request);
+            // Uploading User to Firebase, new version
+            StudentProfile studentProfile = new StudentProfile(programOfStudy);
+            User user = new User(firstName, lastName, email, password, phoneNumber, "student", "pending", studentProfile, null);
+
+            db.uploadUser(user);
+
+
+
 
             String message = "Your registration is currently being reviewed.\nThank you for your patience";
             Intent intent = new Intent(this, Welcome_non_admin.class);
