@@ -32,11 +32,5 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void adminHandler(View view){
-
-        Intent intent = new Intent(this, AdminActivity.class);
-
-        startActivity(intent);
-    }
 
 }
