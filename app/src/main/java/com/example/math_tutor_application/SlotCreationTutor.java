@@ -20,8 +20,11 @@ public class SlotCreationTutor extends AppCompatActivity {
     Button btnSelectDate, btnSelectTime, btnSelectDateEnd, btnSelectTimeEnd;
     TextView tvSelected, tvSelectedEnd;
     Calendar calendar;
+    Calendar calendarStart = Calendar.getInstance();
+    Calendar calendarEnd = Calendar.getInstance();
 
-    int year, month, day, hour, minute, yearEnd, monthEnd, dayEnd, hourEnd, minuteEnd;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,73 +48,84 @@ public class SlotCreationTutor extends AppCompatActivity {
         calendar = Calendar.getInstance();
 
         // Default values
-        year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH);
-        day = calendar.get(Calendar.DAY_OF_MONTH);
-        hour = calendar.get(Calendar.HOUR_OF_DAY);
-        minute = calendar.get(Calendar.MINUTE);
-        yearEnd = year;
-        monthEnd = month;
-        dayEnd = day;
-        hourEnd = hour;
-        minuteEnd = minute;
+
+
+
 
         btnSelectDate.setOnClickListener(v -> showDatePicker(false));
-        btnSelectTime.setOnClickListener(v -> showTimePicker());
+        btnSelectTime.setOnClickListener(v -> showTimePicker(false));
         btnSelectDateEnd.setOnClickListener(v -> showDatePicker(true));
-        btnSelectTimeEnd.setOnClickListener(v -> showTimePicker());
+        btnSelectTimeEnd.setOnClickListener(v -> showTimePicker(true));
 
     }
 
-    //start time
+
     private void showDatePicker(Boolean isEnd) {
 
         DatePickerDialog datePickerDialog;
         if (!isEnd) {
             datePickerDialog = new DatePickerDialog(this,
                     (view, selectedYear, selectedMonth, selectedDay) -> {
-                        year = selectedYear;
-                        month = selectedMonth;
-                        day = selectedDay;
+                        calendarStart.set(Calendar.YEAR, selectedYear);
+                        calendarStart.set(Calendar.MONTH, selectedMonth);
+                        calendarStart.set(Calendar.DAY_OF_MONTH, selectedDay);
                         updateText();
-                    }, year, month, day);
+                    }, calendarStart.get(Calendar.YEAR), calendarStart.get(Calendar.MONTH), calendarStart.get(Calendar.DAY_OF_MONTH));
         } else {
             datePickerDialog = new DatePickerDialog(this,
                     (view, selectedYear, selectedMonth, selectedDay) -> {
-                        yearEnd = selectedYear;
-                        monthEnd = selectedMonth;
-                        dayEnd = selectedDay;
+                        calendarEnd.set(Calendar.YEAR, selectedYear);
+                        calendarEnd.set(Calendar.MONTH, selectedMonth);
+                        calendarEnd.set(Calendar.DAY_OF_MONTH, selectedDay);
                         updateTextEnd();
-                    }, yearEnd, monthEnd, dayEnd);
+                    }, calendarEnd.get(Calendar.YEAR), calendarEnd.get(Calendar.MONTH), calendarEnd.get(Calendar.DAY_OF_MONTH));
 
         }
-        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
+
+
+        if (!isEnd) {
+            datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
+        } else {
+            datePickerDialog.getDatePicker().setMinDate(calendarStart.getTimeInMillis());
+        }
         datePickerDialog.show();
 
 
     }
 
-    private void showTimePicker() {
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
-                (view, selectedHour, selectedMinute) -> {
-                    hour = selectedHour;
-                    minute = selectedMinute;
-                    updateText();
-                }, hour, minute, true);
+    private void showTimePicker(boolean isEnd) {
+
+        TimePickerDialog timePickerDialog;
+        if (!isEnd) {
+            timePickerDialog = new TimePickerDialog(this,
+                    (view, selectedHour, selectedMinute) -> {
+                        calendarStart.set(Calendar.HOUR_OF_DAY, selectedHour);
+                        calendarStart.set(Calendar.MINUTE, selectedMinute);
+                        updateText();
+                    }, calendarStart.get(Calendar.HOUR_OF_DAY), calendarStart.get(Calendar.MINUTE), true);
+
+        } else {
+            timePickerDialog = new TimePickerDialog(this,
+                    (view, selectedHour, selectedMinute) -> {
+                        calendarEnd.set(Calendar.HOUR_OF_DAY, selectedHour);
+                        calendarEnd.set(Calendar.MINUTE, selectedMinute);
+                        updateTextEnd();
+                    }, calendarEnd.get(Calendar.HOUR_OF_DAY), calendarEnd.get(Calendar.MINUTE), true);
+
+        }
         timePickerDialog.show();
+
     }
 
     private void updateText() {
-        Date date = new Date(year - 1900, month +1, day, hour, minute);
+        Date date = new Date(calendarStart.get(Calendar.YEAR), calendarStart.get(Calendar.MONTH), calendarStart.get(Calendar.DAY_OF_MONTH), calendarStart.get(Calendar.HOUR_OF_DAY), calendarStart.get(Calendar.MINUTE));
         tvSelected.setText("Start Time: " + date.toString());
     }
 
     private void updateTextEnd() {
-        Date date = new Date(year - 1900, month +1, day, hour, minute);
+        Date date = new Date(calendarEnd.get(Calendar.YEAR), calendarEnd.get(Calendar.MONTH), calendarEnd.get(Calendar.DAY_OF_MONTH), calendarEnd.get(Calendar.HOUR_OF_DAY), calendarEnd.get(Calendar.MINUTE));
         tvSelectedEnd.setText("End Time: " + date.toString());
     }
-
-
 
 
 }
