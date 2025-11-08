@@ -3,6 +3,7 @@ package com.example.math_tutor_application;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -12,6 +13,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.switchmaterial.SwitchMaterial;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -19,10 +22,11 @@ public class SlotCreationTutor extends AppCompatActivity {
 
     Button btnSelectDate, btnSelectTime, btnSelectDateEnd, btnSelectTimeEnd;
     TextView tvSelected, tvSelectedEnd;
-    Calendar calendar;
+
     Calendar calendarStart = Calendar.getInstance();
     Calendar calendarEnd = Calendar.getInstance();
-
+    SwitchMaterial switchManualApproval;
+    boolean requiresManualApproval = false;
 
 
 
@@ -45,17 +49,16 @@ public class SlotCreationTutor extends AppCompatActivity {
         btnSelectTimeEnd = findViewById(R.id.btnSelectTimeEnd);
         tvSelectedEnd = findViewById(R.id.tvSelectedEnd);
 
-        calendar = Calendar.getInstance();
-
-        // Default values
-
-
-
-
         btnSelectDate.setOnClickListener(v -> showDatePicker(false));
         btnSelectTime.setOnClickListener(v -> showTimePicker(false));
         btnSelectDateEnd.setOnClickListener(v -> showDatePicker(true));
         btnSelectTimeEnd.setOnClickListener(v -> showTimePicker(true));
+
+        switchManualApproval = findViewById(R.id.switchManualApproval);
+        switchManualApproval.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            requiresManualApproval = isChecked;
+        });
+
 
     }
 
@@ -128,4 +131,28 @@ public class SlotCreationTutor extends AppCompatActivity {
     }
 
 
+    public void submitHandler(View view) {
+
+        //start > end
+        boolean checkYear = calendarStart.get(Calendar.YEAR) > calendarEnd.get(Calendar.YEAR);
+        boolean checkMonth = calendarStart.get(Calendar.MONTH) > calendarEnd.get(Calendar.MONTH);
+        boolean checkDay = calendarStart.get(Calendar.DAY_OF_MONTH) > calendarEnd.get(Calendar.DAY_OF_MONTH);
+        boolean checkHour = calendarStart.get(Calendar.HOUR_OF_DAY) > calendarEnd.get(Calendar.HOUR_OF_DAY);
+        boolean checkMinute = calendarStart.get(Calendar.MINUTE) > calendarEnd.get(Calendar.MINUTE);
+
+
+        //start and end minutes equal == 30 or 00
+        boolean checkMinuteStart = calendarStart.get(Calendar.MINUTE) == 0 || calendarStart.get(Calendar.MINUTE) == 30;
+        boolean checkMinuteEnd = calendarEnd.get(Calendar.MINUTE) == 0 || calendarEnd.get(Calendar.MINUTE) == 30;
+
+
+
+        //no overlap start1 <= end2 and start2 <= end1
+
+
+
+
+
+
+    }
 }
