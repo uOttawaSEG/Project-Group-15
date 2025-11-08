@@ -18,6 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Math_tutor_application">
         <activity
+            android:name=".SlotCreationTutor"
+            android:exported="false" />
+        <activity
             android:name=".Dashboard_tutor"
             android:exported="false" />
         <activity

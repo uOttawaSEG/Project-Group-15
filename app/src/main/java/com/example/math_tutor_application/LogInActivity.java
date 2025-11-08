@@ -44,7 +44,7 @@ public class LogInActivity extends AppCompatActivity {
         EditText emailText = findViewById(R.id.Email);
         EditText passwordText = findViewById(R.id.password);
 
-        String email = emailText.getText().toString().trim().toLowerCase();
+        String email = emailText.getText().toString().trim();
         String password = passwordText.getText().toString().trim();
 
         // Clear previous errors

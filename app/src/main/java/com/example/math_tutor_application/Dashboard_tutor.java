@@ -1,6 +1,8 @@
 package com.example.math_tutor_application;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +23,12 @@ public class Dashboard_tutor extends AppCompatActivity {
             return insets;
         });
 
+
+    }
+
+    public void slotCreationHandler(View view) {
+        Intent intent = new Intent(this, SlotCreationTutor.class);
+        startActivity(intent);
 
     }
 }
