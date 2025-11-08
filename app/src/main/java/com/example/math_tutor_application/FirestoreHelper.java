@@ -23,10 +23,6 @@ public class FirestoreHelper {
 
     public FirestoreHelper() { db = FirebaseFirestore.getInstance(); }
 
-    public void uploadAdmin() {} // to be implemented upon creation of Administrator class
-
-
-
 
 
     //new version that will store the user in the database
@@ -73,6 +69,19 @@ public class FirestoreHelper {
                 });
 
     }
+
+    public void uploadAprovedTutor(AprovedTutor tutor) {
+        db.collection("Admins")
+                .add(tutor)
+                .addOnSuccessListener(documentRef -> {
+                    String generatedId = documentRef.getId();
+                    tutor.setDocumentId(generatedId);
+                    documentRef.update("documentId", generatedId);
+                });
+
+    }
+
+
 
 
 

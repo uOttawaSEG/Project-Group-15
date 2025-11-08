@@ -1,6 +1,7 @@
 package com.example.math_tutor_application;
 
 
+import androidx.annotation.NonNull;
 
 public class User  {
     //an object to represent Users. Will contain thier userId, names and passwords.
@@ -108,4 +109,16 @@ public class User  {
         this.documentId = documentId;
     }
 
+    @NonNull
+    @Override
+    public String toString() {
+        return "User{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", status='" + status + '\'' +
+                ", role='" + role + '\'' +
+                '}';
+    }
 }

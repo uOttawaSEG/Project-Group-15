@@ -105,11 +105,21 @@ public class LogInActivity extends AppCompatActivity {
                                                         String message = "Welcome! You are registered as an ";
                                                         message += tutor.getRole();
                                                         message += "\n\nWelcome, " + tutor.getFirstName() + " " + tutor.getLastName() + "!\n";
-                                                        message += "Your current registration status is " + tutor.getStatus();
-                                                        message += "\n Please contact Administrator Micheal @ 647-888-9999 to inquire about your registration status";
-                                                        Intent intent = new Intent(LogInActivity.this, Welcome_non_admin.class);
-                                                        intent.putExtra("message", message);
-                                                        startActivity(intent);
+                                                        //if the tutor is approved
+                                                        if (tutor.getStatus().equals("approved")) {
+                                                            Intent intent = new Intent(LogInActivity.this, Welcome.class);
+                                                            intent.putExtra("message", message);
+                                                            startActivity(intent);
+                                                        //otherwise
+                                                        } else {
+                                                            message += "Your current registration status is " + tutor.getStatus();
+                                                            message += "\n Please contact Administrator Micheal @ 647-888-9999 to inquire about your registration status";
+                                                            Intent intent = new Intent(LogInActivity.this, Welcome_non_admin.class);
+                                                            intent.putExtra("message", message);
+                                                            startActivity(intent);
+                                                        }
+
+
                                                     } else {
                                                         errorText.setText("Invalid username or password");
                                                     }

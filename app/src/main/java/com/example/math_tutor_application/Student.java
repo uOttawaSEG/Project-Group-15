@@ -1,5 +1,7 @@
 package com.example.math_tutor_application;
 
+import androidx.annotation.NonNull;
+
 public class Student extends User {
     private String programOfStudy;
 
@@ -23,4 +25,14 @@ public class Student extends User {
     public void setProgramOfStudy(String programOfStudy) {
         this.programOfStudy = programOfStudy;
     }
+
+    @NonNull
+    @Override
+   public String toString() {
+        return "Student{" +
+                super.toString() +
+                "programOfStudy='" + programOfStudy + '\'' +
+                '}';
+    }
+
 }

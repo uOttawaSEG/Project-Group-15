@@ -12,6 +12,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class Welcome extends AppCompatActivity {
+    String message;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,12 +21,10 @@ public class Welcome extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
         Intent intent = getIntent();
-        String message = intent.getStringExtra("message");
+        message = intent.getStringExtra("message");
 
         TextView textView = findViewById(R.id.welcomeMessage);
         textView.setText(message);
-
-
 
     }
 
@@ -34,8 +34,16 @@ public class Welcome extends AppCompatActivity {
     }
 
     public void dashBoardHandler(View view) {
-        Intent intent = new Intent(this, Dashboard_admin.class);
+
+        Intent intent;
+        if (message.contains("Admin")) {
+            intent = new Intent(this, Dashboard_admin.class);
+        } else {
+            intent = new Intent(this, Dashboard_tutor.class);
+
+        }
         startActivity(intent);
+
 
     }
 
