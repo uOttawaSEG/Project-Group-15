@@ -1,12 +1,15 @@
 package com.example.math_tutor_application;
 
+
+import com.google.firebase.Timestamp;
+
 import java.util.Date;
 
 public class Sessions {
 
-    private Date startDate;
+    private Timestamp startDate;
 
-    private Date endDate;
+    private Timestamp endDate;
 
     private boolean manualApproval;
 
@@ -16,7 +19,7 @@ public class Sessions {
 
     public Sessions() {};
 
-    public Sessions(Date startDate, Date endDate, boolean manualApproval) {
+    public Sessions(Timestamp startDate, Timestamp endDate, boolean manualApproval) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.manualApproval = manualApproval;
@@ -25,20 +28,20 @@ public class Sessions {
     //getters and setters
 
 
-    public Date getStartDate() {
+    public Timestamp getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(Timestamp startDate) {
         this.startDate = startDate;
     }
 
 
-    public Date getEndDate() {
+    public Timestamp getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(Timestamp endDate) {
         this.endDate = endDate;
     }
 

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -22,6 +24,7 @@ public class LogInActivity extends AppCompatActivity {
 
 
     FirebaseFirestore db= FirebaseFirestore.getInstance();
+    String docID;
 
 
     @Override
@@ -99,16 +102,18 @@ public class LogInActivity extends AppCompatActivity {
                                                 .limit(1)
                                                 .get()
                                                 .addOnCompleteListener(task3 -> {
+
                                                     if (task3.isSuccessful() && task3.getResult() != null && !task3.getResult().isEmpty()) {
                                                         QueryDocumentSnapshot document = (QueryDocumentSnapshot) task3.getResult().getDocuments().get(0);
                                                         Tutor tutor = document.toObject(Tutor.class); // Convert document to Tutor object
                                                         String message = "Welcome! You are registered as an ";
                                                         message += tutor.getRole();
                                                         message += "\n\nWelcome, " + tutor.getFirstName() + " " + tutor.getLastName() + "!\n";
-                                                        //if the tutor is approved
                                                         if (tutor.getStatus().equals("approved")) {
                                                             Intent intent = new Intent(LogInActivity.this, Welcome.class);
                                                             intent.putExtra("message", message);
+                                                            intent.putExtra("email", email);
+                                                            intent.putExtra("password", password);
                                                             startActivity(intent);
                                                         //otherwise
                                                         } else {

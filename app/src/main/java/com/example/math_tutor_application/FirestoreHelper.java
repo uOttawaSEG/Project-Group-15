@@ -1,15 +1,8 @@
 package com.example.math_tutor_application;
 
 // imports
-import android.util.Log;
-
-import androidx.annotation.NonNull;
 
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 
 import android.content.Context;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -70,12 +63,12 @@ public class FirestoreHelper {
 
     }
 
-    public void uploadAprovedTutor(AprovedTutor tutor) {
-        db.collection("Admins")
-                .add(tutor)
+    public void uploadApprovedTutor(ApprovedTutor approvedTutor) {
+        db.collection("ApprovedTutors")
+                .add(approvedTutor)
                 .addOnSuccessListener(documentRef -> {
                     String generatedId = documentRef.getId();
-                    tutor.setDocumentId(generatedId);
+                    approvedTutor.setDocumentId(generatedId);
                     documentRef.update("documentId", generatedId);
                 });
 

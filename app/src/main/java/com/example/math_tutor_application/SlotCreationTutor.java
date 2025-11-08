@@ -2,10 +2,12 @@ package com.example.math_tutor_application;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,19 +16,38 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 public class SlotCreationTutor extends AppCompatActivity {
 
     Button btnSelectDate, btnSelectTime, btnSelectDateEnd, btnSelectTimeEnd;
-    TextView tvSelected, tvSelectedEnd;
+    TextView tvSelected, tvSelectedEnd, errorText;
 
     Calendar calendarStart = Calendar.getInstance();
     Calendar calendarEnd = Calendar.getInstance();
     SwitchMaterial switchManualApproval;
     boolean requiresManualApproval = false;
+
+    private FirebaseFirestore db;
+
+
+
+    private String docID;
+
+    ArrayList<Sessions> sessionsArrayList;
+
+
+
+
 
 
 
@@ -41,9 +62,16 @@ public class SlotCreationTutor extends AppCompatActivity {
             return insets;
         });
 
+        db = FirebaseFirestore.getInstance();
+        errorText = findViewById(R.id.errorText);
+        Intent intent = getIntent();
+        docID = intent.getStringExtra("docID");
+
+
         btnSelectDate = findViewById(R.id.btnSelectDate);
         btnSelectTime = findViewById(R.id.btnSelectTime);
         tvSelected = findViewById(R.id.tvSelected);
+        errorText = findViewById(R.id.errorText);
 
         btnSelectDateEnd = findViewById(R.id.btnSelectDateEnd);
         btnSelectTimeEnd = findViewById(R.id.btnSelectTimeEnd);
@@ -59,6 +87,23 @@ public class SlotCreationTutor extends AppCompatActivity {
             requiresManualApproval = isChecked;
         });
 
+
+
+        sessionsArrayList = new ArrayList<>();
+
+        //get sessions from firebase, done at creation to avoid multiple async calls
+        db.collection("ApprovedTutors")
+                .document(docID)
+                .collection("sessionsArrayList")
+                .get()
+                .addOnSuccessListener(querySnapshot -> {
+                    for (DocumentSnapshot doc : querySnapshot) {
+                        Sessions session = doc.toObject(Sessions.class);
+
+                        sessionsArrayList.add(session);
+
+                    }
+                });
 
     }
 
@@ -134,11 +179,11 @@ public class SlotCreationTutor extends AppCompatActivity {
     public void submitHandler(View view) {
 
         //start > end
-        boolean checkYear = calendarStart.get(Calendar.YEAR) > calendarEnd.get(Calendar.YEAR);
-        boolean checkMonth = calendarStart.get(Calendar.MONTH) > calendarEnd.get(Calendar.MONTH);
-        boolean checkDay = calendarStart.get(Calendar.DAY_OF_MONTH) > calendarEnd.get(Calendar.DAY_OF_MONTH);
-        boolean checkHour = calendarStart.get(Calendar.HOUR_OF_DAY) > calendarEnd.get(Calendar.HOUR_OF_DAY);
-        boolean checkMinute = calendarStart.get(Calendar.MINUTE) > calendarEnd.get(Calendar.MINUTE);
+        boolean checkYear = calendarStart.get(Calendar.YEAR) < calendarEnd.get(Calendar.YEAR);
+        boolean checkMonth = calendarStart.get(Calendar.MONTH) < calendarEnd.get(Calendar.MONTH);
+        boolean checkDay = calendarStart.get(Calendar.DAY_OF_MONTH) < calendarEnd.get(Calendar.DAY_OF_MONTH);
+        boolean checkHour = calendarStart.get(Calendar.HOUR_OF_DAY) < calendarEnd.get(Calendar.HOUR_OF_DAY);
+        boolean checkMinute = calendarStart.get(Calendar.MINUTE) < calendarEnd.get(Calendar.MINUTE);
 
 
         //start and end minutes equal == 30 or 00
@@ -148,8 +193,37 @@ public class SlotCreationTutor extends AppCompatActivity {
 
 
         //no overlap start1 <= end2 and start2 <= end1
+        boolean checkOverlap = true;
+        for (Sessions s : sessionsArrayList) {
+
+            if (calendarStart.getTime().before(s.getEndDate().toDate()) && calendarEnd.getTime().after(s.getStartDate().toDate())) {
+                checkOverlap = false;
+                break;
+            }
+        }
 
 
+        if (!checkYear && !checkMonth && !checkDay && !checkHour && !checkMinute && !checkMinuteStart && !checkMinuteEnd) {
+            errorText.setText("End time must be after start time");
+        } else if (!checkMinuteStart && !checkMinuteEnd) {
+            errorText.setText("Minuites must be in 30 or 00");
+
+        } else if (!checkOverlap) {
+            errorText.setText("Time slots overlap");
+
+        } else {
+            Sessions session = new Sessions(new Timestamp(calendarStart.getTime()), new Timestamp(calendarEnd.getTime()), requiresManualApproval);
+            db.collection("ApprovedTutors")
+                    .document(docID)
+                    .collection("sessionsArrayList")
+                    .add(session)
+                    .addOnSuccessListener(documentRef -> {
+                        String generatedId = documentRef.getId();
+                        documentRef.update("documentId", generatedId);
+                        sessionsArrayList.add(session);
+                    });
+            errorText.setText("");
+        }
 
 
 

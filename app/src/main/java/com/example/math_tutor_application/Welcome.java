@@ -13,6 +13,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class Welcome extends AppCompatActivity {
     String message;
+    String email;
+    String password;
+
 
 
     @Override
@@ -21,6 +24,9 @@ public class Welcome extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
         Intent intent = getIntent();
+        email = intent.getStringExtra("email");
+        password = intent.getStringExtra("password");
+
         message = intent.getStringExtra("message");
 
         TextView textView = findViewById(R.id.welcomeMessage);
@@ -40,6 +46,8 @@ public class Welcome extends AppCompatActivity {
             intent = new Intent(this, Dashboard_admin.class);
         } else {
             intent = new Intent(this, Dashboard_tutor.class);
+            intent.putExtra("email", email);
+            intent.putExtra("password", password);
 
         }
         startActivity(intent);

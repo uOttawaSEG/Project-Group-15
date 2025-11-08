@@ -137,6 +137,17 @@ public class AdminPendingRequestTutor extends AppCompatActivity {
                 });
 
         sendSMS(request.getPhoneNumber(), true);
+
+        //adds to approvedTutor
+        ApprovedTutor approvedTutor = new ApprovedTutor(request);
+
+        db.collection("ApprovedTutors")
+                .add(approvedTutor)
+                .addOnSuccessListener(documentRef -> {
+                    String generatedId = documentRef.getId();
+                    approvedTutor.setDocumentId(generatedId);
+                    documentRef.update("documentId", generatedId);
+                });
     }
 
     public void rejectStudent1(View view) {
@@ -164,6 +175,17 @@ public class AdminPendingRequestTutor extends AppCompatActivity {
 
 
         sendSMS(request.getPhoneNumber(), true);
+
+        //adds to approvedTutor
+        ApprovedTutor approvedTutor = new ApprovedTutor(request);
+
+        db.collection("ApprovedTutors")
+                .add(approvedTutor)
+                .addOnSuccessListener(documentRef -> {
+                    String generatedId = documentRef.getId();
+                    approvedTutor.setDocumentId(generatedId);
+                    documentRef.update("documentId", generatedId);
+                });
     }
 
     public void rejectStudent2(View view) {
@@ -191,6 +213,17 @@ public class AdminPendingRequestTutor extends AppCompatActivity {
                 });
 
         sendSMS(request.getPhoneNumber(), true);
+
+        //adds to approvedTutor
+        ApprovedTutor approvedTutor = new ApprovedTutor(request);
+
+        db.collection("ApprovedTutors")
+                .add(approvedTutor)
+                .addOnSuccessListener(documentRef -> {
+                    String generatedId = documentRef.getId();
+                    approvedTutor.setDocumentId(generatedId);
+                    documentRef.update("documentId", generatedId);
+                });
     }
 
     //3
@@ -218,6 +251,17 @@ public class AdminPendingRequestTutor extends AppCompatActivity {
                 });
 
         sendSMS(request.getPhoneNumber(), true);
+
+        //adds to approvedTutor
+        ApprovedTutor approvedTutor = new ApprovedTutor(request);
+
+        db.collection("ApprovedTutors")
+                .add(approvedTutor)
+                .addOnSuccessListener(documentRef -> {
+                    String generatedId = documentRef.getId();
+                    approvedTutor.setDocumentId(generatedId);
+                    documentRef.update("documentId", generatedId);
+                });
     }
 
     public void rejectStudent4(View view) {
@@ -242,6 +286,17 @@ public class AdminPendingRequestTutor extends AppCompatActivity {
                 });
 
         sendSMS(request.getPhoneNumber(), true);
+
+        //adds to approvedTutor
+        ApprovedTutor approvedTutor = new ApprovedTutor(request);
+
+        db.collection("ApprovedTutors")
+                .add(approvedTutor)
+                .addOnSuccessListener(documentRef -> {
+                    String generatedId = documentRef.getId();
+                    approvedTutor.setDocumentId(generatedId);
+                    documentRef.update("documentId", generatedId);
+                });
     }
     public void rejectStudent5(View view) {
         Tutor request = pendingRequests.get(4);
