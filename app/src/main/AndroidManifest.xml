@@ -80,6 +80,12 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".TutorUpcomingSessionsActivity"
+            android:exported="false">
+
+        </activity>
+
         <meta-data
             android:name="firebase_firestore_emulator_host"
             android:value="10.0.2.2:8080" />

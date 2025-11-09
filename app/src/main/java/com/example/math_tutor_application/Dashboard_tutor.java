@@ -64,10 +64,10 @@ public class Dashboard_tutor extends AppCompatActivity {
     }
 
     public void upcomingSessionsHandler(View view) {
-        Intent i = new Intent(this, TutorUpcomingSessionsActivity.class);
-        i.putExtra("approvedTutorDocId", docID);
-        i.putExtra("email", email);
-        startActivity(i);
+        Intent intent = new Intent(this, TutorUpcomingSessionsActivity.class);
+        intent.putExtra("approvedTutorDocId", docID);
+        intent.putExtra("email", email);
+        startActivity(intent);
     }
 
 
