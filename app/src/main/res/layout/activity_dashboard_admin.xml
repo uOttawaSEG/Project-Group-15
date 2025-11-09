@@ -10,13 +10,13 @@
 
     <Button
         android:id="@+id/pendingRequest2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="214dp"
+        android:layout_height="49dp"
         android:layout_marginTop="420dp"
         android:onClick="pendingRequestHandler2"
         android:text="Pending requests Tutor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.548"
+        app:layout_constraintHorizontal_bias="0.524"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,13 +35,14 @@
 
     <Button
         android:id="@+id/rejectedRequest2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="149dp"
+        android:layout_height="52dp"
         android:layout_marginTop="584dp"
         android:onClick="rejectedStudnetHandler2"
         android:text="Rejected Tutor"
         app:layout_constraintEnd_toEndOf="parent"
 
+        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,24 +62,25 @@
         android:id="@+id/acceptedRequest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="204dp"
+        android:layout_marginTop="208dp"
         android:onClick="acceptedRequstHandler"
         android:text="Accepted Student"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.542"
+        app:layout_constraintHorizontal_bias="0.514"
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/rejectedRequest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="47dp"
         android:layout_marginTop="284dp"
         android:onClick="rejectedStudnetHandler"
         android:text="Rejected Student"
         app:layout_constraintEnd_toEndOf="parent"
 
+        app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
