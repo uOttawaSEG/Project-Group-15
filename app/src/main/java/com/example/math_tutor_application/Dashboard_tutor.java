@@ -3,6 +3,7 @@ package com.example.math_tutor_application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -61,5 +62,14 @@ public class Dashboard_tutor extends AppCompatActivity {
         Intent intent = new Intent(this, PendingRequestActivity.class);
         startActivity(intent);
     }
+
+    public void upcomingSessionsHandler(View view) {
+        Intent i = new Intent(this, TutorUpcomingSessionsActivity.class);
+        i.putExtra("approvedTutorDocId", docID);
+        i.putExtra("email", email);
+        startActivity(i);
+    }
+
+
 
 }
