@@ -26,6 +26,7 @@
         android:layout_height="52dp"
         android:layout_marginTop="300dp"
         android:text="Pending Sessions"
+        android:onClick="tutorHandler"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.551"
         app:layout_constraintStart_toStartOf="parent"

@@ -18,6 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Math_tutor_application">
         <activity
+            android:name=".PendingRequestActivity"
+            android:exported="false" />
+        <activity
             android:name=".SlotCreationTutor"
             android:exported="false" />
         <activity

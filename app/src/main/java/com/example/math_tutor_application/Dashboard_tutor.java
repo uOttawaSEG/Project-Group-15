@@ -45,6 +45,7 @@ public class Dashboard_tutor extends AppCompatActivity {
                     }
                 });
 
+
     }
 
     public void slotCreationHandler(View view) {
@@ -53,11 +54,12 @@ public class Dashboard_tutor extends AppCompatActivity {
         intent.putExtra("password", password);
         intent.putExtra("docID", docID);
 
-
-
         startActivity(intent);
-
-
-
     }
+
+    public void tutorHandler(View view) {
+        Intent intent = new Intent(this, PendingRequestActivity.class);
+        startActivity(intent);
+    }
+
 }
