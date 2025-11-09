@@ -69,4 +69,24 @@ public class Sessions {
         this.approvedTutorId = approvedTutorId;
     }
 
+    // To check if a method is in the past or not
+    public boolean isPastSession() {
+        // If endDate is null then the sesh was invalid to begin with
+        if (endDate == null) return false;
+
+        // current time (right now = rn)
+        java.util.Date rn = new java.util.Date();
+
+        // Check if endDate is before current time
+        return endDate.toDate().before(rn);
+    }
+
+    // For upcoming sessions to check
+    public boolean isUpcomingSession() {
+
+        if (startDate == null) return false;
+        java.util.Date rn = new java.util.Date();
+        return startDate.toDate().after(rn);
+    }
+
 }
