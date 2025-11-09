@@ -3,8 +3,6 @@ package com.example.math_tutor_application;
 
 import com.google.firebase.Timestamp;
 
-import java.util.Date;
-
 public class Sessions {
 
     private Timestamp startDate;
@@ -13,7 +11,9 @@ public class Sessions {
 
     private boolean manualApproval;
 
-    private String documentId;
+    private String documentId; //for firebase
+
+    private String approvedTutorId; //for firebase
 
 
 
@@ -59,6 +59,34 @@ public class Sessions {
 
     public void setDocumentId(String documentId) {
         this.documentId = documentId;
+    }
+
+    public String getApprovedTutorId() {
+        return approvedTutorId;
+    }
+
+    public void setApprovedTutorId(String approvedTutorId) {
+        this.approvedTutorId = approvedTutorId;
+    }
+
+    // To check if a method is in the past or not
+    public boolean isPastSession() {
+        // If endDate is null then the sesh was invalid to begin with
+        if (endDate == null) return false;
+
+        // current time (right now = rn)
+        java.util.Date rn = new java.util.Date();
+
+        // Check if endDate is before current time
+        return endDate.toDate().before(rn);
+    }
+
+    // For upcoming sessions to check
+    public boolean isUpcomingSession() {
+
+        if (startDate == null) return false;
+        java.util.Date rn = new java.util.Date();
+        return startDate.toDate().after(rn);
     }
 
 }

@@ -39,8 +39,6 @@ public class SlotCreationTutor extends AppCompatActivity {
 
     private FirebaseFirestore db;
 
-
-
     private String docID;
 
     ArrayList<Sessions> sessionsArrayList;
@@ -166,13 +164,14 @@ public class SlotCreationTutor extends AppCompatActivity {
     }
 
     private void updateText() {
-        Date date = new Date(calendarStart.get(Calendar.YEAR), calendarStart.get(Calendar.MONTH), calendarStart.get(Calendar.DAY_OF_MONTH), calendarStart.get(Calendar.HOUR_OF_DAY), calendarStart.get(Calendar.MINUTE));
-        tvSelected.setText("Start Time: " + date.toString());
+
+        String message = String.format("Start Time %d-%02d-%02d %02d:%02d", calendarStart.get(Calendar.YEAR), calendarStart.get(Calendar.MONTH) + 1, calendarStart.get(Calendar.DAY_OF_MONTH), calendarStart.get(Calendar.HOUR_OF_DAY), calendarStart.get(Calendar.MINUTE));
+        tvSelected.setText(message);
     }
 
     private void updateTextEnd() {
-        Date date = new Date(calendarEnd.get(Calendar.YEAR), calendarEnd.get(Calendar.MONTH), calendarEnd.get(Calendar.DAY_OF_MONTH), calendarEnd.get(Calendar.HOUR_OF_DAY), calendarEnd.get(Calendar.MINUTE));
-        tvSelectedEnd.setText("End Time: " + date.toString());
+        String message = String.format("End Time %d-%02d-%02d %02d:%02d", calendarEnd.get(Calendar.YEAR), calendarEnd.get(Calendar.MONTH) + 1, calendarEnd.get(Calendar.DAY_OF_MONTH), calendarEnd.get(Calendar.HOUR_OF_DAY), calendarEnd.get(Calendar.MINUTE));
+        tvSelectedEnd.setText(message);
     }
 
 
@@ -213,6 +212,9 @@ public class SlotCreationTutor extends AppCompatActivity {
 
         } else {
             Sessions session = new Sessions(new Timestamp(calendarStart.getTime()), new Timestamp(calendarEnd.getTime()), requiresManualApproval);
+            session.setApprovedTutorId(docID);
+
+            //adds it to the tutor
             db.collection("ApprovedTutors")
                     .document(docID)
                     .collection("sessionsArrayList")
@@ -220,9 +222,27 @@ public class SlotCreationTutor extends AppCompatActivity {
                     .addOnSuccessListener(documentRef -> {
                         String generatedId = documentRef.getId();
                         documentRef.update("documentId", generatedId);
+                        session.setDocumentId(generatedId);
                         sessionsArrayList.add(session);
+                    }).addOnCompleteListener(aVoid -> {
+
+                        //adds it for the public
+                        db.collection("Sessions").document(session.getDocumentId()).set(session);
+                        Toast.makeText(this, "Slot created Successfully", Toast.LENGTH_SHORT).show();
+
+                        //temporally - creates a bunch of RegisteredSession as the logic is not implemented yet till div 4
+                        //RegisteredSessions registeredSessions = new RegisteredSessions(session);
+                        // registeredSessions.setApprovedTutorId(docID);
+                        // registeredSessions.setDocumentId(session.getDocumentId());
+                        // db.collection("RegisteredSessions").document(session.getDocumentId()).set(registeredSessions);
+
+
                     });
+
             errorText.setText("");
+
+
+
         }
 
 
