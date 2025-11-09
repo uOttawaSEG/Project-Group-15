@@ -1,0 +1,39 @@
+package com.example.math_tutor_application;
+
+
+
+public class RegisteredSessions extends Sessions {
+    //When a student registers to a Session, a RegisteredSession is created
+
+    String status = "pending";
+  
+    String approvedStudentID; //for firebase
+
+    RegisteredSessions() {}
+
+    RegisteredSessions(Sessions session)
+    {
+        super(session.getStartDate(), session.getEndDate(), session.getManualApproval());
+
+    }
+
+
+
+    //setters and getters
+    public String getstatus() {
+        return status;
+    }
+
+    public void setstatus(String approved) {
+        status = approved;
+    }
+
+    public String getApprovedStudentID() {
+        return approvedStudentID;
+    }
+
+    public void setApprovedStudentID(String approvedStudentID) {
+        this.approvedStudentID = approvedStudentID;
+    }
+
+}

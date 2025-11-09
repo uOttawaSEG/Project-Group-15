@@ -3,8 +3,6 @@ package com.example.math_tutor_application;
 
 import com.google.firebase.Timestamp;
 
-import java.util.Date;
-
 public class Sessions {
 
     private Timestamp startDate;
@@ -13,7 +11,9 @@ public class Sessions {
 
     private boolean manualApproval;
 
-    private String documentId;
+    private String documentId; //for firebase
+
+    private String approvedTutorId; //for firebase
 
 
 
@@ -59,6 +59,14 @@ public class Sessions {
 
     public void setDocumentId(String documentId) {
         this.documentId = documentId;
+    }
+
+    public String getApprovedTutorId() {
+        return approvedTutorId;
+    }
+
+    public void setApprovedTutorId(String approvedTutorId) {
+        this.approvedTutorId = approvedTutorId;
     }
 
 }
