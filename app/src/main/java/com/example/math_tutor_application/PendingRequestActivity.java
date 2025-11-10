@@ -92,6 +92,7 @@ public class PendingRequestActivity extends AppCompatActivity {
                             request.setApprovedTutor(approvedTutor);
 
                             //fetch student info
+                            if(request.getApprovedStudentID() == null) continue;
                             String studentId = request.getApprovedStudentID();
                             db.collection("Students").document(studentId).get().addOnCompleteListener(task2 -> {
                                 if (task2.isSuccessful()) {

@@ -11,8 +11,12 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import java.util.ArrayList;
-import java.util.List;
+import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Calendar;
+
 
 public class StudentActivity extends AppCompatActivity {
 
@@ -24,20 +28,63 @@ public class StudentActivity extends AppCompatActivity {
     protected String programOfStudy;
 
     // firebase
-    private FirestoreHelper db;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
 
-        // firebase
-        db = new FirestoreHelper(); // create database "assistant"
+        String docIDTut = "VNGdzKkDMu9TySAPnn2r";
+
+        Calendar calendarStart = Calendar.getInstance();
+        Calendar calendarEnd = Calendar.getInstance();
+        boolean requiresManualApproval;
+
+        //pusing past date every month year 2022
+        for (int i = 0; i < 10; i++) {
+            requiresManualApproval = i % 2 == 0;
+            calendarStart.set(Calendar.YEAR, 2022);
+            calendarStart.set(Calendar.MONTH, i);
+            calendarStart.set(Calendar.DAY_OF_MONTH, 10);
+            calendarStart.set(Calendar.HOUR_OF_DAY, 14);
+            calendarStart.set(Calendar.MINUTE, 0);
+            calendarEnd.set(Calendar.YEAR, 2022);
+            calendarEnd.set(Calendar.MONTH, i);
+            calendarEnd.set(Calendar.DAY_OF_MONTH, 10);
+            calendarEnd.set(Calendar.HOUR_OF_DAY, 15);
+            calendarEnd.set(Calendar.MINUTE, 0);
+
+            Sessions session = new Sessions(new Timestamp(calendarStart.getTime()), new Timestamp(calendarEnd.getTime()), requiresManualApproval);
+            session.setApprovedTutorId(docIDTut);
+
+            //pushing past dates
+            // Inside your for loop...
+/*            db.collection("ApprovedTutors")
+                    .document(docIDTut)
+                    .collection("sessionsArrayList")
+                    .add(session)
+                    .addOnSuccessListener(documentRef -> {
+
+                        String generatedId = documentRef.getId();
+
+                        session.setDocumentId(generatedId);
+                        documentRef.update("documentId", generatedId);
+
+                        RegisteredSessions registeredSessions = new RegisteredSessions(session);
+
+                        db.collection("RegisteredSessions")
+                                .document(generatedId)
+                                .set(registeredSessions);
+
+                    });*/
+
+        }
 
 
 
 
-    }
+        }
 
     public void submitHandler(View view) {
 
@@ -110,8 +157,14 @@ public class StudentActivity extends AppCompatActivity {
 
 
             // Uploading User to Firebase, new version
-            Student user = new Student(firstName, lastName, email, password, phoneNumber, "Student", "pending", programOfStudy);
-            db.uploadStudent(user);
+            Student student = new Student(firstName, lastName, email, password, phoneNumber, "Student", "pending", programOfStudy);
+            db.collection("Students")
+                    .add(student)
+                    .addOnSuccessListener(documentRef -> {
+                        String generatedId = documentRef.getId();
+                        student.setDocumentId(generatedId);
+                        documentRef.update("documentId", generatedId);
+                    });
 
 
 
