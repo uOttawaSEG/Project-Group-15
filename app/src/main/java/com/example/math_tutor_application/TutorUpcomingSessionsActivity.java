@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -87,9 +88,9 @@ public class TutorUpcomingSessionsActivity extends AppCompatActivity {
         Date now = new Date();
         Log.d("Firestore", "Fetching upcoming for tutorDocId: " + tutorDocId);
 
-        db.collection("RegisteredSessions")
-                .whereEqualTo("status", "approved")
-                .whereEqualTo("approvedTutorId", tutorDocId)
+        db.collection("ApprovedTutors")
+                .document(tutorDocId)
+                .collection("sessionsArrayList")
                 .whereGreaterThanOrEqualTo("startDate", now)
                 .orderBy("startDate")
                 .get()
@@ -113,9 +114,10 @@ public class TutorUpcomingSessionsActivity extends AppCompatActivity {
                         ).show();
                     } else {
                         Log.e("Firestore", "Error fetching upcoming sessions", task.getException());
-                        Toast.makeText(this, "Failed to load upcoming sessions", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, tutorDocId, Toast.LENGTH_SHORT).show();
                     }
                 });
+
     }
 
     private void showStudentInformation(RegisteredSessions session) {
