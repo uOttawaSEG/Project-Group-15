@@ -1,7 +1,4 @@
-package com.example.math_tutor_application;
-
-import com.example.math_tutor_application.uml_classes.Sessions;
-import com.example.math_tutor_application.uml_classes.Tutor;
+package com.example.math_tutor_application.uml_classes;
 
 import java.util.ArrayList;
 

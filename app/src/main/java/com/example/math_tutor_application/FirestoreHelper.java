@@ -2,6 +2,7 @@ package com.example.math_tutor_application;
 
 // imports
 
+import com.example.math_tutor_application.uml_classes.ApprovedTutor;
 import com.example.math_tutor_application.uml_classes.Student;
 import com.example.math_tutor_application.uml_classes.Tutor;
 import com.example.math_tutor_application.uml_classes.User;

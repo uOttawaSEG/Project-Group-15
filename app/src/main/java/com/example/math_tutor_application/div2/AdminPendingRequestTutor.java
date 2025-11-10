@@ -15,7 +15,7 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.example.math_tutor_application.ApprovedTutor;
+import com.example.math_tutor_application.uml_classes.ApprovedTutor;
 import com.example.math_tutor_application.LogInActivity;
 import com.example.math_tutor_application.R;
 import com.example.math_tutor_application.uml_classes.Tutor;

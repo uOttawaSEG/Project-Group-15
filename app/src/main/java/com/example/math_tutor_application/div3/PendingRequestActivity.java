@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.math_tutor_application.ApprovedTutor;
+import com.example.math_tutor_application.uml_classes.ApprovedTutor;
 import com.example.math_tutor_application.R;
 import com.example.math_tutor_application.uml_classes.RegisteredSessions;
 import com.example.math_tutor_application.uml_classes.Student;

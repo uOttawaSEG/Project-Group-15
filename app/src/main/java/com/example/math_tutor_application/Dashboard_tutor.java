@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.math_tutor_application.div3.PendingRequestActivity;
 import com.example.math_tutor_application.div3.TutorPastSessions;
 import com.example.math_tutor_application.div3.TutorUpcomingSessionsActivity;
+import com.example.math_tutor_application.uml_classes.ApprovedTutor;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
