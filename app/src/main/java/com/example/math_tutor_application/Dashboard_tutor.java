@@ -16,7 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Dashboard_tutor extends AppCompatActivity {
 
-    String email, password, docID, firstName, lastName, fullName;
+    String email, password, docID, firstName, lastName;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
@@ -63,6 +63,10 @@ public class Dashboard_tutor extends AppCompatActivity {
 
     public void tutorHandler(View view) {
         Intent intent = new Intent(this, PendingRequestActivity.class);
+        intent.putExtra("docID", docID);
+        intent.putExtra("email", email);
+        intent.putExtra("firstName", firstName);
+        intent.putExtra("lastName", lastName);
         startActivity(intent);
     }
 

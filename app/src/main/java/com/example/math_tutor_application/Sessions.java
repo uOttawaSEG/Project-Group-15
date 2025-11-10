@@ -15,6 +15,8 @@ public class Sessions {
 
     private String approvedTutorId; //for firebase
 
+    ApprovedTutor approvedTutor;
+
 
 
     public Sessions() {};
@@ -68,6 +70,14 @@ public class Sessions {
     public void setApprovedTutorId(String approvedTutorId) {
         this.approvedTutorId = approvedTutorId;
     }
+
+    public ApprovedTutor getApprovedTutor() {
+        return approvedTutor;
+    }
+    public void setApprovedTutor(ApprovedTutor approvedTutor) {
+        this.approvedTutor = approvedTutor;
+    }
+
 
     // To check if a method is in the past or not
     public boolean isPastSession() {

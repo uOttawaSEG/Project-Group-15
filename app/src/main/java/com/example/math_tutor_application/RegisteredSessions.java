@@ -11,6 +11,8 @@ public class RegisteredSessions extends Sessions {
 
     Student student;
 
+
+
     RegisteredSessions() {}
 
     RegisteredSessions(Sessions session)
@@ -47,6 +49,9 @@ public class RegisteredSessions extends Sessions {
     public void setStudent(Student student) {
         this.student = student;
     }
+
+
+
 
 
 }

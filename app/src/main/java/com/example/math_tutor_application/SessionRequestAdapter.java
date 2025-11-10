@@ -41,14 +41,16 @@ public class SessionRequestAdapter extends RecyclerView.Adapter<SessionRequestAd
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         RegisteredSessions request = requestList.get(position);
 
-        //avoids a null pinter errror
         String studentInfo = "";
+        //avoids a null pinter error
         if (request.getStudent() != null) {
             studentInfo = request.getStudent().toString();
         }
 
+        String tutorInfo = request.getApprovedTutor().getFirstName() + " " + request.getApprovedTutor().getLastName();
+
         holder.studentName.setText("Student Info: " + studentInfo);
-        holder.course.setText("Tutor ID: " + request.getApprovedTutorId());
+        holder.course.setText("Tutor info: " + tutorInfo); //is a bit redundant since this dashboard belongs to this ApprovedTutor
 
         String timeText = DateFormat.getDateTimeInstance().format(request.getStartDate().toDate())
                 + " - " + DateFormat.getDateTimeInstance().format(request.getEndDate().toDate());

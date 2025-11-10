@@ -20,11 +20,25 @@ public class PendingRequestActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private SessionRequestAdapter adapter;
     private List<RegisteredSessions> requestList = new ArrayList<>();
+    private ApprovedTutor approvedTutor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pending_request);
+
+        //ApprovedTutor info - passed on from dashboard no need for firebase
+        String approvedTutorDocId = getIntent().getStringExtra("approvedTutorDocId");
+        String email = getIntent().getStringExtra("email");
+        String firstName = getIntent().getStringExtra("firstName");
+        String lastName = getIntent().getStringExtra("lastName");
+        approvedTutor = new ApprovedTutor();
+        approvedTutor.setDocumentId(approvedTutorDocId);
+        approvedTutor.setEmail(email);
+        approvedTutor.setFirstName(firstName);
+        approvedTutor.setLastName(lastName);
+
 
         db = FirebaseFirestore.getInstance();
         recyclerView = findViewById(R.id.recyclerView);
@@ -73,6 +87,7 @@ public class PendingRequestActivity extends AppCompatActivity {
                             Log.d("Firestore", "Document: " + doc.getData().toString());
                             RegisteredSessions request = doc.toObject(RegisteredSessions.class);
                             request.setDocumentId(doc.getId());
+                            request.setApprovedTutor(approvedTutor);
 
                             //fetch student info
                             String studentId = request.getApprovedStudentID();
