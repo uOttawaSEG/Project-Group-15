@@ -107,6 +107,11 @@ public class PendingRequestActivity extends AppCompatActivity {
                         Log.e("Firestore", "Error fetching documents", task.getException());
                         Toast.makeText(this, "Failed to load requests", Toast.LENGTH_SHORT).show();
                     }
+                }).addOnCompleteListener(task2 -> {
+                    //Tells the user if the list is empty so it doesn't look like a bug
+                    if (requestList.isEmpty()) {
+                        Toast.makeText(this, "No pending requests", Toast.LENGTH_SHORT).show();
+                    }
                 });
     }
 
