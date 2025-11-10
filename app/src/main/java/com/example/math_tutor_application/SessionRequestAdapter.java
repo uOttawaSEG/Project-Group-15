@@ -14,16 +14,16 @@ import java.util.List;
 
 public class SessionRequestAdapter extends RecyclerView.Adapter<SessionRequestAdapter.ViewHolder> {
 
-    private List<SessionRequest> requestList;
+    private List<RegisteredSessions> requestList;
     private OnRequestActionListener listener;
 
     // Interface to communicate button actions back to the activity
     public interface OnRequestActionListener {
-        void onApprove(SessionRequest request);
-        void onReject(SessionRequest request);
+        void onApprove(RegisteredSessions request);
+        void onReject(RegisteredSessions request);
     }
 
-    public SessionRequestAdapter(List<SessionRequest> requestList, OnRequestActionListener listener) {
+    public SessionRequestAdapter(List<RegisteredSessions> requestList, OnRequestActionListener listener) {
         this.requestList = requestList;
         this.listener = listener;
     }
@@ -39,7 +39,7 @@ public class SessionRequestAdapter extends RecyclerView.Adapter<SessionRequestAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        SessionRequest request = requestList.get(position);
+        RegisteredSessions request = requestList.get(position);
 
         holder.studentName.setText("Student ID: " + request.getApprovedStudentID());
         holder.course.setText("Tutor ID: " + request.getApprovedTutorId());

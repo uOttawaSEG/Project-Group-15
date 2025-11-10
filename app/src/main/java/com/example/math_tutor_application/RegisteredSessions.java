@@ -24,7 +24,7 @@ public class RegisteredSessions extends Sessions {
         return status;
     }
 
-    public void setstatus(String approved) {
+    public void setStatus(String approved) {
         status = approved;
     }
 

@@ -19,7 +19,7 @@ public class PendingRequestActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private RecyclerView recyclerView;
     private SessionRequestAdapter adapter;
-    private List<SessionRequest> requestList = new ArrayList<>();
+    private List<RegisteredSessions> requestList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class PendingRequestActivity extends AppCompatActivity {
 
         adapter = new SessionRequestAdapter(requestList, new SessionRequestAdapter.OnRequestActionListener() {
             @Override
-            public void onApprove(SessionRequest request) {
+            public void onApprove(RegisteredSessions request) {
                 request.setStatus("approved");
                 db.collection("RegisteredSessions").document(request.getDocumentId())
                         .update("status", "approved", "isApproval", true)
@@ -44,7 +44,7 @@ public class PendingRequestActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onReject(SessionRequest request) {
+            public void onReject(RegisteredSessions request) {
                 request.setStatus("rejected");
                 db.collection("RegisteredSessions").document(request.getDocumentId())
                         .update("status", "rejected", "isApproval", false)
@@ -70,7 +70,7 @@ public class PendingRequestActivity extends AppCompatActivity {
                         requestList.clear();
                         for (QueryDocumentSnapshot doc : task.getResult()) {
                             Log.d("Firestore", "Document: " + doc.getData().toString());
-                            SessionRequest request = doc.toObject(SessionRequest.class);
+                            RegisteredSessions request = doc.toObject(RegisteredSessions.class);
                             request.setDocumentId(doc.getId());
                             requestList.add(request);
                         }
