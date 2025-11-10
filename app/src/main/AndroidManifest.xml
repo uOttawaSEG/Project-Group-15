@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Math_tutor_application">
         <activity
-            android:name=".PendingRequestActivity"
+            android:name=".div3.PendingRequestActivity"
             android:exported="false" />
         <activity
             android:name=".SlotCreationTutor"
@@ -27,13 +27,13 @@
             android:name=".Dashboard_tutor"
             android:exported="false" />
         <activity
-            android:name=".AdminAcceptedRequestTutor"
+            android:name=".div2.AdminAcceptedRequestTutor"
             android:exported="false" />
         <activity
-            android:name=".AdminRejectedTutor"
+            android:name=".div2.AdminRejectedTutor"
             android:exported="false" />
         <activity
-            android:name=".AdminPendingRequestTutor"
+            android:name=".div2.AdminPendingRequestTutor"
             android:exported="false" />
         <activity
             android:name=".MainActivity2"
@@ -44,16 +44,16 @@
             android:name=".Welcome_non_admin"
             android:exported="false" />
         <activity
-            android:name=".AdminRejectedStudent"
+            android:name=".div2.AdminRejectedStudent"
             android:exported="false" />
         <activity
-            android:name=".AdminAcceptedRequest"
+            android:name=".div2.AdminAcceptedRequest"
             android:exported="false" />
         <activity
-            android:name=".AdminPendingRequest"
+            android:name=".div2.AdminPendingRequest"
             android:exported="false" />
         <activity
-            android:name=".Dashboard_admin"
+            android:name=".div2.Dashboard_admin"
             android:exported="false" />
         <activity
             android:name=".LogInActivity"
@@ -71,7 +71,7 @@
             android:name=".StudentActivity"
             android:exported="false" />
         <activity
-            android:name=".TutorPastSessions"
+            android:name=".div3.TutorPastSessions"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -84,7 +84,7 @@
         </activity>
 
         <activity
-            android:name=".TutorUpcomingSessionsActivity"
+            android:name=".div3.TutorUpcomingSessionsActivity"
             android:exported="false">
 
         </activity>

@@ -3,7 +3,6 @@ package com.example.math_tutor_application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +10,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.math_tutor_application.div3.PendingRequestActivity;
+import com.example.math_tutor_application.div3.TutorPastSessions;
+import com.example.math_tutor_application.div3.TutorUpcomingSessionsActivity;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
