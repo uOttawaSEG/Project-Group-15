@@ -1,0 +1,50 @@
+version: '2.1'
+orbs:
+  android: circleci/android@3.0.0
+jobs:
+  test:
+    executor:
+      name: android/android_machine
+      resource_class: large
+      tag: default
+    steps:
+      - checkout
+      - run:
+          name: Download Dependencies
+          command: |
+            sudo chmod +x ./gradlew
+            ./gradlew androidDependencies
+      - android/create_avd:
+          avd_name: myavd
+          install: true
+          system_image: system-images;android-31;default;x86_64
+      - android/start_emulator:
+          avd_name: myavd
+          no_window: true
+          restore_gradle_cache_prefix: v1a
+      - android/run_tests
+      - android/save_gradle_cache:
+          cache_prefix: v1a
+  release-build:
+    executor:
+      name: android/android_docker
+      tag: 2025.03.1
+    steps:
+      - checkout
+      - run:
+          name: Download Dependencies
+          command: |
+            sudo chmod +x ./gradlew
+            ./gradlew androidDependencies
+      - android/restore_gradle_cache
+      - run:
+          name: Assemble release build
+          command: |
+            ./gradlew assembleRelease
+      - store_artifacts:
+          path: app/build/outputs/apk/release/app-release-unsigned.apk
+workflows:
+  test:
+    jobs:
+      - test
+      - release-build
