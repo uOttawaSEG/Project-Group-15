@@ -9,6 +9,11 @@ jobs:
       tag: default
     steps:
       - checkout
+      - run:
+          name: Download Dependencies
+          command: |
+            sudo chmod +x ./gradlew
+            ./gradlew androidDependencies
       - android/create_avd:
           avd_name: myavd
           install: true
