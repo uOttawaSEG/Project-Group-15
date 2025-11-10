@@ -25,7 +25,21 @@ jobs:
       - android/run_tests
       - android/save_gradle_cache:
           cache_prefix: v1a
+  release-build:
+    executor:
+      name: android/android_docker
+      tag: 2025.03.1
+    steps:
+      - checkout
+      - android/restore_gradle_cache
+      - run:
+          name: Assemble release build
+          command: |
+            ./gradlew assembleRelease
+      - store_artifacts:
+          path: app/build/outputs/apk/release/app-release-unsigned.apk
 workflows:
   test:
     jobs:
       - test
+      - release-build
