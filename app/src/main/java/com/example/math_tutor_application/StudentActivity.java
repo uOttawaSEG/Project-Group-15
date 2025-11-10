@@ -1,7 +1,6 @@
 package com.example.math_tutor_application;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -11,7 +10,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.example.math_tutor_application.uml_classes.Sessions;
+import com.example.math_tutor_application.uml_classes.Student;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
 

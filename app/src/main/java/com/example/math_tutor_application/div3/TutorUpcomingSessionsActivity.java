@@ -1,4 +1,4 @@
-package com.example.math_tutor_application;
+package com.example.math_tutor_application.div3;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,15 +11,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.example.math_tutor_application.R;
+import com.example.math_tutor_application.uml_classes.RegisteredSessions;
+import com.example.math_tutor_application.uml_classes.Student;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Collections;
-import java.util.Comparator;
 
 
 public class TutorUpcomingSessionsActivity extends AppCompatActivity {

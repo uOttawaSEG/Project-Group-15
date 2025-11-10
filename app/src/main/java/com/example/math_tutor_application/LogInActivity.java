@@ -6,7 +6,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.example.math_tutor_application.uml_classes.Student;
+import com.example.math_tutor_application.uml_classes.Tutor;
+import com.example.math_tutor_application.uml_classes.User;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -15,9 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class LogInActivity extends AppCompatActivity {
 

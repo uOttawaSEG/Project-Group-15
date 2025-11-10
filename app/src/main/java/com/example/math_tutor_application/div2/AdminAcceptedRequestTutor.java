@@ -1,4 +1,4 @@
-package com.example.math_tutor_application;
+package com.example.math_tutor_application.div2;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.math_tutor_application.LogInActivity;
+import com.example.math_tutor_application.R;
+import com.example.math_tutor_application.uml_classes.Tutor;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -18,10 +21,10 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminRejectedTutor extends AppCompatActivity {
+public class AdminAcceptedRequestTutor extends AppCompatActivity {
 
     private FirebaseFirestore db;
-
+    private FirebaseAuth mAuth;
 
     private List<Tutor> pendingRequests = new ArrayList<>();
 
@@ -29,23 +32,23 @@ public class AdminRejectedTutor extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_admin_rejected_tutor);
+        setContentView(R.layout.activity_admin_accepted_request_tutor);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        db = FirebaseFirestore.getInstance();
 
+        db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
         fetchAndDisplayPendingRequests();
     }
 
-
     private void fetchAndDisplayPendingRequests() {
         db.collection("Tutors")
-                .whereEqualTo("status", "rejected")
+                .whereEqualTo("status", "approved")
                 .limit(5)
                 .get()
                 .addOnCompleteListener(task -> {
@@ -55,6 +58,8 @@ public class AdminRejectedTutor extends AppCompatActivity {
                             Tutor request = document.toObject(Tutor.class);
                             request.setDocumentId(document.getId());
                             pendingRequests.add(request);
+
+
                         }
                         updateUiViews();
                     }
@@ -111,9 +116,10 @@ public class AdminRejectedTutor extends AppCompatActivity {
     }
 
 
-
-
-
-
-
+    public void logoutHandler(View view) {
+        mAuth.signOut();
+        Intent intent = new Intent(this, LogInActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

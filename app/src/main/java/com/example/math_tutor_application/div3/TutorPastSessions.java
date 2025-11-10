@@ -1,4 +1,4 @@
-package com.example.math_tutor_application;
+package com.example.math_tutor_application.div3;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.math_tutor_application.R;
+import com.example.math_tutor_application.uml_classes.Sessions;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.text.SimpleDateFormat;
@@ -83,7 +86,7 @@ public class TutorPastSessions extends AppCompatActivity {
                 // Filter for past sessions
                 for (DocumentSnapshot doc : querySnapshot) {
                     Sessions sesh = doc.toObject(Sessions.class);
-                    if (sesh != null && sesh.isPastSession()) {
+                    if (sesh != null) {
                         pastSessionLst.add(sesh);
                     }
                 }
@@ -136,6 +139,7 @@ public class TutorPastSessions extends AppCompatActivity {
     public void backToDashboard(View view) {
         finish();
     }
+
 
 
 

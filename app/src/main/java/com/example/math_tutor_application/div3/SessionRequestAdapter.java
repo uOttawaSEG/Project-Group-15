@@ -1,4 +1,4 @@
-package com.example.math_tutor_application;
+package com.example.math_tutor_application.div3;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.math_tutor_application.R;
+import com.example.math_tutor_application.uml_classes.RegisteredSessions;
 
 import java.text.DateFormat;
 import java.util.List;

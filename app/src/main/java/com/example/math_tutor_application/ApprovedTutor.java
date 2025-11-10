@@ -1,8 +1,11 @@
 package com.example.math_tutor_application;
 
+import com.example.math_tutor_application.uml_classes.Sessions;
+import com.example.math_tutor_application.uml_classes.Tutor;
+
 import java.util.ArrayList;
 
-public class ApprovedTutor extends Tutor{
+public class ApprovedTutor extends Tutor {
 
     public ArrayList<Sessions> sessionsArrayList;
 

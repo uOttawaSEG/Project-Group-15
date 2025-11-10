@@ -1,8 +1,6 @@
-package com.example.math_tutor_application;
+package com.example.math_tutor_application.div2;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -11,14 +9,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.math_tutor_application.R;
+import com.example.math_tutor_application.uml_classes.Student;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminAcceptedRequest extends AppCompatActivity {
+public class AdminRejectedStudent extends AppCompatActivity {
 
     private FirebaseFirestore db;
 
@@ -29,7 +28,7 @@ public class AdminAcceptedRequest extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_admin_accepted_request);
+        setContentView(R.layout.activity_admin_rejected_student);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -45,7 +44,7 @@ public class AdminAcceptedRequest extends AppCompatActivity {
 
     private void fetchAndDisplayPendingRequests() {
         db.collection("Students")
-                .whereEqualTo("status", "approved")
+                .whereEqualTo("status", "rejected")
                 .limit(5)
                 .get()
                 .addOnCompleteListener(task -> {
@@ -109,9 +108,6 @@ public class AdminAcceptedRequest extends AppCompatActivity {
         emailText5.setText(message5);
 
     }
-
-
-
 
 
 }

@@ -1,5 +1,4 @@
-package com.example.math_tutor_application;
-
+package com.example.math_tutor_application.uml_classes;
 
 
 public class RegisteredSessions extends Sessions {

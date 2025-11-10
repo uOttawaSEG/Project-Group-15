@@ -1,4 +1,4 @@
-package com.example.math_tutor_application;
+package com.example.math_tutor_application.div3;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +8,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.math_tutor_application.ApprovedTutor;
+import com.example.math_tutor_application.R;
+import com.example.math_tutor_application.uml_classes.RegisteredSessions;
+import com.example.math_tutor_application.uml_classes.Student;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
