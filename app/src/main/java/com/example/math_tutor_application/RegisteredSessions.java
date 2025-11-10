@@ -9,6 +9,8 @@ public class RegisteredSessions extends Sessions {
   
     String approvedStudentID; //for firebase
 
+    Student student;
+
     RegisteredSessions() {}
 
     RegisteredSessions(Sessions session)
@@ -32,8 +34,19 @@ public class RegisteredSessions extends Sessions {
         return approvedStudentID;
     }
 
+
+
     public void setApprovedStudentID(String approvedStudentID) {
         this.approvedStudentID = approvedStudentID;
     }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
 
 }

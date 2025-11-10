@@ -41,7 +41,13 @@ public class SessionRequestAdapter extends RecyclerView.Adapter<SessionRequestAd
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         RegisteredSessions request = requestList.get(position);
 
-        holder.studentName.setText("Student ID: " + request.getApprovedStudentID());
+        //avoids a null pinter errror
+        String studentInfo = "";
+        if (request.getStudent() != null) {
+            studentInfo = request.getStudent().toString();
+        }
+
+        holder.studentName.setText("Student Info: " + studentInfo);
         holder.course.setText("Tutor ID: " + request.getApprovedTutorId());
 
         String timeText = DateFormat.getDateTimeInstance().format(request.getStartDate().toDate())

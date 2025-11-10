@@ -61,6 +61,7 @@ public class PendingRequestActivity extends AppCompatActivity {
     }
 
     private void fetchSessionRequests() {
+
         Log.d("Firestore", "Fetching pending sessions...");
         db.collection("RegisteredSessions")
                 .whereEqualTo("status", "pending")
@@ -72,13 +73,25 @@ public class PendingRequestActivity extends AppCompatActivity {
                             Log.d("Firestore", "Document: " + doc.getData().toString());
                             RegisteredSessions request = doc.toObject(RegisteredSessions.class);
                             request.setDocumentId(doc.getId());
-                            requestList.add(request);
+
+                            //fetch student info
+                            String studentId = request.getApprovedStudentID();
+                            db.collection("Students").document(studentId).get().addOnCompleteListener(task3 -> {
+                                if (task3.isSuccessful()) {
+                                    Student student = task3.getResult().toObject(Student.class);
+                                    request.setStudent(student);
+                                    requestList.add(request);
+                                    adapter.notifyDataSetChanged();
+
+                                }
+                            });
+
                         }
-                        adapter.notifyDataSetChanged();
                     } else {
                         Log.e("Firestore", "Error fetching documents", task.getException());
                         Toast.makeText(this, "Failed to load requests", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
+
 }

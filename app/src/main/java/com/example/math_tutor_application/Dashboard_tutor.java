@@ -16,7 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Dashboard_tutor extends AppCompatActivity {
 
-    String email, password, docID;
+    String email, password, docID, firstName, lastName, fullName;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
@@ -43,6 +43,9 @@ public class Dashboard_tutor extends AppCompatActivity {
                         DocumentSnapshot document = task5.getResult().getDocuments().get(0);
                         ApprovedTutor tutor = document.toObject(ApprovedTutor.class);
                         docID = document.getId();
+                        firstName = tutor.getFirstName();
+                        lastName = tutor.getLastName();
+
                     }
                 });
 
