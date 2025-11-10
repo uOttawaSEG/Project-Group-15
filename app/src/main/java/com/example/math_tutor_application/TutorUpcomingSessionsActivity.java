@@ -18,6 +18,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Collections;
+import java.util.Comparator;
+
 
 public class TutorUpcomingSessionsActivity extends AppCompatActivity {
 
@@ -25,6 +28,10 @@ public class TutorUpcomingSessionsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private UpcomingSessionsAdapter adapter;
     private final List<RegisteredSessions> upcomingSessionsList = new ArrayList<>();
+    private final List<RegisteredSessions> upcomingRegistedSessionsList = new ArrayList<>();
+
+
+
 
     private String tutorDocId;
     private String email;
@@ -33,6 +40,7 @@ public class TutorUpcomingSessionsActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutor_upcoming_sessions);
+
 
         db = FirebaseFirestore.getInstance();
 
@@ -50,6 +58,9 @@ public class TutorUpcomingSessionsActivity extends AppCompatActivity {
         } else {
             resolveTutorDocIdAndThenFetch();
         }
+
+
+
     }
 
     private void onSessionClicked(RegisteredSessions session) {
@@ -85,40 +96,70 @@ public class TutorUpcomingSessionsActivity extends AppCompatActivity {
             return; // don't finish(); allow later retry if needed
         }
 
-        Date now = new Date();
+
         Log.d("Firestore", "Fetching upcoming for tutorDocId: " + tutorDocId);
 
-        db.collection("ApprovedTutors")
-                .document(tutorDocId)
-                .collection("sessionsArrayList")
-                .whereGreaterThanOrEqualTo("startDate", now)
-                .orderBy("startDate")
+        //goes overed RegisterSessions
+
+        db.collection("RegisteredSessions")
                 .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful() && task.getResult() != null) {
-                        upcomingSessionsList.clear();
-                        for (QueryDocumentSnapshot doc : task.getResult()) {
+                .addOnCompleteListener(task3 -> {
+                    Date now2 = new Date();
+                    if (task3.isSuccessful() && task3.getResult() != null) {
+                        for (QueryDocumentSnapshot doc : task3.getResult()) {
                             RegisteredSessions s = doc.toObject(RegisteredSessions.class);
                             try { s.setDocumentId(doc.getId()); } catch (Exception ignored) {}
-                            if (s.getStartDate() != null) {
-                                upcomingSessionsList.add(s);
+                            if (s.getStartDate() != null && s.getStartDate().toDate().after(now2)) {
+                                upcomingRegistedSessionsList.add(s);
                             }
                         }
-                        adapter.notifyDataSetChanged();
-                        Toast.makeText(
-                                this,
-                                upcomingSessionsList.isEmpty()
-                                        ? "No upcoming sessions"
-                                        : "Found " + upcomingSessionsList.size() + " upcoming sessions",
-                                Toast.LENGTH_SHORT
-                        ).show();
                     } else {
-                        Log.e("Firestore", "Error fetching upcoming sessions", task.getException());
+                        Log.e("Firestore", "Error fetching upcoming sessions", task3.getException());
                         Toast.makeText(this, tutorDocId, Toast.LENGTH_SHORT).show();
                     }
+                }).addOnCompleteListener(task5 -> {
+                    Date now = new Date();
+                    //GOES OVER SESSIONS
+                    db.collection("ApprovedTutors")
+                            .document(tutorDocId)
+                            .collection("sessionsArrayList")
+                            .whereGreaterThanOrEqualTo("startDate", now)
+                            .orderBy("startDate")
+                            .get()
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful() && task.getResult() != null) {
+                                    upcomingSessionsList.clear();
+                                    for (QueryDocumentSnapshot doc : task.getResult()) {
+                                        RegisteredSessions s = doc.toObject(RegisteredSessions.class);
+                                        try { s.setDocumentId(doc.getId()); } catch (Exception ignored) {}
+                                        //checks to see if they are no dublicates
+                                        if (s.getStartDate() != null) {
+
+                                            for (RegisteredSessions r : upcomingRegistedSessionsList) {
+                                                if( r.getDocumentId().equals(s.getDocumentId())) {
+                                                    s = r;
+                                                }
+                                            }
+                                            upcomingSessionsList.add(s);
+                                        }
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                    Toast.makeText(
+                                            this,
+                                            upcomingSessionsList.isEmpty()
+                                                    ? "No upcoming sessions"
+                                                    : "Found " + upcomingSessionsList.size() + " upcoming sessions",
+                                            Toast.LENGTH_SHORT
+                                    ).show();
+                                } else {
+                                    Log.e("Firestore", "Error fetching upcoming sessions", task.getException());
+                                    Toast.makeText(this, tutorDocId, Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
                 });
 
-    }
+    };
 
     private void showStudentInformation(RegisteredSessions session) {
         if (session == null || !isNonEmpty(session.getApprovedStudentID())) {
@@ -126,7 +167,8 @@ public class TutorUpcomingSessionsActivity extends AppCompatActivity {
             return;
         }
 
-        db.collection("ApprovedTutors")
+
+        db.collection("Students")
                 .document(session.getApprovedStudentID())
                 .get()
                 .addOnCompleteListener(task -> {
