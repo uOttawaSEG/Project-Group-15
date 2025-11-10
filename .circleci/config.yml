@@ -31,6 +31,11 @@ jobs:
       tag: 2025.03.1
     steps:
       - checkout
+      - run:
+          name: Download Dependencies
+          command: |
+            sudo chmod +x ./gradlew
+            ./gradlew androidDependencies
       - android/restore_gradle_cache
       - run:
           name: Assemble release build
