@@ -29,7 +29,7 @@ public class PendingRequestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pending_request);
 
         //ApprovedTutor info - passed on from dashboard no need for firebase
-        String approvedTutorDocId = getIntent().getStringExtra("approvedTutorDocId");
+        String approvedTutorDocId = getIntent().getStringExtra("docID");
         String email = getIntent().getStringExtra("email");
         String firstName = getIntent().getStringExtra("firstName");
         String lastName = getIntent().getStringExtra("lastName");
@@ -79,6 +79,7 @@ public class PendingRequestActivity extends AppCompatActivity {
         Log.d("Firestore", "Fetching pending sessions...");
         db.collection("RegisteredSessions")
                 .whereEqualTo("status", "pending")
+                .whereEqualTo("approvedTutorId", approvedTutor.getDocumentId())
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
