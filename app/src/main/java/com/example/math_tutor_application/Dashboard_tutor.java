@@ -70,6 +70,13 @@ public class Dashboard_tutor extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void pastSessionsHandler(View view) {
+        Intent intent = new Intent(this, TutorPastSessions.class);
+        intent.putExtra("docID", docID);
+        intent.putExtra("email", email); //if docID unavailable or null
+        startActivity(intent);
+    }
+
 
 
 }

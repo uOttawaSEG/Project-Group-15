@@ -38,6 +38,7 @@
         android:layout_height="52dp"
         android:layout_marginTop="400dp"
         android:text="Past Sessions"
+        android:onClick="pastSessionsHandler"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.551"
         app:layout_constraintStart_toStartOf="parent"

@@ -71,6 +71,9 @@
             android:name=".StudentActivity"
             android:exported="false" />
         <activity
+            android:name=".TutorPastSessions"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
