@@ -80,7 +80,6 @@ public class TutorPastSessions extends AppCompatActivity {
             .get()
             .addOnSuccessListener(querySnapshot -> {
                 pastSessionLst.clear();
-
                 // Filter for past sessions
                 for (DocumentSnapshot doc : querySnapshot) {
                     Sessions sesh = doc.toObject(Sessions.class);
@@ -88,7 +87,6 @@ public class TutorPastSessions extends AppCompatActivity {
                         pastSessionLst.add(sesh);
                     }
                 }
-
                 // Display the sessions results
                 displaySessions();
             })

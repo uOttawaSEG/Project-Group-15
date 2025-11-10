@@ -124,7 +124,7 @@ public class TutorUpcomingSessionsActivity extends AppCompatActivity {
             return;
         }
 
-        db.collection("Students")
+        db.collection("ApprovedTutors")
                 .document(session.getApprovedStudentID())
                 .get()
                 .addOnCompleteListener(task -> {

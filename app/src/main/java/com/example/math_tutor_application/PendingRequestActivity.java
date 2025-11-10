@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PendingRequestActivity extends AppCompatActivity {
+    //uses recycle view -> Session Request Adapter
 
     private FirebaseFirestore db;
     private RecyclerView recyclerView;
@@ -92,13 +93,18 @@ public class PendingRequestActivity extends AppCompatActivity {
 
                             //fetch student info
                             String studentId = request.getApprovedStudentID();
-                            db.collection("Students").document(studentId).get().addOnCompleteListener(task3 -> {
-                                if (task3.isSuccessful()) {
-                                    Student student = task3.getResult().toObject(Student.class);
+                            db.collection("Students").document(studentId).get().addOnCompleteListener(task2 -> {
+                                if (task2.isSuccessful()) {
+                                    Student student = task2.getResult().toObject(Student.class);
                                     request.setStudent(student);
                                     requestList.add(request);
                                     adapter.notifyDataSetChanged();
 
+                                }
+                            }).addOnCompleteListener(task3 -> {
+                                //Tells the user if the list is empty so it doesn't look like a bug
+                                if (requestList.isEmpty()) {
+                                    Toast.makeText(this, "No pending requests", Toast.LENGTH_SHORT).show();
                                 }
                             });
 
@@ -106,11 +112,6 @@ public class PendingRequestActivity extends AppCompatActivity {
                     } else {
                         Log.e("Firestore", "Error fetching documents", task.getException());
                         Toast.makeText(this, "Failed to load requests", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnCompleteListener(task2 -> {
-                    //Tells the user if the list is empty so it doesn't look like a bug
-                    if (requestList.isEmpty()) {
-                        Toast.makeText(this, "No pending requests", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
