@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.math_tutor_application.div2.Dashboard_admin;
+import com.example.math_tutor_application.div3.Dashboard_tutor;
 
 public class Welcome extends AppCompatActivity {
     String message;

@@ -27,7 +27,7 @@
             android:name=".div3.SlotCreationTutor"
             android:exported="false" />
         <activity
-            android:name=".Dashboard_tutor"
+            android:name=".div3.Dashboard_tutor"
             android:exported="false" />
         <activity
             android:name=".div2.AdminAcceptedRequestTutor"

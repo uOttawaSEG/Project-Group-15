@@ -69,7 +69,7 @@ public class StudentActivity extends AppCompatActivity {
                     .add(session)
                     .addOnSuccessListener(documentRef -> {
 
-/*                        String generatedId = documentRef.getId();
+                      String generatedId = documentRef.getId();
 
                         session.setDocumentId(generatedId);
                         documentRef.update("documentId", generatedId);
@@ -78,7 +78,7 @@ public class StudentActivity extends AppCompatActivity {
 
                         db.collection("RegisteredSessions")
                                 .document(generatedId)
-                                .set(registeredSessions);*/
+                                .set(registeredSessions);
 
 
                     });
