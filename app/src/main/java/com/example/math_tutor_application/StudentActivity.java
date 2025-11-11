@@ -61,13 +61,15 @@ public class StudentActivity extends AppCompatActivity {
 
             //pushing past dates
             // Inside your for loop...
-/*          db.collection("ApprovedTutors")
+
+
+                   db.collection("ApprovedTutors")
                     .document(docIDTut)
                     .collection("sessionsArrayList")
                     .add(session)
                     .addOnSuccessListener(documentRef -> {
 
-                        String generatedId = documentRef.getId();
+/*                        String generatedId = documentRef.getId();
 
                         session.setDocumentId(generatedId);
                         documentRef.update("documentId", generatedId);
@@ -76,9 +78,11 @@ public class StudentActivity extends AppCompatActivity {
 
                         db.collection("RegisteredSessions")
                                 .document(generatedId)
-                                .set(registeredSessions);
+                                .set(registeredSessions);*/
 
-                    });*/
+
+                    });
+
 
         }
 

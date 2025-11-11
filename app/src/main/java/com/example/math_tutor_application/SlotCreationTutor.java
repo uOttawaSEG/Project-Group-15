@@ -15,6 +15,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.math_tutor_application.uml_classes.RegisteredSessions;
 import com.example.math_tutor_application.uml_classes.Sessions;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.firebase.Timestamp;
@@ -201,7 +202,7 @@ public class SlotCreationTutor extends AppCompatActivity {
 
         if (!checkYear && !checkMonth && !checkDay && !checkHour && !checkMinute && !checkMinuteStart && !checkMinuteEnd) {
             errorText.setText("End time must be after start time");
-        } else if (!checkMinuteStart && !checkMinuteEnd) {
+        } else if (!checkMinuteStart || !checkMinuteEnd) {
             errorText.setText("Minuites must be in 30 or 00");
 
         } else if (!checkOverlap) {
@@ -228,10 +229,10 @@ public class SlotCreationTutor extends AppCompatActivity {
                         Toast.makeText(this, "Slot created Successfully", Toast.LENGTH_SHORT).show();
 
                         //temporally - creates a bunch of RegisteredSession as the logic is not implemented yet till div 4
-                        //RegisteredSessions registeredSessions = new RegisteredSessions(session);
-                        // registeredSessions.setApprovedTutorId(docID);
-                        // registeredSessions.setDocumentId(session.getDocumentId());
-                        // db.collection("RegisteredSessions").document(session.getDocumentId()).set(registeredSessions);
+/*                         RegisteredSessions registeredSessions = new RegisteredSessions(session);
+                         registeredSessions.setApprovedTutorId(docID);
+                         registeredSessions.setDocumentId(session.getDocumentId());
+                         db.collection("RegisteredSessions").document(session.getDocumentId()).set(registeredSessions);*/
 
 
                     });
