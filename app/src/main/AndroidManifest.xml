@@ -24,7 +24,7 @@
             android:name=".div3.PendingRequestActivity"
             android:exported="false" />
         <activity
-            android:name=".SlotCreationTutor"
+            android:name=".div3.SlotCreationTutor"
             android:exported="false" />
         <activity
             android:name=".Dashboard_tutor"

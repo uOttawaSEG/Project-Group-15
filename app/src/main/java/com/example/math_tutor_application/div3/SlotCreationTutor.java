@@ -1,4 +1,4 @@
-package com.example.math_tutor_application;
+package com.example.math_tutor_application.div3;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -15,7 +15,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.math_tutor_application.uml_classes.RegisteredSessions;
+import com.example.math_tutor_application.R;
 import com.example.math_tutor_application.uml_classes.Sessions;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.firebase.Timestamp;
