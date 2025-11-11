@@ -112,13 +112,7 @@ public class User  {
     @NonNull
     @Override
     public String toString() {
-        return "User{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", status='" + status + '\'' +
-                ", role='" + role + '\'' +
-                '}';
+        return "First name:" + firstName  + ", Last name:" + lastName +  ", email:" + email +
+                ", phone number:" + phoneNumber + ", status:" + status + ", role:" + role;
     }
 }

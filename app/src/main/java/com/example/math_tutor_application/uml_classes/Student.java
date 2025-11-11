@@ -29,10 +29,8 @@ public class Student extends User {
     @NonNull
     @Override
    public String toString() {
-        return "Student{" +
-                super.toString() +
-                "programOfStudy='" + programOfStudy + '\'' +
-                '}';
+        return super.toString() +
+                "program of study:" + programOfStudy;
     }
 
 }

@@ -61,7 +61,7 @@ public class StudentActivity extends AppCompatActivity {
 
             //pushing past dates
             // Inside your for loop...
-/*           db.collection("ApprovedTutors")
+/*          db.collection("ApprovedTutors")
                     .document(docIDTut)
                     .collection("sessionsArrayList")
                     .add(session)
