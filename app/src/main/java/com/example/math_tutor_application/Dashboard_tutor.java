@@ -10,6 +10,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.math_tutor_application.div3.DeleteSessions;
 import com.example.math_tutor_application.div3.PendingRequestActivity;
 import com.example.math_tutor_application.div3.TutorPastSessions;
 import com.example.math_tutor_application.div3.TutorUpcomingSessionsActivity;
@@ -88,5 +89,12 @@ public class Dashboard_tutor extends AppCompatActivity {
     }
 
 
+    public void deleteHandler(View view) {
 
+        Intent intent = new Intent(this, DeleteSessions.class);
+        intent.putExtra("approvedTutorDocId", docID);
+        intent.putExtra("email", email);
+        startActivity(intent);
+
+    }
 }

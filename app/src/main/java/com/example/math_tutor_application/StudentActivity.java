@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.example.math_tutor_application.uml_classes.RegisteredSessions;
 import com.example.math_tutor_application.uml_classes.Sessions;
 import com.example.math_tutor_application.uml_classes.Student;
 import com.google.firebase.Timestamp;
@@ -60,7 +61,7 @@ public class StudentActivity extends AppCompatActivity {
 
             //pushing past dates
             // Inside your for loop...
-/*            db.collection("ApprovedTutors")
+/*           db.collection("ApprovedTutors")
                     .document(docIDTut)
                     .collection("sessionsArrayList")
                     .add(session)

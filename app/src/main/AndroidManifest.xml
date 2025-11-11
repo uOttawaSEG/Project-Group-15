@@ -18,6 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Math_tutor_application">
         <activity
+            android:name=".div3.DeleteSessions"
+            android:exported="false" />
+        <activity
             android:name=".div3.PendingRequestActivity"
             android:exported="false" />
         <activity
@@ -82,12 +85,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".div3.TutorUpcomingSessionsActivity"
-            android:exported="false">
-
-        </activity>
+            android:exported="false"></activity>
 
         <meta-data
             android:name="firebase_firestore_emulator_host"

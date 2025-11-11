@@ -12,9 +12,9 @@ public class RegisteredSessions extends Sessions {
 
 
 
-    RegisteredSessions() {}
+    public RegisteredSessions() {}
 
-    RegisteredSessions(Sessions session)
+    public RegisteredSessions(Sessions session)
     {
         super(session.getStartDate(), session.getEndDate(), session.getManualApproval());
 
