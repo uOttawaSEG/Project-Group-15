@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -52,27 +53,74 @@ public class PendingRequestActivity extends AppCompatActivity {
         adapter = new SessionRequestAdapter(requestList, new SessionRequestAdapter.OnRequestActionListener() {
             @Override
             public void onApprove(RegisteredSessions request) {
-                request.setStatus("approved");
-                db.collection("RegisteredSessions").document(request.getDocumentId())
-                        .update("status", "approved", "isApproval", true)
-                        .addOnSuccessListener(aVoid -> {
-                            Toast.makeText(PendingRequestActivity.this, "Approved!", Toast.LENGTH_SHORT).show();
-                            requestList.remove(request);
-                            adapter.notifyDataSetChanged();
-                        });
+
+                if (!request.getstatus().equals("approved")) {
+                    request.setStatus("approved");
+                    db.collection("RegisteredSessions").document(request.getDocumentId())
+                            .update("status", "approved")
+                            .addOnSuccessListener(aVoid -> {
+                                Toast.makeText(PendingRequestActivity.this, "Approved!", Toast.LENGTH_SHORT).show();
+                                adapter.notifyDataSetChanged();
+                            });
+                } else {
+                    request.setStatus("pending");
+                    db.collection("RegisteredSessions").document(request.getDocumentId())
+                            .update("status", "pending")
+                            .addOnSuccessListener(aVoid -> {
+                                Toast.makeText(PendingRequestActivity.this, "Pending!", Toast.LENGTH_SHORT).show();
+                                adapter.notifyDataSetChanged();
+                            });
+
+
+
+
+                }
+
+
+
+
+
             }
 
             @Override
             public void onReject(RegisteredSessions request) {
-                request.setStatus("rejected");
-                db.collection("RegisteredSessions").document(request.getDocumentId())
-                        .update("status", "rejected", "isApproval", false)
-                        .addOnSuccessListener(aVoid -> {
-                            Toast.makeText(PendingRequestActivity.this, "Rejected!", Toast.LENGTH_SHORT).show();
-                            requestList.remove(request);
-                            adapter.notifyDataSetChanged();
-                        });
+                if (!request.getstatus().equals("rejected")) {
+                    request.setStatus("rejected");
+                    db.collection("RegisteredSessions").document(request.getDocumentId())
+                            .update("status", "rejected")
+                            .addOnSuccessListener(aVoid -> {
+                                Toast.makeText(PendingRequestActivity.this, "Rejected!", Toast.LENGTH_SHORT).show();
+                                adapter.notifyDataSetChanged();
+                            });
+                } else {
+                    request.setStatus("pending");
+                    db.collection("RegisteredSessions").document(request.getDocumentId())
+                            .update("status", "pending")
+                            .addOnSuccessListener(aVoid -> {
+                                Toast.makeText(PendingRequestActivity.this, "Pending!", Toast.LENGTH_SHORT).show();
+                                adapter.notifyDataSetChanged();
+                            });
+
+                }
+
             }
+
+            @Override
+            public void onDisplay(Student student) {
+                String studentInfo =
+                        "Name: " + (student.getFirstName()) + " " + (student.getLastName()) + "\n" +
+                                "Email: " + (student.getEmail()) + "\n" +
+                                "Phone: " + (student.getPhoneNumber()) + "\n" +
+                                "Program: " + (student.getProgramOfStudy());
+
+                new AlertDialog.Builder(PendingRequestActivity.this)
+                        .setTitle("Student Information")
+                        .setMessage(studentInfo)
+                        .setPositiveButton("OK", null)
+                        .show();
+
+            }
+
         });
 
         recyclerView.setAdapter(adapter);
@@ -83,7 +131,6 @@ public class PendingRequestActivity extends AppCompatActivity {
 
         Log.d("Firestore", "Fetching pending sessions...");
         db.collection("RegisteredSessions")
-                .whereEqualTo("status", "pending")
                 .whereEqualTo("approvedTutorId", approvedTutor.getDocumentId())
                 .get()
                 .addOnCompleteListener(task -> {

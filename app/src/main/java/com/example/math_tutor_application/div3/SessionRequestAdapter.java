@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.math_tutor_application.R;
 import com.example.math_tutor_application.uml_classes.RegisteredSessions;
+import com.example.math_tutor_application.uml_classes.Student;
 
 import java.text.DateFormat;
 import java.util.List;
@@ -24,6 +25,8 @@ public class SessionRequestAdapter extends RecyclerView.Adapter<SessionRequestAd
     public interface OnRequestActionListener {
         void onApprove(RegisteredSessions request);
         void onReject(RegisteredSessions request);
+
+        void onDisplay(Student student);
     }
 
     public SessionRequestAdapter(List<RegisteredSessions> requestList, OnRequestActionListener listener) {
@@ -47,7 +50,7 @@ public class SessionRequestAdapter extends RecyclerView.Adapter<SessionRequestAd
         String studentInfo = "";
         //avoids a null pinter error
         if (request.getStudent() != null) {
-            studentInfo = request.getStudent().toString();
+            studentInfo = request.getStudent().getFirstName() + " " + request.getStudent().getLastName();
         }
 
         String tutorInfo = request.getApprovedTutor().getFirstName() + " " + request.getApprovedTutor().getLastName();
@@ -55,12 +58,16 @@ public class SessionRequestAdapter extends RecyclerView.Adapter<SessionRequestAd
         holder.studentName.setText("Student Info: " + studentInfo);
         holder.course.setText("Tutor info: " + tutorInfo); //is a bit redundant since this dashboard belongs to this ApprovedTutor
 
+        holder.status.setText("Status: " + request.getstatus());
+
+
         String timeText = DateFormat.getDateTimeInstance().format(request.getStartDate().toDate())
                 + " - " + DateFormat.getDateTimeInstance().format(request.getEndDate().toDate());
         holder.time.setText("Time: " + timeText);
 
         holder.approveBtn.setOnClickListener(v -> listener.onApprove(request));
         holder.rejectBtn.setOnClickListener(v -> listener.onReject(request));
+        holder.studentName.setOnClickListener(v-> listener.onDisplay(request.getStudent()));
     }
 
 
@@ -71,7 +78,7 @@ public class SessionRequestAdapter extends RecyclerView.Adapter<SessionRequestAd
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView studentName, tutorName, course, time;
+        TextView studentName, tutorName, course, time, status;
         Button approveBtn, rejectBtn;
 
         public ViewHolder(@NonNull View itemView) {
@@ -81,6 +88,7 @@ public class SessionRequestAdapter extends RecyclerView.Adapter<SessionRequestAd
             time = itemView.findViewById(R.id.time);
             approveBtn = itemView.findViewById(R.id.approveBtn);
             rejectBtn = itemView.findViewById(R.id.rejectBtn);
+            status = itemView.findViewById(R.id.status);
         }
     }
 }
