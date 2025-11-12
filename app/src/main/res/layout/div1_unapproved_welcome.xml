@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Welcome">
+    tools:context=".div1.Welcome_unapproved">
+
 
     <TextView
         android:id="@+id/welcomeMessage"
@@ -21,31 +22,15 @@
         app:layout_constraintVertical_bias="0.176" />
 
     <Button
-        android:id="@+id/dashboardButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="384dp"
-        android:onClick="dashBoardHandler"
-        android:text="Dashboard"
-        android:width="150dp"
-        android:height="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
         android:id="@+id/logoutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="448dp"
         android:onClick="logoutHandler"
         android:text="Logout"
-        android:width="150dp"
-        android:height="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
 
         app:layout_constraintTop_toTopOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

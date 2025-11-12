@@ -16,7 +16,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.math_tutor_application.uml_classes.ApprovedTutor;
-import com.example.math_tutor_application.LogInActivity;
+import com.example.math_tutor_application.div1.LogInActivity;
 import com.example.math_tutor_application.R;
 import com.example.math_tutor_application.uml_classes.Tutor;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,7 +37,7 @@ public class AdminPendingRequestTutor extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_pending_request_tutor);
+        setContentView(R.layout.div2_admin_pending_tutor);
 
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();

@@ -33,7 +33,7 @@ public class AdminPendingRequest extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_pending_request);
+        setContentView(R.layout.div2_admin_pending_student);
 
         db = FirebaseFirestore.getInstance();
 

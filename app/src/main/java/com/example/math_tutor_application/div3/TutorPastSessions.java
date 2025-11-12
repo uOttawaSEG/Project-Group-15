@@ -3,9 +3,6 @@ package com.example.math_tutor_application.div3;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -16,17 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.math_tutor_application.R;
 import com.example.math_tutor_application.uml_classes.RegisteredSessions;
-import com.example.math_tutor_application.uml_classes.Sessions;
 import com.example.math_tutor_application.uml_classes.Student;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class TutorPastSessions extends AppCompatActivity {
 
@@ -46,7 +39,7 @@ public class TutorPastSessions extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tutor_past_sessions);
+        setContentView(R.layout.div3_tutor_past_sessions);
 
 
         db = FirebaseFirestore.getInstance();

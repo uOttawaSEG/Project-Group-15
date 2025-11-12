@@ -1,4 +1,4 @@
-package com.example.math_tutor_application;
+package com.example.math_tutor_application.div1;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.math_tutor_application.R;
 import com.example.math_tutor_application.uml_classes.Student;
 import com.example.math_tutor_application.uml_classes.Tutor;
 import com.example.math_tutor_application.uml_classes.User;
@@ -30,7 +31,7 @@ public class LogInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_log_in);
+        setContentView(R.layout.div1_activity_log_in);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -91,7 +92,7 @@ public class LogInActivity extends AppCompatActivity {
                                         message += "Your current registration status is " + student.getStatus();
                                         message += "\n Please contact Administrator Micheal @ 647-888-9999 to inquire about your registration status";
 
-                                        Intent intent = new Intent(LogInActivity.this, Welcome_non_admin.class);
+                                        Intent intent = new Intent(LogInActivity.this, Welcome_unapproved.class);
                                         intent.putExtra("message", message);
                                         startActivity(intent);
                                     } else {
@@ -118,7 +119,7 @@ public class LogInActivity extends AppCompatActivity {
                                                         } else {
                                                             message += "Your current registration status is " + tutor.getStatus();
                                                             message += "\n Please contact Administrator Micheal @ 647-888-9999 to inquire about your registration status";
-                                                            Intent intent = new Intent(LogInActivity.this, Welcome_non_admin.class);
+                                                            Intent intent = new Intent(LogInActivity.this, Welcome_unapproved.class);
                                                             intent.putExtra("message", message);
                                                             startActivity(intent);
                                                         }

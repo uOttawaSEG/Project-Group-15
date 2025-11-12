@@ -1,4 +1,4 @@
-package com.example.math_tutor_application;
+package com.example.math_tutor_application.div1;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +20,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.math_tutor_application.helper.FirestoreHelper;
+import com.example.math_tutor_application.R;
 import com.example.math_tutor_application.uml_classes.Tutor;
 
 import java.util.ArrayList;
@@ -53,7 +55,7 @@ public class TutorActivity extends AppCompatActivity {
 
         // Makes the app use the full screen
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_tutor);
+        setContentView(R.layout.div1_activity_tutor);
 
         // firebase
         db = new FirestoreHelper(); // create the firebase "assistant"
@@ -158,7 +160,7 @@ public class TutorActivity extends AppCompatActivity {
                 db.uploadTutor(tutor);
 
                 String message = "Your registration is currently being reviewed.\n Thank you for your patience";
-                Intent intent = new Intent(this, Welcome_non_admin.class);
+                Intent intent = new Intent(this, Welcome_unapproved.class);
                 intent.putExtra("message", message);
                 startActivity(intent);
             }

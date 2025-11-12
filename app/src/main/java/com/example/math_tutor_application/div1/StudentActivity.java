@@ -1,4 +1,4 @@
-package com.example.math_tutor_application;
+package com.example.math_tutor_application.div1;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.example.math_tutor_application.R;
 import com.example.math_tutor_application.uml_classes.RegisteredSessions;
 import com.example.math_tutor_application.uml_classes.Sessions;
 import com.example.math_tutor_application.uml_classes.Student;
@@ -34,7 +35,7 @@ public class StudentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student);
+        setContentView(R.layout.div1_activity_student);
 
         String docIDTut = "VNGdzKkDMu9TySAPnn2r";
 
@@ -176,7 +177,7 @@ public class StudentActivity extends AppCompatActivity {
 
 
             String message = "Your registration is currently being reviewed.\nThank you for your patience";
-            Intent intent = new Intent(this, Welcome_non_admin.class);
+            Intent intent = new Intent(this, Welcome_unapproved.class);
             intent.putExtra("message", message);
             startActivity(intent);
 

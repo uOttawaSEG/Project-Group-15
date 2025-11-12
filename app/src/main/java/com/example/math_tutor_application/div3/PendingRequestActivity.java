@@ -32,7 +32,7 @@ public class PendingRequestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pending_request);
+        setContentView(R.layout.div3_pending_request);
 
         //ApprovedTutor info - passed on from dashboard no need for firebase
         String approvedTutorDocId = getIntent().getStringExtra("docID");

@@ -1,4 +1,4 @@
-package com.example.math_tutor_application;
+package com.example.math_tutor_application.div1;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.math_tutor_application.R;
 import com.example.math_tutor_application.div2.Dashboard_admin;
 import com.example.math_tutor_application.div3.Dashboard_tutor;
 
@@ -20,7 +21,7 @@ public class Welcome extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
+        setContentView(R.layout.div1_activity_welcome);
 
         Intent intent = getIntent();
         email = intent.getStringExtra("email");

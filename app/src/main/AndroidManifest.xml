@@ -44,7 +44,7 @@
             android:label="@string/title_activity_main2"
             android:theme="@style/Theme.Math_tutor_application.NoActionBar" />
         <activity
-            android:name=".Welcome_non_admin"
+            android:name=".div1.Welcome_unapproved"
             android:exported="false" />
         <activity
             android:name=".div2.AdminRejectedStudent"
@@ -59,25 +59,25 @@
             android:name=".div2.Dashboard_admin"
             android:exported="false" />
         <activity
-            android:name=".LogInActivity"
+            android:name=".div1.LogInActivity"
             android:exported="false" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".div1.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".TutorActivity"
+            android:name=".div1.TutorActivity"
             android:exported="false" />
         <activity
-            android:name=".Welcome"
+            android:name=".div1.Welcome"
             android:exported="false" />
         <activity
-            android:name=".StudentActivity"
+            android:name=".div1.StudentActivity"
             android:exported="false" />
         <activity
             android:name=".div3.TutorPastSessions"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".div1.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

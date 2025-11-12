@@ -1,7 +1,9 @@
-package com.example.math_tutor_application;
+package com.example.math_tutor_application.helper;
 
 // imports
 
+import com.example.math_tutor_application.R;
+import com.example.math_tutor_application.div1.Welcome;
 import com.example.math_tutor_application.uml_classes.ApprovedTutor;
 import com.example.math_tutor_application.uml_classes.Student;
 import com.example.math_tutor_application.uml_classes.Tutor;

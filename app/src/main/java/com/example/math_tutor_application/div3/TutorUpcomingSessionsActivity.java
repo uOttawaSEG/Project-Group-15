@@ -39,7 +39,7 @@ public class TutorUpcomingSessionsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tutor_upcoming_sessions);
+        setContentView(R.layout.div3_tutor_upcoming_sessions);
 
 
         db = FirebaseFirestore.getInstance();

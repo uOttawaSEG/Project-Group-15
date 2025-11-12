@@ -2,27 +2,19 @@ package com.example.math_tutor_application.div3;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.math_tutor_application.R;
 import com.example.math_tutor_application.uml_classes.RegisteredSessions;
-import com.example.math_tutor_application.uml_classes.Student;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class DeleteSessions extends AppCompatActivity {
@@ -42,7 +34,7 @@ public class DeleteSessions extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_delete_sessions);
+        setContentView(R.layout.div3_delete_sessions);
 
 
         db = FirebaseFirestore.getInstance();
