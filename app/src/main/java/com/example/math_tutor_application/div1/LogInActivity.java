@@ -24,7 +24,7 @@ public class LogInActivity extends AppCompatActivity {
 
 
     FirebaseFirestore db= FirebaseFirestore.getInstance();
-    String docID;
+
 
 
     @Override
@@ -89,12 +89,25 @@ public class LogInActivity extends AppCompatActivity {
                                         String message = "Welcome! You are registered as an ";
                                         message += student.getRole();
                                         message += "\n\nWelcome, " + student.getFirstName() + " " + student.getLastName() + "!\n";
-                                        message += "Your current registration status is " + student.getStatus();
-                                        message += "\n Please contact Administrator Micheal @ 647-888-9999 to inquire about your registration status";
 
-                                        Intent intent = new Intent(LogInActivity.this, Welcome_unapproved.class);
-                                        intent.putExtra("message", message);
-                                        startActivity(intent);
+                                        if(student.getStatus().equals("approved")) {
+                                            Intent intent = new Intent(LogInActivity.this, Welcome.class);
+                                            intent.putExtra("message", message);
+                                            String docId = document.getId();
+                                            intent.putExtra("docId", docId);
+                                            startActivity(intent);
+                                        } else {
+
+                                            message += "Your current registration status is " + student.getStatus();
+                                            message += "\n Please contact Administrator Micheal @ 647-888-9999 to inquire about your registration status";
+
+                                            Intent intent = new Intent(LogInActivity.this, Welcome_unapproved.class);
+                                            intent.putExtra("message", message);
+                                            startActivity(intent);
+
+                                        }
+
+
                                     } else {
                                         db.collection("Tutors")
                                                 .whereEqualTo("email", email)

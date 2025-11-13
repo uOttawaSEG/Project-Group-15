@@ -10,11 +10,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.math_tutor_application.R;
 import com.example.math_tutor_application.div2.Dashboard_admin;
 import com.example.math_tutor_application.div3.Dashboard_tutor;
+import com.example.math_tutor_application.div4.StudentDashboard;
 
 public class Welcome extends AppCompatActivity {
     String message;
     String email;
     String password;
+
 
 
 
@@ -26,8 +28,9 @@ public class Welcome extends AppCompatActivity {
         Intent intent = getIntent();
         email = intent.getStringExtra("email");
         password = intent.getStringExtra("password");
-
         message = intent.getStringExtra("message");
+
+
 
         TextView textView = findViewById(R.id.welcomeMessage);
         textView.setText(message);
@@ -44,11 +47,15 @@ public class Welcome extends AppCompatActivity {
         Intent intent;
         if (message.contains("Admin")) {
             intent = new Intent(this, Dashboard_admin.class);
-        } else {
+        } else if (message.contains("Tutor")) {
             intent = new Intent(this, Dashboard_tutor.class);
             intent.putExtra("email", email);
             intent.putExtra("password", password);
 
+        } else {
+            String docId = getIntent().getStringExtra("docId");
+            intent = new Intent(this, StudentDashboard.class);
+            intent.putExtra("docId", docId);
         }
         startActivity(intent);
 
