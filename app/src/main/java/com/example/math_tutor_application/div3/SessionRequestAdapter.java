@@ -10,16 +10,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.math_tutor_application.R;
+import com.example.math_tutor_application.div2.PendingRequestAdaptor;
 import com.example.math_tutor_application.uml_classes.RegisteredSessions;
 import com.example.math_tutor_application.uml_classes.Student;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SessionRequestAdapter extends RecyclerView.Adapter<SessionRequestAdapter.ViewHolder> {
 
     private List<RegisteredSessions> requestList;
     private OnRequestActionListener listener;
+
+    public SessionRequestAdapter(ArrayList<Student> pendingRequests, PendingRequestAdaptor.OnRequestActionListener onRequestActionListener) {
+    }
 
     // Interface to communicate button actions back to the activity
     public interface OnRequestActionListener {

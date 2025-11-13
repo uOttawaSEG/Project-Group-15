@@ -16,6 +16,7 @@ import com.example.math_tutor_application.uml_classes.Sessions;
 import com.example.math_tutor_application.uml_classes.Student;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.Calendar;
 
@@ -37,58 +38,19 @@ public class StudentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.div1_activity_student);
 
-        String docIDTut = "VNGdzKkDMu9TySAPnn2r";
-
-        Calendar calendarStart = Calendar.getInstance();
-        Calendar calendarEnd = Calendar.getInstance();
-        boolean requiresManualApproval;
-
-        //pusing past date every month year 2022
-        for (int i = 0; i < 10; i++) {
-            requiresManualApproval = i % 2 == 0;
-            calendarStart.set(Calendar.YEAR, 2022);
-            calendarStart.set(Calendar.MONTH, i);
-            calendarStart.set(Calendar.DAY_OF_MONTH, 10);
-            calendarStart.set(Calendar.HOUR_OF_DAY, 14);
-            calendarStart.set(Calendar.MINUTE, 0);
-            calendarEnd.set(Calendar.YEAR, 2022);
-            calendarEnd.set(Calendar.MONTH, i);
-            calendarEnd.set(Calendar.DAY_OF_MONTH, 10);
-            calendarEnd.set(Calendar.HOUR_OF_DAY, 15);
-            calendarEnd.set(Calendar.MINUTE, 0);
-
-            Sessions session = new Sessions(new Timestamp(calendarStart.getTime()), new Timestamp(calendarEnd.getTime()), requiresManualApproval);
-            session.setApprovedTutorId(docIDTut);
-
-            //pushing past dates
-            // Inside your for loop...
-
-
-                   db.collection("ApprovedTutors")
-                    .document(docIDTut)
-                    .collection("sessionsArrayList")
-                    .add(session)
-                    .addOnSuccessListener(documentRef -> {
-
-                      String generatedId = documentRef.getId();
-
-                        session.setDocumentId(generatedId);
-                        documentRef.update("documentId", generatedId);
-
-                        RegisteredSessions registeredSessions = new RegisteredSessions(session);
-
-                        db.collection("RegisteredSessions")
-                                .document(generatedId)
-                                .set(registeredSessions);
-
-
-                    });
-
-
-        }
-
-
-
+//        db.collection("Students")
+//                .get()
+//                .addOnCompleteListener(task -> {
+//                    if (task.isSuccessful()) {
+//                        for (QueryDocumentSnapshot document : task.getResult()) {
+//                            Student student = document.toObject(Student.class);
+//                            student.setDocumentId(document.getId());
+//                            student.setStatus("pending");
+//                            db.collection("Students").document(student.getDocumentId()).set(student);
+//                        }
+//
+//                    }
+//                });
 
         }
 
