@@ -47,7 +47,7 @@ public class Welcome extends AppCompatActivity {
         Intent intent;
         if (message.contains("Admin")) {
             intent = new Intent(this, Dashboard_admin.class);
-        } else if (message.contains("Tutor")) {
+        } else if (message.contains("tutor")) {
             intent = new Intent(this, Dashboard_tutor.class);
             intent.putExtra("email", email);
             intent.putExtra("password", password);
