@@ -17,6 +17,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.math_tutor_application.R;
 import com.example.math_tutor_application.uml_classes.Sessions;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -175,12 +177,7 @@ public class SlotCreationTutor extends AppCompatActivity {
 
     public void submitHandler(View view) {
 
-        //start > end
-        boolean checkYear = calendarStart.get(Calendar.YEAR) < calendarEnd.get(Calendar.YEAR);
-        boolean checkMonth = calendarStart.get(Calendar.MONTH) < calendarEnd.get(Calendar.MONTH);
-        boolean checkDay = calendarStart.get(Calendar.DAY_OF_MONTH) < calendarEnd.get(Calendar.DAY_OF_MONTH);
-        boolean checkHour = calendarStart.get(Calendar.HOUR_OF_DAY) < calendarEnd.get(Calendar.HOUR_OF_DAY);
-        boolean checkMinute = calendarStart.get(Calendar.MINUTE) < calendarEnd.get(Calendar.MINUTE);
+
 
 
         //start and end minutes equal == 30 or 00
@@ -200,7 +197,7 @@ public class SlotCreationTutor extends AppCompatActivity {
         }
 
 
-        if (!checkYear && !checkMonth && !checkDay && !checkHour && !checkMinute && !checkMinuteStart && !checkMinuteEnd) {
+        if (calendarEnd.getTime().before(calendarStart.getTime())) {
             errorText.setText("End time must be after start time");
         } else if (!checkMinuteStart || !checkMinuteEnd) {
             errorText.setText("Minuites must be in 30 or 00");
@@ -219,25 +216,22 @@ public class SlotCreationTutor extends AppCompatActivity {
                     .add(session)
                     .addOnSuccessListener(documentRef -> {
                         String generatedId = documentRef.getId();
-                        documentRef.update("documentId", generatedId);
                         session.setDocumentId(generatedId);
-                        sessionsArrayList.add(session);
-                    }).addOnCompleteListener(aVoid -> {
+                        // Create two tasks: one to update the tutor's session, one to set the main session
+                        Task<Void> updateTutorSessionTask = documentRef.update("documentId", generatedId);
+                        Task<Void> setMainSessionTask = db.collection("Sessions").document(generatedId).set(session);
 
-                        //adds it for the public
-                        db.collection("Sessions").document(session.getDocumentId()).set(session);
-                        Toast.makeText(this, "Slot created Successfully", Toast.LENGTH_SHORT).show();
-
-                        //temporally - creates a bunch of RegisteredSession as the logic is not implemented yet till div 4
-/*                         RegisteredSessions registeredSessions = new RegisteredSessions(session);
-                         registeredSessions.setApprovedTutorId(docID);
-                         registeredSessions.setDocumentId(session.getDocumentId());
-                         db.collection("RegisteredSessions").document(session.getDocumentId()).set(registeredSessions);*/
-
-
+                        Tasks.whenAllSuccess(updateTutorSessionTask, setMainSessionTask).addOnSuccessListener(tasks -> {
+                            Toast.makeText(this, "Slot created Successfully", Toast.LENGTH_SHORT).show();
+                            // Add to the local list for overlap checking, only after successful creation
+                            sessionsArrayList.add(session);
+                        }).addOnFailureListener(e -> {
+                            errorText.setText("Failed to save slot. Please try again.");
+                        });
+                    })
+                    .addOnFailureListener(e -> {
+                        errorText.setText("Failed to save slot. Please try again.");
                     });
-
-            errorText.setText("");
 
 
 

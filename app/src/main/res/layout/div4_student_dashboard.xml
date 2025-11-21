@@ -56,14 +56,14 @@
             android:layout_height="52dp"
             android:layout_marginTop="100dp"
             android:onClick="sessionRegistrationHandler"
-            android:text="Session Registration" />
+            android:text="Search Session" />
 
         <Button
             android:id="@+id/button2"
             android:layout_width="304dp"
             android:layout_height="52dp"
             android:layout_marginTop="20dp"
-            android:text="Student Requests" />
+            android:text="Notification" />
 
         <Button
             android:id="@+id/button3"
@@ -85,6 +85,8 @@
             android:layout_height="52dp"
             android:layout_marginTop="20dp"
             android:text="Delete sessions" />
+
+
 
     </LinearLayout>
 

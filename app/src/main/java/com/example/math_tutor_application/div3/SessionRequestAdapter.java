@@ -23,8 +23,6 @@ public class SessionRequestAdapter extends RecyclerView.Adapter<SessionRequestAd
     private List<RegisteredSessions> requestList;
     private OnRequestActionListener listener;
 
-    public SessionRequestAdapter(ArrayList<Student> pendingRequests, PendingRequestAdaptor.OnRequestActionListener onRequestActionListener) {
-    }
 
     // Interface to communicate button actions back to the activity
     public interface OnRequestActionListener {

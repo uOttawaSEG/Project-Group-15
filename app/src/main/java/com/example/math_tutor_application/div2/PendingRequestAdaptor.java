@@ -10,31 +10,30 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.math_tutor_application.R;
-import com.example.math_tutor_application.uml_classes.Student;
-import com.example.math_tutor_application.uml_classes.Tutor;
+import com.example.math_tutor_application.uml_classes.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PendingRequestAdaptor extends RecyclerView.Adapter<PendingRequestAdaptor.ViewHolder> {
 
-    private List<Student> requestList;
+    private List<User> requestList;
 
-    private List<Tutor> tutorList;
+
 
     private OnRequestActionListener listener;
 
     // Interface to communicate button actions back to the activity
     public interface OnRequestActionListener {
 
-        void onApprove(Student request);
+        void onApprove(User request);
 
-        void onReject(Student request);
+        void onReject(User request);
 
-        void onDisplay(Student student);
+        void onDisplay(User student);
     }
 
-    public PendingRequestAdaptor(ArrayList<Student> requestList, OnRequestActionListener listener) {
+    public PendingRequestAdaptor(ArrayList<User> requestList, OnRequestActionListener listener) {
         this.requestList = requestList;
         this.listener = listener;
     }
@@ -50,10 +49,10 @@ public class PendingRequestAdaptor extends RecyclerView.Adapter<PendingRequestAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Student request = requestList.get(position);
+        User request = requestList.get(position);
 
 
-        holder.studentName.setText(request.getFirstName() + " " + request.getLastName());
+        holder.studentName.setText(request.getFirstName() + " " + request.getLastName() + " - " + request.getStatus());
         holder.status.setText("Status : " + request.getStatus());
 
         holder.approveBtn.setOnClickListener(v -> listener.onApprove(request));
@@ -69,7 +68,7 @@ public class PendingRequestAdaptor extends RecyclerView.Adapter<PendingRequestAd
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView studentName, course, status;
+        TextView studentName, status;
         Button approveBtn, rejectBtn;
 
         public ViewHolder(@NonNull View itemView) {

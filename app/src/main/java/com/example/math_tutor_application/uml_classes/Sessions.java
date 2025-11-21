@@ -17,6 +17,10 @@ public class Sessions {
 
     ApprovedTutor approvedTutor;
 
+    private boolean studentRegister = false;
+
+
+
 
 
     public Sessions() {};
@@ -97,6 +101,14 @@ public class Sessions {
         if (startDate == null) return false;
         java.util.Date rn = new java.util.Date();
         return startDate.toDate().after(rn);
+    }
+
+    public boolean isStudentRegister() {
+        return studentRegister;
+    }
+
+    public void setStudentRegister(boolean studentRegister) {
+        this.studentRegister = studentRegister;
     }
 
 }

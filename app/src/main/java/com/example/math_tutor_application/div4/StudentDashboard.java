@@ -1,5 +1,6 @@
 package com.example.math_tutor_application.div4;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -65,5 +66,10 @@ public class StudentDashboard extends AppCompatActivity {
     }
 
     public void sessionRegistrationHandler(View view) {
+
+        Intent intent = new Intent(this, Search_Session.class);
+        intent.putExtra("docId", docId);
+        startActivity(intent);
+
     }
 }
