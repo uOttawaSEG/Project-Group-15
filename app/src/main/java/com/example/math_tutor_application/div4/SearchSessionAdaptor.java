@@ -12,10 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.math_tutor_application.R;
 import com.example.math_tutor_application.uml_classes.ApprovedTutor;
 import com.example.math_tutor_application.uml_classes.Sessions;
-import com.example.math_tutor_application.uml_classes.Student;
 
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SearchSessionAdaptor extends RecyclerView.Adapter<SearchSessionAdaptor.ViewHolder> {
@@ -38,6 +36,10 @@ public class SearchSessionAdaptor extends RecyclerView.Adapter<SearchSessionAdap
         this.listener = listener;
     }
 
+    private SearchSessionAdaptor() {}; //default no arg constructor for circleCI
+
+
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -59,12 +61,12 @@ public class SearchSessionAdaptor extends RecyclerView.Adapter<SearchSessionAdap
             holder.course.setText("Course: " + sessions.getApprovedTutor().getCoursesOffered().toString());
             String staus = sessions.getManualApproval() ? "YES" : "NO";
             holder.status.setText("Automatic Approval: " + staus);
-            holder.studentRegistration.setText("Student Registration: " + (sessions.isStudentRegister() ? "Booked" : "Open"));
 
 
 
 
         }
+            holder.studentRegistration.setText("Student Registration: " + (sessions.getIsStudentRegister() ? "Booked" : "Open"));
 
 
 

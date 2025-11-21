@@ -72,4 +72,13 @@ public class StudentDashboard extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+    public void notificationHandler(View view) {
+
+        Intent intent = new Intent(this, NotificationDisplay.class);
+        intent.putExtra("docId", docId);
+        startActivity(intent);
+
+    }
+
 }

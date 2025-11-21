@@ -17,7 +17,7 @@ public class Sessions {
 
     ApprovedTutor approvedTutor;
 
-    private boolean studentRegister = false;
+    private boolean isStudentRegister;
 
 
 
@@ -30,6 +30,17 @@ public class Sessions {
         this.endDate = endDate;
         this.manualApproval = manualApproval;
     }
+
+    public Sessions(Timestamp startDate, Timestamp endDate, boolean manualApproval, boolean studentRegister, String approvedTutorId, String documentId) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.manualApproval = manualApproval;
+        this.isStudentRegister = studentRegister;
+        this.approvedTutorId = approvedTutorId;
+        this.documentId = documentId;
+
+    }
+
 
     //getters and setters
 
@@ -103,12 +114,12 @@ public class Sessions {
         return startDate.toDate().after(rn);
     }
 
-    public boolean isStudentRegister() {
-        return studentRegister;
+    public boolean getIsStudentRegister() {
+        return isStudentRegister;
     }
 
-    public void setStudentRegister(boolean studentRegister) {
-        this.studentRegister = studentRegister;
+    public void setIsStudentRegister(boolean isStudentRegister) {
+        this.isStudentRegister = isStudentRegister;
     }
 
 }

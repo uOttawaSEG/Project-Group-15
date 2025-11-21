@@ -16,14 +16,15 @@ public class RegisteredSessions extends Sessions {
 
     public RegisteredSessions(Sessions session)
     {
-        super(session.getStartDate(), session.getEndDate(), session.getManualApproval());
+        super(session.getStartDate(), session.getEndDate(), session.getManualApproval() , session.getIsStudentRegister(), session.getApprovedTutorId(), session.getDocumentId());
+
 
     }
 
 
 
     //setters and getters
-    public String getstatus() {
+    public String getStatus() {
         return status;
     }
 

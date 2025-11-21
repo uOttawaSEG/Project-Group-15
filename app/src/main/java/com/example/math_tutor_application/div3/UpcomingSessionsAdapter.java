@@ -49,8 +49,8 @@ public class UpcomingSessionsAdapter extends RecyclerView.Adapter<UpcomingSessio
 
         holder.sessionTime.setText(timeText);
 
-        String status = (s.getstatus() != null && !s.getstatus().trim().isEmpty())
-                ? s.getstatus()
+        String status = (s.getStatus() != null && !s.getStatus().trim().isEmpty())
+                ? s.getStatus()
                 : "approved";
         holder.sessionStatus.setText("Status: " + status);
 

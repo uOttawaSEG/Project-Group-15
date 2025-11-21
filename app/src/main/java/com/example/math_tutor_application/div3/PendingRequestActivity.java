@@ -54,7 +54,7 @@ public class PendingRequestActivity extends AppCompatActivity {
             @Override
             public void onApprove(RegisteredSessions request) {
 
-                if (!request.getstatus().equals("approved")) {
+                if (!request.getStatus().equals("approved")) {
                     request.setStatus("approved");
                     db.collection("RegisteredSessions").document(request.getDocumentId())
                             .update("status", "approved")
@@ -84,7 +84,7 @@ public class PendingRequestActivity extends AppCompatActivity {
 
             @Override
             public void onReject(RegisteredSessions request) {
-                if (!request.getstatus().equals("rejected")) {
+                if (!request.getStatus().equals("rejected")) {
                     request.setStatus("rejected");
                     db.collection("RegisteredSessions").document(request.getDocumentId())
                             .update("status", "rejected")

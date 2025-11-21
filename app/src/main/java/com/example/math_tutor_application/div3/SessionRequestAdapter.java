@@ -10,12 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.math_tutor_application.R;
-import com.example.math_tutor_application.div2.PendingRequestAdaptor;
 import com.example.math_tutor_application.uml_classes.RegisteredSessions;
 import com.example.math_tutor_application.uml_classes.Student;
 
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SessionRequestAdapter extends RecyclerView.Adapter<SessionRequestAdapter.ViewHolder> {
@@ -61,7 +59,7 @@ public class SessionRequestAdapter extends RecyclerView.Adapter<SessionRequestAd
         holder.studentName.setText("Student Info: " + studentInfo);
         holder.course.setText("Tutor info: " + tutorInfo); //is a bit redundant since this dashboard belongs to this ApprovedTutor
 
-        holder.status.setText("Status: " + request.getstatus());
+        holder.status.setText("Status: " + request.getStatus());
 
 
         String timeText = DateFormat.getDateTimeInstance().format(request.getStartDate().toDate())

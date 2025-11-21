@@ -8,6 +8,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -80,16 +81,22 @@ public class Search_Session extends AppCompatActivity {
             @Override
             public void onApprove(Sessions request) {
 
-                request.setStudentRegister(true);
+                if (request.getIsStudentRegister()) {
+                    Toast.makeText(Search_Session.this, "Already Registered!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                request.setIsStudentRegister(true);
 
                 db.collection("Sessions").document(request.getDocumentId())
-                        .update("studentRegister", true).addOnCompleteListener(
+                        .set(request)
+                        .addOnCompleteListener(
                                 task -> {
+
                                     adapter2.notifyDataSetChanged();
                                 });
 
                 RegisteredSessions registeredSessions = new RegisteredSessions(request);
-
                 registeredSessions.setApprovedStudentID(studentDocId);
 
                 db.collection("RegisteredSessions").add(registeredSessions);
@@ -140,7 +147,7 @@ public class Search_Session extends AppCompatActivity {
 
 
 
-        //fetches all the courses
+        //fetches all the courses for the spinner
         db.collection("ApprovedTutors").get().addOnCompleteListener(task -> {
             if (!task.isSuccessful() || task.getResult() == null) {
                 Toast.makeText(Search_Session.this, "Failed to fetch courses", Toast.LENGTH_SHORT).show();
@@ -170,9 +177,6 @@ public class Search_Session extends AppCompatActivity {
                     Toast.makeText(Search_Session.this, "Selected Course: " + selectedCourse, Toast.LENGTH_SHORT).show();
 
                 }
-
-
-
 
                 fetchAndDisplay(selectedCourse);
 
@@ -228,7 +232,7 @@ public class Search_Session extends AppCompatActivity {
 
 
 
-    public void filterSessions(String course, List<Sessions> unfilteredSessions) {
+    public void filterSessions(String course, @NonNull List<Sessions> unfilteredSessions) {
 
         sessions.clear();
 
