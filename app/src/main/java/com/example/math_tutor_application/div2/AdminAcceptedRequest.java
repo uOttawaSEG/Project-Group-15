@@ -1,18 +1,25 @@
 package com.example.math_tutor_application.div2;
 
 import android.os.Bundle;
-import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.math_tutor_application.R;
 import com.example.math_tutor_application.uml_classes.Student;
+import com.example.math_tutor_application.uml_classes.Tutor;
+import com.example.math_tutor_application.uml_classes.User;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +29,14 @@ public class AdminAcceptedRequest extends AppCompatActivity {
     private FirebaseFirestore db;
 
 
-    private List<Student> pendingRequests = new ArrayList<>();
+    private RecyclerView recyclerView;
+
+    private AcceptedRequestAdaptor adapter;
+
+
+
+
+    private ArrayList<User> pendingRequestsUser = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,77 +51,80 @@ public class AdminAcceptedRequest extends AppCompatActivity {
 
 
         db = FirebaseFirestore.getInstance();
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new AcceptedRequestAdaptor(pendingRequestsUser, new AcceptedRequestAdaptor.OnRequestActionListener() {
+
+            @Override
+            public void onDisplay(User request) {
+
+                if (request instanceof Student) {
+                    Student student = (Student) request;
+                    student.setDocumentId(request.getDocumentId());
+                    String studentInfo =
+                            "Name: " + (request.getFirstName()) + " " + (request.getLastName()) + "\n" +
+                                    "Email: " + (request.getEmail()) + "\n" +
+                                    "Phone: " + (request.getPhoneNumber()) + "\n" +
+                                    "Program: " + (student.getProgramOfStudy());
+
+                    new AlertDialog.Builder(AdminAcceptedRequest.this)
+                            .setTitle("Student Information")
+                            .setMessage(studentInfo)
+                            .setPositiveButton("OK", null)
+                            .show();
+                } else if (request instanceof Tutor) {
+                    Tutor tutor = (Tutor) request;
+                    tutor.setDocumentId(request.getDocumentId());
+                    String tutorInfo =
+                            "Name: " + (request.getFirstName()) + " " + (request.getLastName()) + "\n" +
+                                    "Email: " + (request.getEmail()) + "\n" +
+                                    "Phone: " + (request.getPhoneNumber()) + "\n" +
+                                    "Courses: " + (tutor.getCoursesOffered().toString());
+                    new AlertDialog.Builder(AdminAcceptedRequest.this)
+                            .setTitle("Tutor Information")
+                            .setMessage(tutorInfo)
+                            .setPositiveButton("OK", null)
+                            .show();
 
 
-        fetchAndDisplayPendingRequests();
+                }
+
+
+            }
+        });
+
+        recyclerView.setAdapter(adapter);
+
+        Task<QuerySnapshot> studentsTask = db.collection("Students").whereEqualTo("status", "approved").get();
+        Task<QuerySnapshot> tutorsTask = db.collection("Tutors").whereEqualTo("status", "approved").get();
+
+
+        Task<List<QuerySnapshot>> allTasks = Tasks.whenAllSuccess(studentsTask, tutorsTask);
+
+        allTasks.addOnSuccessListener(results -> {
+            QuerySnapshot studentSnapshots = results.get(0);
+            QuerySnapshot tutorSnapshots = results.get(1);
+
+            pendingRequestsUser.clear();
+
+            for (QueryDocumentSnapshot document : studentSnapshots) {
+                Student student = document.toObject(Student.class);
+                student.setDocumentId(document.getId());
+                pendingRequestsUser.add(student);
+            }
+
+            for (QueryDocumentSnapshot document : tutorSnapshots) {
+                Tutor tutor = document.toObject(Tutor.class);
+                tutor.setDocumentId(document.getId());
+                pendingRequestsUser.add(tutor);
+            }
+
+            adapter.notifyDataSetChanged();
+        });
+
+
     }
 
-    private void fetchAndDisplayPendingRequests() {
-        db.collection("Students")
-                .whereEqualTo("status", "approved")
-                .limit(5)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        pendingRequests.clear();
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            Student request = document.toObject(Student.class);
-                            request.setDocumentId(document.getId());
-                            pendingRequests.add(request);
-                        }
-                        updateUiViews();
-                    }
-                });
-    }
-
-    private void updateUiViews() {
-
-        //1
-        if (pendingRequests.size() <= 0) return;
-        Student request = pendingRequests.get(0);
-        TextView nameText = findViewById(R.id.student1);
-        nameText.setText(request.getFirstName() + " " + request.getLastName() + " (" + request.getRole() + ")");
-        TextView emailText = findViewById(R.id.studentEmailTextView1);
-        String message = request.getEmail() + " " + request.getPhoneNumber();
-        emailText.setText(message);
-
-        //2
-        if (pendingRequests.size() <= 1) return;
-        Student request2 = pendingRequests.get(1);
-        TextView nameText2 = findViewById(R.id.student2);
-        nameText2.setText(request2.getFirstName() + " " + request2.getLastName() + " (" + request2.getRole() + ")");
-        TextView emailText2 = findViewById(R.id.studentEmailTextView2);
-        String message2 = request2.getEmail() + " " + request2.getPhoneNumber();
-        emailText2.setText(message2);
-
-        //3
-        if (pendingRequests.size() <= 2) return;
-        Student request3 = pendingRequests.get(2);
-        TextView nameText3 = findViewById(R.id.student3);
-        nameText3.setText(request3.getFirstName() + " " + request3.getLastName() + " (" + request3.getRole() + ")");
-        TextView emailText3 = findViewById(R.id.studentEmailTextView3);
-        String message3 = request3.getEmail() + " " + request3.getPhoneNumber();
-        emailText3.setText(message3);
-
-        //4
-        if (pendingRequests.size() <= 3) return;
-        Student request4 = pendingRequests.get(3);
-        TextView nameText4 = findViewById(R.id.student4);
-        nameText4.setText(request4.getFirstName() + " " + request4.getLastName() + " (" + request4.getRole() + ")");
-        TextView emailText4 = findViewById(R.id.studentEmailTextView4);
-        String message4 = request4.getEmail() + " " + request4.getPhoneNumber();
-        emailText4.setText(message4);
-
-        //5
-        if (pendingRequests.size() <= 4) return;
-        Student request5 = pendingRequests.get(4);
-        TextView nameText5 = findViewById(R.id.student5);
-        nameText5.setText(request5.getFirstName() + " " + request5.getLastName() + " (" + request5.getRole() + ")");
-        TextView emailText5 = findViewById(R.id.studentEmailTextView5);
-        String message5 = request5.getEmail() + " " + request5.getPhoneNumber();
-        emailText5.setText(message5);
-
-    }
 
 
 

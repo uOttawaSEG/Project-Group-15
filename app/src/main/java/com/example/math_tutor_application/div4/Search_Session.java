@@ -18,11 +18,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.math_tutor_application.R;
+import com.example.math_tutor_application.uml_classes.ApprovedStudent;
 import com.example.math_tutor_application.uml_classes.ApprovedTutor;
+import com.example.math_tutor_application.uml_classes.Notification;
 import com.example.math_tutor_application.uml_classes.RegisteredSessions;
 import com.example.math_tutor_application.uml_classes.Sessions;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -44,6 +47,9 @@ public class Search_Session extends AppCompatActivity {
     private Spinner courseSpinner;
     private RecyclerView recyclerView;
 
+    ApprovedStudent approvedStudent;
+
+
 
 
     @Override
@@ -58,6 +64,12 @@ public class Search_Session extends AppCompatActivity {
         });
 
         studentDocId = getIntent().getStringExtra("docId");
+        db.collection("ApprovedStudents").document(studentDocId).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                approvedStudent = task.getResult().toObject(ApprovedStudent.class);
+            }
+        });
+
 
 
 
@@ -81,13 +93,15 @@ public class Search_Session extends AppCompatActivity {
             @Override
             public void onApprove(Sessions request) {
 
+
+                //check if open
                 if (request.getIsStudentRegister()) {
                     Toast.makeText(Search_Session.this, "Already Registered!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
+                //if open, set to true and register
                 request.setIsStudentRegister(true);
-
                 db.collection("Sessions").document(request.getDocumentId())
                         .set(request)
                         .addOnCompleteListener(
@@ -99,15 +113,34 @@ public class Search_Session extends AppCompatActivity {
                 RegisteredSessions registeredSessions = new RegisteredSessions(request);
                 registeredSessions.setApprovedStudentID(studentDocId);
 
+                //checks for manual approval and sets status accordingly
+                String message;
+
+                if (registeredSessions.getManualApproval()) {
+                    registeredSessions.setStatus("approved");
+                    Toast.makeText(Search_Session.this, "Registered!, Automatic Approval", Toast.LENGTH_SHORT).show();
+                    message = "Student " + approvedStudent.getFirstName() + " " + approvedStudent.getLastName() + " has registered for your session and has been approved automatically";
+                } else {
+                    registeredSessions.setStatus("pending");
+                    Toast.makeText(Search_Session.this, "Registered!, Waiting for approval", Toast.LENGTH_SHORT).show();
+                    message = "Student " + approvedStudent.getFirstName() + " " + approvedStudent.getLastName() + " has registered for your session";
+                }
+
+
                 db.collection("RegisteredSessions").add(registeredSessions);
 
-                Toast.makeText(Search_Session.this, "Registered!", Toast.LENGTH_SHORT).show();
 
 
-            }
 
-            @Override
-            public void onReject(Sessions request) {
+                //send notification to tutor
+                Notification notification = new Notification();
+                notification.setMsg(message);
+                notification.setReceiver(request.getApprovedTutor().getDocumentId());
+                notification.setSender(studentDocId);
+                Date date = new Date();
+                notification.setTimestamp(new Timestamp(date));
+                db.collection("Notifications").add(notification);
+
 
             }
 

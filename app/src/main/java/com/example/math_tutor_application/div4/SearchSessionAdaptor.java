@@ -26,7 +26,7 @@ public class SearchSessionAdaptor extends RecyclerView.Adapter<SearchSessionAdap
     // Interface to communicate button actions back to the activity
     public interface OnRequestActionListener {
         void onApprove(Sessions request);
-        void onReject(Sessions request);
+
 
         void onDisplay(ApprovedTutor tutor);
     }
@@ -77,7 +77,6 @@ public class SearchSessionAdaptor extends RecyclerView.Adapter<SearchSessionAdap
         holder.time.setText("Time: " + timeText);
 
         holder.approveBtn.setOnClickListener(v -> listener.onApprove(sessions));
-        holder.rejectBtn.setOnClickListener(v -> listener.onReject(sessions));
         holder.studentName.setOnClickListener(v-> listener.onDisplay(sessions.getApprovedTutor()));
     }
 

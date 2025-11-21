@@ -14,10 +14,13 @@ import com.example.math_tutor_application.R;
 import com.example.math_tutor_application.uml_classes.RegisteredSessions;
 import com.example.math_tutor_application.uml_classes.Sessions;
 import com.example.math_tutor_application.uml_classes.Student;
+import com.example.math_tutor_application.uml_classes.Tutor;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 
 
@@ -38,21 +41,9 @@ public class StudentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.div1_activity_student);
 
-//        db.collection("Students")
-//                .get()
-//                .addOnCompleteListener(task -> {
-//                    if (task.isSuccessful()) {
-//                        for (QueryDocumentSnapshot document : task.getResult()) {
-//                            Student student = document.toObject(Student.class);
-//                            student.setDocumentId(document.getId());
-//                            student.setStatus("pending");
-//                            db.collection("Students").document(student.getDocumentId()).set(student);
-//                        }
-//
-//                    }
-//                });
 
-        }
+        
+    }
 
     public void submitHandler(View view) {
 
