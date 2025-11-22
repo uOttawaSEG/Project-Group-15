@@ -323,7 +323,11 @@ public class Search_Session extends AppCompatActivity {
         Timestamp calendarEnd = request.getEndDate();
 
 
-        for (Sessions s : registeredSessions) {
+
+
+
+
+        for (RegisteredSessions s : registeredSessions) {
 
             //no overlap start1 <= end2 and start2 <= end1
             if (calendarStart.toDate().before(s.getEndDate().toDate()) && calendarEnd.toDate().after(s.getStartDate().toDate())) {
@@ -331,7 +335,25 @@ public class Search_Session extends AppCompatActivity {
                 //no identical sessions
                 if (calendarStart.toDate().equals(s.getStartDate().toDate()) || calendarEnd.toDate().equals(s.getEndDate().toDate())) {
                     checkOverlap = false;
-                    Toast.makeText(Search_Session.this, "Time Conflict! with tutor: " + s.getApprovedTutor().getFirstName(), Toast.LENGTH_SHORT).show();
+
+                    db.collection("ApprovedTutors").whereEqualTo("documentId", s.getApprovedTutorId())
+                            .get().addOnCompleteListener(task -> {
+                                s.setApprovedTutor(task.getResult().getDocuments().get(0).toObject(ApprovedTutor.class));
+
+                                String msg = "Time Conflict! with tutor: " + s.getApprovedTutor().getFirstName() + " " + s.getApprovedTutor().getLastName();
+                                msg += " at " + s.getStartDate().toDate() + " to " + s.getEndDate().toDate();
+                                msg += " for " + s.getCourse();
+
+                                new AlertDialog.Builder(Search_Session.this)
+                                        .setTitle("Time Conflict!")
+                                        .setMessage(msg)
+                                        .setPositiveButton("OK", null)
+                                        .show();
+
+
+                            });
+
+
                     break;
                 }
 
