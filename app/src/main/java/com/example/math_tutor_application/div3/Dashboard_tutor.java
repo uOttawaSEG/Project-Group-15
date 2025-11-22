@@ -51,7 +51,7 @@ public class Dashboard_tutor extends AppCompatActivity {
                     count++;
                 }
                 notification = findViewById(R.id.notification);
-                notification.setText("You have " + count + "new notifications");
+                notification.setText("You have " + count + " new notifications");
             }
         });
 

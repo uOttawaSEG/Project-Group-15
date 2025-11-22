@@ -51,6 +51,9 @@ public class Welcome extends AppCompatActivity {
             intent = new Intent(this, Dashboard_tutor.class);
             intent.putExtra("email", email);
             intent.putExtra("password", password);
+            String docID = getIntent().getStringExtra("docID");
+            intent.putExtra("docID", docID);
+
 
         } else {
             String docId = getIntent().getStringExtra("docId");
