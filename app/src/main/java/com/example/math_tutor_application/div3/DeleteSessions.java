@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.math_tutor_application.R;
 import com.example.math_tutor_application.uml_classes.RegisteredSessions;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
@@ -23,9 +24,6 @@ public class DeleteSessions extends AppCompatActivity {
     private RecyclerView recyclerView;
     private UpcomingSessionsAdapter adapter;
     private final List<RegisteredSessions> upcomingSessionsList = new ArrayList<>();
-    private final List<RegisteredSessions> upcomingRegistedSessionsList = new ArrayList<>();
-
-
 
 
     private String tutorDocId;
@@ -90,10 +88,8 @@ public class DeleteSessions extends AppCompatActivity {
             return;
         }
 
-        db.collection("ApprovedTutors")
-                .document(tutorDocId)
-                .collection("sessionsArrayList")
-                .orderBy("startDate")
+        db.collection("Sessions")
+                .orderBy("startDate", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (!task.isSuccessful() || task.getResult() == null) {
@@ -104,6 +100,9 @@ public class DeleteSessions extends AppCompatActivity {
 
                     for (QueryDocumentSnapshot doc : task.getResult()) {
                         RegisteredSessions s = doc.toObject(RegisteredSessions.class);
+                        if (!s.getApprovedTutorId().equals(tutorDocId)) {
+                            continue;
+                        }
                         s.setDocumentId(doc.getId());
                         upcomingSessionsList.add(s);
                     }
@@ -114,6 +113,13 @@ public class DeleteSessions extends AppCompatActivity {
 
     private void showStudentInformation(RegisteredSessions session) {
 
+        //Tutor cannot delete a session that is booked
+        if (session.getIsStudentRegister()) {
+            Toast.makeText(this, "Cannot delete, Session is Booked", Toast.LENGTH_SHORT).show();
+            return;
+
+        }
+
         db.collection("RegisteredSessions").
                 document(session.getDocumentId())
                 .delete()
@@ -123,8 +129,15 @@ public class DeleteSessions extends AppCompatActivity {
                             .collection("sessionsArrayList")
                             .document(session.getDocumentId())
                             .delete()
-                            .addOnCompleteListener(aVoid2 -> {
-                                fetchUpcomingSessions();
+                            .addOnCompleteListener(task ->{
+                                db.collection("Sessions")
+                                        .document(session.getDocumentId())
+                                        .delete()
+                                        .addOnCompleteListener(aVoid3 -> {
+                                            fetchUpcomingSessions();
+
+                                        });
+
 
                             });
 

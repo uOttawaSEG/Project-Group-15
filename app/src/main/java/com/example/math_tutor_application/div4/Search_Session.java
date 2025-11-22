@@ -28,6 +28,7 @@ import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.*;
@@ -40,6 +41,12 @@ public class Search_Session extends AppCompatActivity {
 
     ArrayList<Sessions> sessions = new ArrayList<>();
     ArrayList<String> courses = new ArrayList<>();
+
+    ArrayList<Sessions> sessionsArrayList = new ArrayList<>();
+
+    ArrayList<RegisteredSessions> registeredSessions = new ArrayList<>();
+
+
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     Set<String> uniqueCourses = new HashSet<>();
     ArrayAdapter<String> adapter;
@@ -48,6 +55,7 @@ public class Search_Session extends AppCompatActivity {
     private RecyclerView recyclerView;
 
     ApprovedStudent approvedStudent;
+    String selectedCourse;
 
 
 
@@ -62,13 +70,9 @@ public class Search_Session extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
         studentDocId = getIntent().getStringExtra("docId");
-        db.collection("ApprovedStudents").document(studentDocId).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                approvedStudent = task.getResult().toObject(ApprovedStudent.class);
-            }
-        });
+
+
 
 
 
@@ -93,56 +97,81 @@ public class Search_Session extends AppCompatActivity {
             @Override
             public void onApprove(Sessions request) {
 
+                db.collection("RegisteredSessions").whereEqualTo("approvedStudentID", studentDocId)
+                        .get().addOnCompleteListener(registeredSessionsTask -> {
 
-                //check if open
-                if (request.getIsStudentRegister()) {
-                    Toast.makeText(Search_Session.this, "Already Registered!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+                            if (!registeredSessionsTask.isSuccessful() || registeredSessionsTask.getResult() == null) {
+                                Toast.makeText(Search_Session.this, "Error: Could not verify student sessions.", Toast.LENGTH_SHORT).show();
 
-                //if open, set to true and register
-                request.setIsStudentRegister(true);
-                db.collection("Sessions").document(request.getDocumentId())
-                        .set(request)
-                        .addOnCompleteListener(
-                                task -> {
+                            }
 
-                                    adapter2.notifyDataSetChanged();
-                                });
-
-                RegisteredSessions registeredSessions = new RegisteredSessions(request);
-                registeredSessions.setApprovedStudentID(studentDocId);
-
-                //checks for manual approval and sets status accordingly
-                String message;
-
-                if (registeredSessions.getManualApproval()) {
-                    registeredSessions.setStatus("approved");
-                    Toast.makeText(Search_Session.this, "Registered!, Automatic Approval", Toast.LENGTH_SHORT).show();
-                    message = "Student " + approvedStudent.getFirstName() + " " + approvedStudent.getLastName() + " has registered for your session and has been approved automatically";
-                } else {
-                    registeredSessions.setStatus("pending");
-                    Toast.makeText(Search_Session.this, "Registered!, Waiting for approval", Toast.LENGTH_SHORT).show();
-                    message = "Student " + approvedStudent.getFirstName() + " " + approvedStudent.getLastName() + " has registered for your session";
-                }
+                            for (QueryDocumentSnapshot doc : registeredSessionsTask.getResult()) {
+                                RegisteredSessions r = doc.toObject(RegisteredSessions.class);
+                                r.setDocumentId(doc.getId());
+                                registeredSessions.add(r);
+                            }
 
 
-                db.collection("RegisteredSessions").add(registeredSessions);
+                            db.collection("ApprovedStudents").document(studentDocId).get().addOnCompleteListener(studentTask -> {
 
 
+                                if (!studentTask.isSuccessful() || studentTask.getResult() == null) {
+                                    Toast.makeText(Search_Session.this, "Error: Could not verify student profile.", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                                approvedStudent = studentTask.getResult().toObject(ApprovedStudent.class);
+
+                                // Check if the session is already booked
+                                if (request.getIsStudentRegister()) {
+                                    Toast.makeText(Search_Session.this, "Already Registered!", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+
+                                if (!timeConflict(request)) {
+                                    return;
+                                }
 
 
-                //send notification to tutor
-                Notification notification = new Notification();
-                notification.setMsg(message);
-                notification.setReceiver(request.getApprovedTutor().getDocumentId());
-                notification.setSender(studentDocId);
-                Date date = new Date();
-                notification.setTimestamp(new Timestamp(date));
-                db.collection("Notifications").add(notification);
+                                request.setIsStudentRegister(true);
+                                db.collection("Sessions").document(request.getDocumentId()).set(request);
+                                adapter2.notifyItemChanged(sessions.indexOf(request));
+                                RegisteredSessions registeredSessions = new RegisteredSessions(request);
+                                registeredSessions.setApprovedStudentID(studentDocId);
+                                registeredSessions.setCourse(selectedCourse);
+
+
+                                String message;
+                                if (registeredSessions.getManualApproval()) {
+                                    registeredSessions.setStatus("approved");
+                                    Toast.makeText(Search_Session.this, "Registered! Automatic Approval", Toast.LENGTH_SHORT).show();
+                                    message = "Student " + approvedStudent.getFirstName() + " " + approvedStudent.getLastName() + " has registered for your session and has been approved automatically";
+                                } else {
+                                    registeredSessions.setStatus("pending");
+                                    Toast.makeText(Search_Session.this, "Registered! Waiting for approval", Toast.LENGTH_SHORT).show();
+                                    message = "Student " + approvedStudent.getFirstName() + " " + approvedStudent.getLastName() + " has registered for your session for " + selectedCourse;
+                                }
+
+                                db.collection("RegisteredSessions").document(registeredSessions.getDocumentId()).set(registeredSessions);
+
+
+                                Notification notification = new Notification();
+                                notification.setMsg(message);
+                                notification.setReceiver(request.getApprovedTutor().getDocumentId());
+                                notification.setSender(studentDocId);
+                                notification.setTimestamp(new Timestamp(new Date()));
+                                db.collection("Notifications").add(notification);
+
+
+                            });
+
+
+                        });
+
+
 
 
             }
+
 
             @Override
             public void onDisplay(ApprovedTutor tutor) {
@@ -204,7 +233,7 @@ public class Search_Session extends AppCompatActivity {
         courseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedCourse = parent.getItemAtPosition(position).toString();
+                selectedCourse = parent.getItemAtPosition(position).toString();
 
                 if (!selectedCourse.equals("Select Course")) {
                     Toast.makeText(Search_Session.this, "Selected Course: " + selectedCourse, Toast.LENGTH_SHORT).show();
@@ -222,50 +251,56 @@ public class Search_Session extends AppCompatActivity {
         });
 
 
-
     }
 
     public void fetchAndDisplay(String course) {
-        db.collection("Sessions").orderBy("startDate").get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful() || task.getResult() == null) {
-                return;
-            }
 
-            sessions.clear();
-            List<Task<DocumentSnapshot>> tutorTasks = new ArrayList<>();
-            List<Sessions> sessionsFromDB = new ArrayList<>();
+        db.collection("Sessions").orderBy("startDate", Query.Direction.DESCENDING   )
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful() || task.getResult() == null) {
+                        return;
+                    }
 
-            for (QueryDocumentSnapshot doc : task.getResult()) {
-                Sessions s = doc.toObject(Sessions.class);
-                s.setDocumentId(doc.getId());
-                sessionsFromDB.add(s);
+                    sessions.clear();
 
-                if (s.getApprovedTutorId() != null) {
-                    tutorTasks.add(db.collection("ApprovedTutors").document(s.getApprovedTutorId()).get());
-                }
-            }
+                    List<Task<DocumentSnapshot>> tutorTasks = new ArrayList<>();
+                    List<Sessions> sessionsFromDB = new ArrayList<>();
 
-            Tasks.whenAllSuccess(tutorTasks).addOnSuccessListener(results -> {
-                for (int i = 0; i < results.size(); i++) {
-                    DocumentSnapshot tutorSnapshot = (DocumentSnapshot) results.get(i);
-                    if (tutorSnapshot.exists()) {
-                        ApprovedTutor t = tutorSnapshot.toObject(ApprovedTutor.class);
-                        for (Sessions session : sessionsFromDB) {
-                            if (tutorSnapshot.getId().equals(session.getApprovedTutorId())) {
-                                session.setApprovedTutor(t);
-                            }
+                    for (QueryDocumentSnapshot doc : task.getResult()) {
+                        Sessions s = doc.toObject(Sessions.class);
+                        s.setDocumentId(doc.getId());
+                        sessionsFromDB.add(s);
+
+                        if (s.getApprovedTutorId() != null) {
+                            tutorTasks.add(db.collection("ApprovedTutors").document(s.getApprovedTutorId()).get());
                         }
                     }
-                }
-                filterSessions(course, sessionsFromDB);
-                adapter2.notifyDataSetChanged();
-            });
-        });
+
+                    Tasks.whenAllSuccess(tutorTasks).addOnSuccessListener(results -> {
+                        for (int i = 0; i < results.size(); i++) {
+                            DocumentSnapshot tutorSnapshot = (DocumentSnapshot) results.get(i);
+                            if (tutorSnapshot.exists()) {
+                                ApprovedTutor t = tutorSnapshot.toObject(ApprovedTutor.class);
+                                for (Sessions session : sessionsFromDB) {
+                                    if (tutorSnapshot.getId().equals(session.getApprovedTutorId())) {
+                                        session.setApprovedTutor(t);
+                                    }
+                                }
+                            }
+                        }
+                        sessionsArrayList.clear();
+                        filterSessions(course, sessionsFromDB);
+                        adapter2.notifyDataSetChanged();
+                    });
+                });
     }
 
 
 
-    public void filterSessions(String course, @NonNull List<Sessions> unfilteredSessions) {
+
+
+    public void filterSessions(String course,  List<Sessions> unfilteredSessions) {
 
         sessions.clear();
 
@@ -274,8 +309,37 @@ public class Search_Session extends AppCompatActivity {
                 sessions.add(session);
             }
 
+
+
         }
 
+    }
+
+    public boolean timeConflict(Sessions request) {
+
+        boolean checkOverlap = true;
+
+        Timestamp calendarStart = request.getStartDate();
+        Timestamp calendarEnd = request.getEndDate();
+
+
+        for (Sessions s : registeredSessions) {
+
+            //no overlap start1 <= end2 and start2 <= end1
+            if (calendarStart.toDate().before(s.getEndDate().toDate()) && calendarEnd.toDate().after(s.getStartDate().toDate())) {
+
+                //no identical sessions
+                if (calendarStart.toDate().equals(s.getStartDate().toDate()) || calendarEnd.toDate().equals(s.getEndDate().toDate())) {
+                    checkOverlap = false;
+                    Toast.makeText(Search_Session.this, "Time Conflict! with tutor: " + s.getApprovedTutor().getFirstName(), Toast.LENGTH_SHORT).show();
+                    break;
+                }
+
+
+            }
+        }
+
+        return checkOverlap;
     }
 
 }

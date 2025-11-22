@@ -15,6 +15,7 @@ import com.example.math_tutor_application.R;
 import com.example.math_tutor_application.uml_classes.RegisteredSessions;
 import com.example.math_tutor_application.uml_classes.Student;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
@@ -93,7 +94,7 @@ public class TutorPastSessions extends AppCompatActivity {
     private void fetchUpcomingSessions() {
         if (!isNonEmpty(tutorDocId)) {
             Toast.makeText(this, "Tutor ID not available yet", Toast.LENGTH_SHORT).show();
-            return;
+            return; // don't finish(); allow later retry if needed
         }
 
 
@@ -120,17 +121,18 @@ public class TutorPastSessions extends AppCompatActivity {
                 }).addOnCompleteListener(task5 -> {
                     Date now = new Date();
                     //GOES OVER SESSIONS
-                    db.collection("ApprovedTutors")
-                            .document(tutorDocId)
-                            .collection("sessionsArrayList")
+                    db.collection("Sessions")
                             .whereLessThanOrEqualTo("startDate", now)
-                            .orderBy("startDate")
+                            .orderBy("startDate", Query.Direction.DESCENDING)
                             .get()
                             .addOnCompleteListener(task -> {
                                 if (task.isSuccessful() && task.getResult() != null) {
                                     upcomingSessionsList.clear();
                                     for (QueryDocumentSnapshot doc : task.getResult()) {
                                         RegisteredSessions s = doc.toObject(RegisteredSessions.class);
+                                        if (!s.getApprovedTutorId().equals(tutorDocId)) {
+                                            continue;
+                                        }
                                         try { s.setDocumentId(doc.getId()); } catch (Exception ignored) {}
                                         //checks to see if they are no dublicates
                                         if (s.getStartDate() != null) {

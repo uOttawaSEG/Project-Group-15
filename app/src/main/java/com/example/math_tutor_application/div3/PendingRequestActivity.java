@@ -9,10 +9,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.math_tutor_application.uml_classes.ApprovedStudent;
 import com.example.math_tutor_application.uml_classes.ApprovedTutor;
 import com.example.math_tutor_application.R;
+import com.example.math_tutor_application.uml_classes.Notification;
 import com.example.math_tutor_application.uml_classes.RegisteredSessions;
 import com.example.math_tutor_application.uml_classes.Student;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -61,19 +66,23 @@ public class PendingRequestActivity extends AppCompatActivity {
                             .addOnSuccessListener(aVoid -> {
                                 Toast.makeText(PendingRequestActivity.this, "Approved!", Toast.LENGTH_SHORT).show();
                                 adapter.notifyDataSetChanged();
+
+                                //send notification to student
+                                Student student = request.getStudent();
+                                String message = "Your session request has been approved for " + request.getCourse() + " by " + approvedTutor.getFirstName() + " " + approvedTutor.getLastName();
+                                Notification notification = new Notification();
+                                notification.setMsg(message);
+                                notification.setReceiver(student.getDocumentId());
+                                notification.setSender(approvedTutor.getDocumentId());
+                                notification.setTimestamp(Timestamp.now());
+                                db.collection("Notifications").add(notification);
+
+
+
+
                             });
                 } else {
-                    request.setStatus("pending");
-                    db.collection("RegisteredSessions").document(request.getDocumentId())
-                            .update("status", "pending")
-                            .addOnSuccessListener(aVoid -> {
-                                Toast.makeText(PendingRequestActivity.this, "Pending!", Toast.LENGTH_SHORT).show();
-                                adapter.notifyDataSetChanged();
-                            });
-
-
-
-
+                    cancel(request, "approved");
                 }
 
 
@@ -91,16 +100,21 @@ public class PendingRequestActivity extends AppCompatActivity {
                             .addOnSuccessListener(aVoid -> {
                                 Toast.makeText(PendingRequestActivity.this, "Rejected!", Toast.LENGTH_SHORT).show();
                                 adapter.notifyDataSetChanged();
+
+                                //send notification to student
+                                Student student = request.getStudent();
+                                String message = "Your session request has been rejected for " + request.getCourse() + " by " + approvedTutor.getFirstName() + " " + approvedTutor.getLastName();
+                                Notification notification = new Notification();
+                                notification.setMsg(message);
+                                notification.setReceiver(student.getDocumentId());
+                                notification.setSender(approvedTutor.getDocumentId());
+                                notification.setTimestamp(Timestamp.now());
+                                db.collection("Notifications").add(notification);
+
+
                             });
                 } else {
-                    request.setStatus("pending");
-                    db.collection("RegisteredSessions").document(request.getDocumentId())
-                            .update("status", "pending")
-                            .addOnSuccessListener(aVoid -> {
-                                Toast.makeText(PendingRequestActivity.this, "Pending!", Toast.LENGTH_SHORT).show();
-                                adapter.notifyDataSetChanged();
-                            });
-
+                    cancel(request, "rejected");
                 }
 
             }
@@ -129,44 +143,79 @@ public class PendingRequestActivity extends AppCompatActivity {
 
     private void fetchSessionRequests() {
 
-        Log.d("Firestore", "Fetching pending sessions...");
+        //better and more robust way using Task to handle both student and session data
+
         db.collection("RegisteredSessions")
                 .whereEqualTo("approvedTutorId", approvedTutor.getDocumentId())
                 .get()
                 .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
+                    if (task.isSuccessful() && task.getResult() != null) {
                         requestList.clear();
+                        List<Task<Student>> studentTasks = new ArrayList<>();
+                        List<RegisteredSessions> sessionsFromDB = new ArrayList<>();
+
                         for (QueryDocumentSnapshot doc : task.getResult()) {
-                            Log.d("Firestore", "Document: " + doc.getData().toString());
                             RegisteredSessions request = doc.toObject(RegisteredSessions.class);
                             request.setDocumentId(doc.getId());
                             request.setApprovedTutor(approvedTutor);
+                            sessionsFromDB.add(request);
 
-                            //fetch student info
-                            if(request.getApprovedStudentID() == null) continue;
-                            String studentId = request.getApprovedStudentID();
-                            db.collection("Students").document(studentId).get().addOnCompleteListener(task2 -> {
-                                if (task2.isSuccessful()) {
-                                    Student student = task2.getResult().toObject(Student.class);
-                                    request.setStudent(student);
-                                    requestList.add(request);
-                                    adapter.notifyDataSetChanged();
-
-                                }
-                            });
-
+                            if (request.getApprovedStudentID() != null) {
+                                Task<Student> studentTask = db.collection("Students")
+                                        .document(request.getApprovedStudentID())
+                                        .get()
+                                        .continueWith(studentResultTask -> studentResultTask.getResult().toObject(Student.class));
+                                studentTasks.add(studentTask);
+                            }
                         }
+
+                        if (sessionsFromDB.isEmpty()) {
+                            Toast.makeText(this, "No pending requests", Toast.LENGTH_SHORT).show();
+                            adapter.notifyDataSetChanged();
+                            return;
+                        }
+
+                        Tasks.whenAllSuccess(studentTasks).addOnSuccessListener(students -> {
+
+                            for (int i = 0; i < students.size(); i++) {
+                                RegisteredSessions session = sessionsFromDB.get(i);
+                                Student student = (Student) students.get(i);
+                                if (student != null) {
+                                    session.setStudent(student);
+                                    requestList.add(session);
+                                }
+                            }
+                            adapter.notifyDataSetChanged();
+                        });
+
                     } else {
-                        Log.e("Firestore", "Error fetching documents", task.getException());
                         Toast.makeText(this, "Failed to load requests", Toast.LENGTH_SHORT).show();
                     }
-                }).addOnCompleteListener(task3 -> {
-                    //Tells the user if the list is empty so it doesn't look like a bug
-                    if (requestList.isEmpty()) {
-                        Toast.makeText(this, "No pending requests", Toast.LENGTH_SHORT).show();
-                    }
+                });
+    }
+
+
+    public void cancel(RegisteredSessions request, String msgStatus) {
+        request.setStatus("pending");
+        db.collection("RegisteredSessions").document(request.getDocumentId())
+                .update("status", "pending")
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(PendingRequestActivity.this, "Pending!", Toast.LENGTH_SHORT).show();
+                    adapter.notifyDataSetChanged();
+
+                    //send notification to student
+                    Student student = request.getStudent();
+                    String message = "Your session request has been changed to Pending from " + msgStatus + " for " + request.getCourse() + " by " + approvedTutor.getFirstName() + " " + approvedTutor.getLastName();
+                    Notification notification = new Notification();
+                    notification.setMsg(message);
+                    notification.setReceiver(student.getDocumentId());
+                    notification.setSender(approvedTutor.getDocumentId());
+                    notification.setTimestamp(Timestamp.now());
+                    db.collection("Notifications").add(notification);
+
 
                 });
+
     }
 
 }

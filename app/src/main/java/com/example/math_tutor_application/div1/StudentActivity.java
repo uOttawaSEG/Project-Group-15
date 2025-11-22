@@ -42,7 +42,6 @@ public class StudentActivity extends AppCompatActivity {
         setContentView(R.layout.div1_activity_student);
 
 
-        
     }
 
     public void submitHandler(View view) {

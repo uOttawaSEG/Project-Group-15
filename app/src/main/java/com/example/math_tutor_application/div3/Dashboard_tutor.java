@@ -11,6 +11,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.math_tutor_application.R;
+import com.example.math_tutor_application.div4.NotificationDisplay;
 import com.example.math_tutor_application.uml_classes.ApprovedTutor;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -93,5 +94,11 @@ public class Dashboard_tutor extends AppCompatActivity {
         intent.putExtra("email", email);
         startActivity(intent);
 
+    }
+
+    public void notificationHandler(View view) {
+        Intent intent = new Intent(this, NotificationDisplay.class);
+        intent.putExtra("docId", docID);
+        startActivity(intent);
     }
 }

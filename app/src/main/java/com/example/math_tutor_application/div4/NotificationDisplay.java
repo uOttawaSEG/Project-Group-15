@@ -1,17 +1,20 @@
 package com.example.math_tutor_application.div4;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.math_tutor_application.R;
 import com.example.math_tutor_application.uml_classes.Notification;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.WriteBatch;
 
@@ -45,21 +48,33 @@ public class NotificationDisplay extends AppCompatActivity {
         //set up recycler view
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new NotificationAdaptor(displayNotifications);
         recyclerView.setAdapter(adapter);
-        db.collection("Notifications").whereEqualTo("receiver", docId).orderBy("timestamp").get().addOnCompleteListener(task -> {
+        db.collection("Notifications").orderBy("timestamp", Query.Direction.DESCENDING)
+        .get().addOnCompleteListener(task -> {
+
+
             if(task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     Notification notification = document.toObject(Notification.class);
                     notification.setDocumentId(document.getId());
-                    notifications.add(notification);
-                    displayNotifications.add(notification.getMsg());
 
-                    //better way to update the adapter
-                    int insertedPosition = displayNotifications.size() - 1;
-                    adapter.notifyItemInserted(insertedPosition);
+                    if (notification.getReceiver().equals(docId)) {
+                        notifications.add(notification);
+                        displayNotifications.add(notification.getMsg());
+
+
+                        //better way to update the adapter
+                        int insertedPosition = displayNotifications.size() - 1;
+                        adapter.notifyItemInserted(insertedPosition);
+
+
+                    }
+
 
                 }
+
 
             }
         });

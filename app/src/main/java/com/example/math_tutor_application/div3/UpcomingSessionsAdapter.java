@@ -54,6 +54,12 @@ public class UpcomingSessionsAdapter extends RecyclerView.Adapter<UpcomingSessio
                 : "approved";
         holder.sessionStatus.setText("Status: " + status);
 
+        String booking = (s.getIsStudentRegister())
+                ? "Booked"
+                : "Open";
+        holder.bookingStatus.setText("Booking: " + booking);
+
+
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) listener.onSessionClick(s);
         });
@@ -65,13 +71,14 @@ public class UpcomingSessionsAdapter extends RecyclerView.Adapter<UpcomingSessio
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        final TextView sessionTime;
+        final TextView sessionTime, bookingStatus;
         final TextView sessionStatus;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             sessionTime = itemView.findViewById(R.id.sessionTime);
             sessionStatus = itemView.findViewById(R.id.sessionStatus);
+            bookingStatus = itemView.findViewById(R.id.booking);
         }
     }
 }

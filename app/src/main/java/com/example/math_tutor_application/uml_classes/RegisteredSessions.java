@@ -10,6 +10,8 @@ public class RegisteredSessions extends Sessions {
 
     Student student;
 
+    String course;
+
 
 
     public RegisteredSessions() {}
@@ -48,6 +50,14 @@ public class RegisteredSessions extends Sessions {
 
     public void setStudent(Student student) {
         this.student = student;
+    }
+
+    public String getCourse() {
+        return course;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
     }
 
 

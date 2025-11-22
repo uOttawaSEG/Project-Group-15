@@ -147,6 +147,8 @@ public class SlotCreationTutor extends AppCompatActivity {
                     (view, selectedHour, selectedMinute) -> {
                         calendarStart.set(Calendar.HOUR_OF_DAY, selectedHour);
                         calendarStart.set(Calendar.MINUTE, selectedMinute);
+                        calendarStart.set(Calendar.SECOND, 0);
+                        calendarStart.set(Calendar.MILLISECOND, 0);
                         updateText();
                     }, calendarStart.get(Calendar.HOUR_OF_DAY), calendarStart.get(Calendar.MINUTE), true);
 
@@ -155,6 +157,8 @@ public class SlotCreationTutor extends AppCompatActivity {
                     (view, selectedHour, selectedMinute) -> {
                         calendarEnd.set(Calendar.HOUR_OF_DAY, selectedHour);
                         calendarEnd.set(Calendar.MINUTE, selectedMinute);
+                        calendarEnd.set(Calendar.SECOND, 0);
+                        calendarEnd.set(Calendar.MILLISECOND, 0);
                         updateTextEnd();
                     }, calendarEnd.get(Calendar.HOUR_OF_DAY), calendarEnd.get(Calendar.MINUTE), true);
 
@@ -191,8 +195,13 @@ public class SlotCreationTutor extends AppCompatActivity {
         for (Sessions s : sessionsArrayList) {
 
             if (calendarStart.getTime().before(s.getEndDate().toDate()) && calendarEnd.getTime().after(s.getStartDate().toDate())) {
-                checkOverlap = false;
-                break;
+
+                if (calendarStart.getTime().equals(s.getStartDate().toDate()) || calendarEnd.getTime().equals(s.getEndDate().toDate())) {
+                    checkOverlap = false;
+                    break;
+                }
+
+
             }
         }
 
