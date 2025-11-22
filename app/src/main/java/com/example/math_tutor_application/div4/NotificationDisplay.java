@@ -84,20 +84,21 @@ public class NotificationDisplay extends AppCompatActivity {
 
     }
 
-//uncomit the code after testing
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        db.collection("Notifications").whereEqualTo("receiver", docId).get().addOnCompleteListener(task -> {
-//            if (task.isSuccessful() && task.getResult() != null && !task.getResult().isEmpty()) {
-//                WriteBatch batch = db.batch();
-//                for (QueryDocumentSnapshot document : task.getResult()) {
-//                    batch.delete(document.getReference());
-//                }
-//                batch.commit();
-//            }
-//        });
-//    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        String docId = getIntent().getStringExtra("docId");
+        db.collection("Notifications").whereEqualTo("receiver", docId).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult() != null && !task.getResult().isEmpty()) {
+               WriteBatch batch = db.batch();
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    batch.delete(document.getReference());
+                }
+                batch.commit();
+            }
+        });
+    }
 
 
 }

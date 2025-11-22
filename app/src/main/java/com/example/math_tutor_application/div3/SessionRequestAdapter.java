@@ -28,6 +28,8 @@ public class SessionRequestAdapter extends RecyclerView.Adapter<SessionRequestAd
         void onReject(RegisteredSessions request);
 
         void onDisplay(Student student);
+
+        void onCancel(RegisteredSessions request);
     }
 
     public SessionRequestAdapter(List<RegisteredSessions> requestList, OnRequestActionListener listener) {
@@ -72,6 +74,7 @@ public class SessionRequestAdapter extends RecyclerView.Adapter<SessionRequestAd
         holder.approveBtn.setOnClickListener(v -> listener.onApprove(request));
         holder.rejectBtn.setOnClickListener(v -> listener.onReject(request));
         holder.studentName.setOnClickListener(v-> listener.onDisplay(request.getStudent()));
+        holder.cancelBtn.setOnClickListener(v -> listener.onCancel(request));
     }
 
 
@@ -83,7 +86,8 @@ public class SessionRequestAdapter extends RecyclerView.Adapter<SessionRequestAd
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView studentName, course, time, status, realCourse;
-        Button approveBtn, rejectBtn;
+        Button approveBtn, rejectBtn, cancelBtn;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -94,6 +98,7 @@ public class SessionRequestAdapter extends RecyclerView.Adapter<SessionRequestAd
             rejectBtn = itemView.findViewById(R.id.rejectBtn);
             status = itemView.findViewById(R.id.status);
             realCourse = itemView.findViewById(R.id.realCourse);
+            cancelBtn = itemView.findViewById(R.id.cancelBtn);
         }
     }
 }

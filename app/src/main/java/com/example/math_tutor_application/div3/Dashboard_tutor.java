@@ -3,6 +3,7 @@ package com.example.math_tutor_application.div3;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,10 @@ public class Dashboard_tutor extends AppCompatActivity {
     String email, password, docID, firstName, lastName;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    TextView notification;
+
+    int count = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,21 +40,20 @@ public class Dashboard_tutor extends AppCompatActivity {
         Intent intent = getIntent();
         email = intent.getStringExtra("email");
         password = intent.getStringExtra("password");
-        db.collection("ApprovedTutors")
-                .whereEqualTo("email", email)
-                .whereEqualTo("password", password)
-                .limit(1)
-                .get()
-                .addOnCompleteListener(task5 -> {
-                    if (task5.isSuccessful() && !task5.getResult().isEmpty()) {
-                        DocumentSnapshot document = task5.getResult().getDocuments().get(0);
-                        ApprovedTutor tutor = document.toObject(ApprovedTutor.class);
-                        docID = document.getId();
-                        firstName = tutor.getFirstName();
-                        lastName = tutor.getLastName();
 
-                    }
-                });
+        docID = intent.getStringExtra("docID");
+
+
+
+        db.collection("Notifications").whereEqualTo("receiver", docID).get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                for(int i = 0; i < task.getResult().size(); i++){
+                    count++;
+                }
+                notification = findViewById(R.id.notification);
+                notification.setText("You have " + count + "new notifications");
+            }
+        });
 
 
     }

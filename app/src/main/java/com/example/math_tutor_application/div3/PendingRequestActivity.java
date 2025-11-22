@@ -81,8 +81,6 @@ public class PendingRequestActivity extends AppCompatActivity {
 
 
                             });
-                } else {
-                    cancel(request, "approved");
                 }
 
 
@@ -113,8 +111,6 @@ public class PendingRequestActivity extends AppCompatActivity {
 
 
                             });
-                } else {
-                    cancel(request, "rejected");
                 }
 
             }
@@ -132,6 +128,12 @@ public class PendingRequestActivity extends AppCompatActivity {
                         .setMessage(studentInfo)
                         .setPositiveButton("OK", null)
                         .show();
+
+            }
+
+            @Override
+            public void onCancel(RegisteredSessions request) {
+                cancel(request, request.getStatus());
 
             }
 
@@ -200,12 +202,12 @@ public class PendingRequestActivity extends AppCompatActivity {
         db.collection("RegisteredSessions").document(request.getDocumentId())
                 .update("status", "pending")
                 .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(PendingRequestActivity.this, "Pending!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PendingRequestActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
                     adapter.notifyDataSetChanged();
 
                     //send notification to student
                     Student student = request.getStudent();
-                    String message = "Your session request has been changed to Pending from " + msgStatus + " for " + request.getCourse() + " by " + approvedTutor.getFirstName() + " " + approvedTutor.getLastName();
+                    String message = "Your session request has been cancelled to Pending from " + msgStatus + " for " + request.getCourse() + " by " + approvedTutor.getFirstName() + " " + approvedTutor.getLastName();
                     Notification notification = new Notification();
                     notification.setMsg(message);
                     notification.setReceiver(student.getDocumentId());

@@ -50,11 +50,25 @@
 
         </LinearLayout>
 
+
+        <TextView
+            android:id="@+id/notification"
+            android:layout_width="304dp"
+            android:layout_height="52dp"
+            android:text="You have "
+            android:textSize="15sp"
+            android:gravity="start"
+            android:padding = "10dp"
+            android:layout_marginTop="75dp"
+            />
+
+
+
         <Button
             android:id="@+id/button"
             android:layout_width="304dp"
             android:layout_height="52dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="20dp"
             android:onClick="sessionRegistrationHandler"
             android:text="Search Session/Book Session" />
 

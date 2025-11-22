@@ -28,6 +28,10 @@ public class StudentDashboard extends AppCompatActivity {
     TextView fullName;
     TextView email;
 
+    TextView notification;
+
+    int count = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,16 @@ public class StudentDashboard extends AppCompatActivity {
 
            }
 
+        });
+
+        db.collection("Notifications").whereEqualTo("receiver", docId).get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                for(int i = 0; i < task.getResult().size(); i++){
+                    count++;
+                }
+                notification = findViewById(R.id.notification);
+                notification.setText("You have " + count + "new notifications");
+            }
         });
 
 
