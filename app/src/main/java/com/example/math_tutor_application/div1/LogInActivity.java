@@ -127,6 +127,8 @@ public class LogInActivity extends AppCompatActivity {
                                                             intent.putExtra("message", message);
                                                             intent.putExtra("email", email);
                                                             intent.putExtra("password", password);
+                                                            intent.putExtra("firstName", tutor.getFirstName());
+                                                            intent.putExtra("lastName", tutor.getLastName());
                                                             String docID = document.getId();
                                                             intent.putExtra("docID", docID);
                                                             startActivity(intent);

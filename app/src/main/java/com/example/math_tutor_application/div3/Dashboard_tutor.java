@@ -24,7 +24,7 @@ public class Dashboard_tutor extends AppCompatActivity {
 
     TextView notification;
 
-    int count = 0;
+    int count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,20 +40,11 @@ public class Dashboard_tutor extends AppCompatActivity {
         Intent intent = getIntent();
         email = intent.getStringExtra("email");
         password = intent.getStringExtra("password");
+        firstName = intent.getStringExtra("firstName");
+        lastName = intent.getStringExtra("lastName");
 
         docID = intent.getStringExtra("docID");
-
-
-
-        db.collection("Notifications").whereEqualTo("receiver", docID).get().addOnCompleteListener(task -> {
-            if(task.isSuccessful()){
-                for(int i = 0; i < task.getResult().size(); i++){
-                    count++;
-                }
-                notification = findViewById(R.id.notification);
-                notification.setText("You have " + count + " new notifications");
-            }
-        });
+        notification = findViewById(R.id.notification);
 
 
     }
@@ -104,5 +95,36 @@ public class Dashboard_tutor extends AppCompatActivity {
         Intent intent = new Intent(this, NotificationDisplay.class);
         intent.putExtra("docId", docID);
         startActivity(intent);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (count != 0) {
+            count = 0;
+            notification.setText("You have " + count + " new notifications");
+        } else {
+            notificationDisplay();
+        }
+
+    }
+
+    private void notificationDisplay() {
+
+        count = 0; //fixes count bug
+
+        db.collection("Notifications").whereEqualTo("receiver", docID).get().addOnCompleteListener(task -> {
+
+            if(task.isSuccessful()){
+                for(int i = 0; i < task.getResult().size(); i++){
+                    count++;
+                }
+
+            }
+            notification.setText("You have " + count + " new notifications");
+        });
+
+
     }
 }

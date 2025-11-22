@@ -33,6 +33,10 @@ public class PendingRequestActivity extends AppCompatActivity {
     private List<RegisteredSessions> requestList = new ArrayList<>();
     private ApprovedTutor approvedTutor;
 
+    String approvedTutorDocId, email, firstName, lastName;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +44,10 @@ public class PendingRequestActivity extends AppCompatActivity {
         setContentView(R.layout.div3_pending_request);
 
         //ApprovedTutor info - passed on from dashboard no need for firebase
-        String approvedTutorDocId = getIntent().getStringExtra("docID");
-        String email = getIntent().getStringExtra("email");
-        String firstName = getIntent().getStringExtra("firstName");
-        String lastName = getIntent().getStringExtra("lastName");
+         approvedTutorDocId = getIntent().getStringExtra("docID");
+         email = getIntent().getStringExtra("email");
+         firstName = getIntent().getStringExtra("firstName");
+         lastName = getIntent().getStringExtra("lastName");
         approvedTutor = new ApprovedTutor();
         approvedTutor.setDocumentId(approvedTutorDocId);
         approvedTutor.setEmail(email);
@@ -69,7 +73,7 @@ public class PendingRequestActivity extends AppCompatActivity {
 
                                 //send notification to student
                                 Student student = request.getStudent();
-                                String message = "Your session request has been approved for " + request.getCourse() + " by " + approvedTutor.getFirstName() + " " + approvedTutor.getLastName();
+                                String message = "Your session request has been approved for " + request.getCourse() + " by " + firstName + " " + lastName;
                                 Notification notification = new Notification();
                                 notification.setMsg(message);
                                 notification.setReceiver(student.getDocumentId());
@@ -101,7 +105,7 @@ public class PendingRequestActivity extends AppCompatActivity {
 
                                 //send notification to student
                                 Student student = request.getStudent();
-                                String message = "Your session request has been rejected for " + request.getCourse() + " by " + approvedTutor.getFirstName() + " " + approvedTutor.getLastName();
+                                String message = "Your session request has been rejected for " + request.getCourse() + " by " + firstName + " " + lastName;
                                 Notification notification = new Notification();
                                 notification.setMsg(message);
                                 notification.setReceiver(student.getDocumentId());
@@ -133,7 +137,7 @@ public class PendingRequestActivity extends AppCompatActivity {
 
             @Override
             public void onCancel(RegisteredSessions request) {
-                cancel(request, request.getStatus());
+                cancel(request, request.getStatus(), firstName, lastName);
 
             }
 
@@ -197,7 +201,7 @@ public class PendingRequestActivity extends AppCompatActivity {
     }
 
 
-    public void cancel(RegisteredSessions request, String msgStatus) {
+    public void cancel(RegisteredSessions request, String msgStatus, String firstName, String lastName) {
         request.setStatus("pending");
         db.collection("RegisteredSessions").document(request.getDocumentId())
                 .update("status", "pending")
@@ -207,7 +211,7 @@ public class PendingRequestActivity extends AppCompatActivity {
 
                     //send notification to student
                     Student student = request.getStudent();
-                    String message = "Your session request has been cancelled to Pending from " + msgStatus + " for " + request.getCourse() + " by " + approvedTutor.getFirstName() + " " + approvedTutor.getLastName();
+                    String message = "Your session request has been cancelled to Pending from " + msgStatus + " for " + request.getCourse() + " by " + firstName + " " + lastName;
                     Notification notification = new Notification();
                     notification.setMsg(message);
                     notification.setReceiver(student.getDocumentId());

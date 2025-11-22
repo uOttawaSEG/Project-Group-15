@@ -30,7 +30,9 @@ public class StudentDashboard extends AppCompatActivity {
 
     TextView notification;
 
-    int count = 0;
+    int count;
+
+
 
 
     @Override
@@ -43,6 +45,8 @@ public class StudentDashboard extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        notification = findViewById(R.id.notification);
 
         docId = getIntent().getStringExtra("docId");
 
@@ -60,21 +64,6 @@ public class StudentDashboard extends AppCompatActivity {
            }
 
         });
-
-        db.collection("Notifications").whereEqualTo("receiver", docId).get().addOnCompleteListener(task -> {
-            if(task.isSuccessful()){
-                for(int i = 0; i < task.getResult().size(); i++){
-                    count++;
-                }
-                notification = findViewById(R.id.notification);
-                notification.setText("You have " + count + " new notifications");
-            }
-        });
-
-
-
-
-
 
 
     }
@@ -95,4 +84,34 @@ public class StudentDashboard extends AppCompatActivity {
 
     }
 
+    public void notificationDisplay() {
+        count = 0; //fixes count bug
+
+        db.collection("Notifications").whereEqualTo("receiver", docId).get().addOnCompleteListener(task -> {
+
+            if(task.isSuccessful()){
+                for(int i = 0; i < task.getResult().size(); i++){
+                    count++;
+                }
+
+
+            }
+
+
+            notification.setText("You have " + count + " new notifications");
+        });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (count != 0) {
+            count = 0;
+            notification.setText("You have " + count + " new notifications");
+        } else {
+        notificationDisplay();
+        }
+
+    }
 }

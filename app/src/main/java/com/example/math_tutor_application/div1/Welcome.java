@@ -14,7 +14,7 @@ import com.example.math_tutor_application.div4.StudentDashboard;
 
 public class Welcome extends AppCompatActivity {
     String message;
-    String email;
+    String email, firstName, lastName;
     String password;
 
 
@@ -49,8 +49,13 @@ public class Welcome extends AppCompatActivity {
             intent = new Intent(this, Dashboard_admin.class);
         } else if (message.contains("tutor")) {
             intent = new Intent(this, Dashboard_tutor.class);
+            firstName = getIntent().getStringExtra("firstName");
+            lastName = getIntent().getStringExtra("lastName");
+            intent.putExtra("firstName", firstName);
+            intent.putExtra("lastName", lastName);
             intent.putExtra("email", email);
             intent.putExtra("password", password);
+
             String docID = getIntent().getStringExtra("docID");
             intent.putExtra("docID", docID);
 
