@@ -80,10 +80,7 @@ public class NotificationDisplay extends AppCompatActivity {
         });
 
 
-
-
     }
-
 
     @Override
     protected void onDestroy() {
