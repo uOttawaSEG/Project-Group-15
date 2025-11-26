@@ -76,6 +76,14 @@ public class StudentDashboard extends AppCompatActivity {
 
     }
 
+    public void upCommingSessionHandler(View view) {
+
+        Intent intent = new Intent(this, StudentUpcomingSessionsActivity.class);
+        intent.putExtra("docId", docId);
+        startActivity(intent);
+
+    }
+
     public void notificationHandler(View view) {
 
         Intent intent = new Intent(this, NotificationDisplay.class);
@@ -94,9 +102,7 @@ public class StudentDashboard extends AppCompatActivity {
                     count++;
                 }
 
-
             }
-
 
             notification.setText("You have " + count + " new notifications");
         });
