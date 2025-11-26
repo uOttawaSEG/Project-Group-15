@@ -7,11 +7,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.math_tutor_application.R;
 import com.example.math_tutor_application.uml_classes.RegisteredSessions;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.example.math_tutor_application.R;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -47,23 +48,26 @@ public class StudentUpcomingSessionsActivity extends AppCompatActivity {
 
     private void fetchUpcomingSessions() {
         Date now = new Date();
-        db.collection("Sessions")
-                .whereEqualTo("upcomingSession", true)
-                .whereEqualTo("isStudentRegister", false)
+        db.collection("RegisteredSessions")
+                .whereEqualTo("status", "approved")
+                .whereEqualTo("approvedStudentID", studentDocId)
+                .whereGreaterThanOrEqualTo("startDate", now)
+                .orderBy("startDate")
                 .get()
                 .addOnSuccessListener(snap -> {
                     upcomingSessionsList.clear();
                     for (QueryDocumentSnapshot doc : snap) {
-                        Sessions s = doc.toObject(Sessions.class);
+                        RegisteredSessions s = doc.toObject(RegisteredSessions.class);
                         s.setDocumentId(doc.getId());
-                        upcomingSessionsList.add(s);
+                        if (s.getStartDate() != null) {
+                            upcomingSessionsList.add(s);
+                        }
                     }
                     adapter.notifyDataSetChanged();
                 })
                 .addOnFailureListener(e ->
-                        Toast.makeText(this, "Failed to load sessions", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Failed to load upcoming sessions", Toast.LENGTH_SHORT).show()
                 );
-
     }
 
     private void onCancelClicked(RegisteredSessions session) {
@@ -84,7 +88,7 @@ public class StudentUpcomingSessionsActivity extends AppCompatActivity {
         new AlertDialog.Builder(this)
                 .setTitle("Cancel Session")
                 .setMessage("Are you sure you want to cancel the session on "
-                        + session.getStartDate().toDate().toString() + "?")
+                        + DateFormat.getDateTimeInstance().format(session.getStartDate().toDate()) + "?")
                 .setPositiveButton("Yes", (dialog, which) -> {
                     db.collection("RegisteredSessions")
                             .document(session.getDocumentId())
