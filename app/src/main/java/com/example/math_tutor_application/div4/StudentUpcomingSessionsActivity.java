@@ -49,9 +49,7 @@ public class StudentUpcomingSessionsActivity extends AppCompatActivity {
     private void fetchUpcomingSessions() {
         Date now = new Date();
         db.collection("RegisteredSessions")
-                .whereEqualTo("status", "approved")
                 .whereEqualTo("approvedStudentID", studentDocId)
-                .whereGreaterThanOrEqualTo("startDate", now)
                 .orderBy("startDate")
                 .get()
                 .addOnSuccessListener(snap -> {
@@ -66,6 +64,7 @@ public class StudentUpcomingSessionsActivity extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
                 })
                 .addOnFailureListener(e ->
+
                         Toast.makeText(this, "Failed to load upcoming sessions", Toast.LENGTH_SHORT).show()
                 );
     }

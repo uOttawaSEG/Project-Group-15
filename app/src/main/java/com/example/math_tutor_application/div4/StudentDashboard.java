@@ -79,7 +79,7 @@ public class StudentDashboard extends AppCompatActivity {
     public void upCommingSessionHandler(View view) {
 
         Intent intent = new Intent(this, StudentUpcomingSessionsActivity.class);
-        intent.putExtra("docId", docId);
+        intent.putExtra("studentDocId", docId);
         startActivity(intent);
 
     }
