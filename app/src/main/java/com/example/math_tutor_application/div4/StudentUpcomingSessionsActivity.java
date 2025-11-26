@@ -1,6 +1,7 @@
 package com.example.math_tutor_application.div4;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,7 +46,6 @@ public class StudentUpcomingSessionsActivity extends AppCompatActivity {
             Toast.makeText(this, "Missing student ID", Toast.LENGTH_SHORT).show();
         }
     }
-
     private void fetchUpcomingSessions() {
         Date now = new Date();
         db.collection("RegisteredSessions")
@@ -57,17 +57,25 @@ public class StudentUpcomingSessionsActivity extends AppCompatActivity {
                     for (QueryDocumentSnapshot doc : snap) {
                         RegisteredSessions s = doc.toObject(RegisteredSessions.class);
                         s.setDocumentId(doc.getId());
-                        if (s.getStartDate() != null) {
+
+                        if (s.getEndDate() != null && s.getEndDate().toDate().before(now)) {
+                            // Session has already ended it'll be mark as past
+                            db.collection("RegisteredSessions")
+                                    .document(s.getDocumentId())
+                                    .update("pastSession", true);
+                        } else {
+                            // Still upcoming → show in list
                             upcomingSessionsList.add(s);
                         }
                     }
                     adapter.notifyDataSetChanged();
                 })
-                .addOnFailureListener(e ->
-
-                        Toast.makeText(this, "Failed to load upcoming sessions", Toast.LENGTH_SHORT).show()
-                );
+                .addOnFailureListener(e -> {
+                    Log.e("FirestoreError", "Query failed", e);
+                    Toast.makeText(this, "Failed to load upcoming sessions", Toast.LENGTH_SHORT).show();
+                });
     }
+
 
     private void onCancelClicked(RegisteredSessions session) {
         if (session.getStartDate() == null) {
