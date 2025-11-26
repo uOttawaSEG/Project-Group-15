@@ -46,28 +46,29 @@ public class StudentUpcomingSessionsActivity extends AppCompatActivity {
             Toast.makeText(this, "Missing student ID", Toast.LENGTH_SHORT).show();
         }
     }
+
     private void fetchUpcomingSessions() {
-        Date now = new Date();
         db.collection("RegisteredSessions")
                 .whereEqualTo("approvedStudentID", studentDocId)
                 .orderBy("startDate")
                 .get()
                 .addOnSuccessListener(snap -> {
                     upcomingSessionsList.clear();
+
                     for (QueryDocumentSnapshot doc : snap) {
                         RegisteredSessions s = doc.toObject(RegisteredSessions.class);
                         s.setDocumentId(doc.getId());
 
-                        if (s.getEndDate() != null && s.getEndDate().toDate().before(now)) {
-                            // Session has already ended it'll be mark as past
+                        if (s.isPastSession()) {
                             db.collection("RegisteredSessions")
                                     .document(s.getDocumentId())
                                     .update("pastSession", true);
-                        } else {
-                            // Still upcoming → show in list
+                        } else if (s.isUpcomingSession()) {
+                            // Only add upcoming sessions to the list
                             upcomingSessionsList.add(s);
                         }
                     }
+
                     adapter.notifyDataSetChanged();
                 })
                 .addOnFailureListener(e -> {
@@ -75,6 +76,8 @@ public class StudentUpcomingSessionsActivity extends AppCompatActivity {
                     Toast.makeText(this, "Failed to load upcoming sessions", Toast.LENGTH_SHORT).show();
                 });
     }
+
+
 
 
     private void onCancelClicked(RegisteredSessions session) {

@@ -30,6 +30,10 @@ public class StudentUpcomingSessionsAdapter extends RecyclerView.Adapter<Student
         this.listener = listener;
     }
 
+    public OnCancelClickListener getCancelClickListener() {
+        return listener;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

@@ -21,8 +21,6 @@ public class Sessions {
 
 
 
-
-
     public Sessions() {};
 
     public Sessions(Timestamp startDate, Timestamp endDate, boolean manualApproval) {
@@ -106,6 +104,8 @@ public class Sessions {
         // Check if endDate is before current time
         return endDate.toDate().before(rn);
     }
+
+
 
     // For upcoming sessions to check
     public boolean isUpcomingSession() {
