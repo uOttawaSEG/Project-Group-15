@@ -12,6 +12,9 @@ public class RegisteredSessions extends Sessions {
 
     String course;
 
+    Boolean isRated = false;
+
+
 
 
     public RegisteredSessions() {}
@@ -59,6 +62,16 @@ public class RegisteredSessions extends Sessions {
     public void setCourse(String course) {
         this.course = course;
     }
+
+    public Boolean getIsRated() {
+        return isRated;
+    }
+
+    public void setIsRated(Boolean isRated) {
+        this.isRated = isRated;
+    }
+
+
 
 
 

@@ -1,6 +1,7 @@
 package com.example.math_tutor_application.uml_classes;
 
 import java.util.ArrayList;
+import java.lang.Math;
 
 public class ApprovedTutor extends Tutor {
 
@@ -21,18 +22,21 @@ public class ApprovedTutor extends Tutor {
     }
 
     //added method for ratings
-    public void addRating(double rating) {
-        this.rating = rating;
-        this.numberOfRating++;
-        if (rating > 5) {
-            rating = 5;
-        } else if (rating < 0) {
-            rating = 0;
+    public double addRating(double newRating) {
+
+        if (newRating > 5) {
+            newRating = 5;
+        } else if (newRating < 0) {
+            newRating = 0;
         }
 
-        this.rating = (this.rating + rating) / numberOfRating;
-    }
+        rating = ((rating * numberOfRating) + newRating) / (numberOfRating + 1);
 
+        numberOfRating++;
+
+        return Math.round(rating * 10.0) / 10.0;
+
+    }
 
     public ArrayList<Sessions> getSessionsArrayList() {
         return sessionsArrayList;

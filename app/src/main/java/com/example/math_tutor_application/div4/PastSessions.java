@@ -1,6 +1,11 @@
 package com.example.math_tutor_application.div4;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RatingBar;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
@@ -15,14 +20,12 @@ import com.example.math_tutor_application.R;
 import com.example.math_tutor_application.uml_classes.ApprovedTutor;
 import com.example.math_tutor_application.uml_classes.RegisteredSessions;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
-import java.util.List;
 
 public class PastSessions extends AppCompatActivity {
 
@@ -57,7 +60,21 @@ public class PastSessions extends AppCompatActivity {
         adapter = new PastSessionsAdaptor(registeredSessions, new PastSessionsAdaptor.OnRequestActionListener() {
 
             @Override
-            public void onRateTutor(ApprovedTutor tutor) {
+            public void onRateTutor(RegisteredSessions session) {
+
+                ApprovedTutor tutor = session.getApprovedTutor();
+
+                if (session.getIsRated()) {
+                    Toast.makeText(PastSessions.this, "You have already rated this tutor!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+                showRatingDialog(tutor);
+
+                session.setIsRated(true);
+                db.collection("RegisteredSessions").document(session.getDocumentId()).update("isRated", true);
+
 
 
             }
@@ -141,5 +158,48 @@ public class PastSessions extends AppCompatActivity {
 
     }
 
+    private void showRatingDialog(final ApprovedTutor tutor) {
+        if (tutor == null || tutor.getDocumentId() == null) {
+            return;
+        }
+
+
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.div4_item_rate_tutor, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(dialogView);
+
+        final RatingBar ratingBar = dialogView.findViewById(R.id.ratingBar);
+        final Button submitButton = dialogView.findViewById(R.id.submitButton);
+        final Button cancelButton = dialogView.findViewById(R.id.cancelButton);
+
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+
+        submitButton.setOnClickListener(v -> {
+            float rating = ratingBar.getRating();
+
+            updateTutorRating(tutor, rating);
+            dialog.dismiss();
+        });
+
+        cancelButton.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
     }
+
+    private void updateTutorRating(ApprovedTutor tutor, float newRating) {
+        double updatedRating = tutor.addRating(newRating);
+        tutor.setRating(updatedRating);
+        db.collection("ApprovedTutors").document(tutor.getDocumentId())
+                .update("rating", updatedRating, "numberOfRating", FieldValue.increment(1)).addOnCompleteListener(task -> {
+                    fetchAndDisplay();
+                        });
+        Toast.makeText(this, "Rating submitted!", Toast.LENGTH_SHORT).show();
+
+    }
+
+
+
 }

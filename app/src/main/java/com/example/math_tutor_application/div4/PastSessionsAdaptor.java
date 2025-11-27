@@ -26,7 +26,7 @@ public class PastSessionsAdaptor extends RecyclerView.Adapter<PastSessionsAdapto
 
     // Interface to communicate button actions back to the activity
     public interface OnRequestActionListener {
-        void onRateTutor(ApprovedTutor tutor);
+        void onRateTutor(RegisteredSessions sessions);
 
 
         void onDisplay(ApprovedTutor tutor);
@@ -85,7 +85,7 @@ public class PastSessionsAdaptor extends RecyclerView.Adapter<PastSessionsAdapto
                 + " - " + DateFormat.getDateTimeInstance().format(sessions.getEndDate().toDate());
         holder.time.setText("Time: " + timeText);
 
-        holder.rateTutorBtn.setOnClickListener(v -> listener.onRateTutor(sessions.getApprovedTutor()));
+        holder.rateTutorBtn.setOnClickListener(v -> listener.onRateTutor(sessions));
         holder.tutorName.setOnClickListener(v-> listener.onDisplay(sessions.getApprovedTutor()));
     }
 
