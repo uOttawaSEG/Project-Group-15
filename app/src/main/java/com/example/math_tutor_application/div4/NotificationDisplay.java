@@ -71,6 +71,7 @@ public class NotificationDisplay extends AppCompatActivity {
 
 
                     }
+                    db.collection("Notifications").document(notification.getDocumentId()).update("isRead", true);
 
 
                 }

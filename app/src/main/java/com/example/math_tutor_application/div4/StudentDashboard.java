@@ -26,6 +26,9 @@ public class StudentDashboard extends AppCompatActivity {
     ApprovedStudent approvedStudent;
 
     TextView fullName;
+    String fullNameStr;
+
+
     TextView email;
 
     TextView notification;
@@ -56,9 +59,10 @@ public class StudentDashboard extends AppCompatActivity {
 
                fullName = findViewById(R.id.fullName);
                email = findViewById(R.id.email);
+               fullNameStr = approvedStudent.getFirstName() + " " + approvedStudent.getLastName();
 
                //confirms the docId is correct
-               fullName.setText(approvedStudent.getFirstName() + " " + approvedStudent.getLastName());
+               fullName.setText(fullNameStr);
                email.setText(approvedStudent.getEmail());
 
            }
@@ -80,6 +84,7 @@ public class StudentDashboard extends AppCompatActivity {
 
         Intent intent = new Intent(this, StudentUpcomingSessionsActivity.class);
         intent.putExtra("studentDocId", docId);
+        intent.putExtra("fullName", fullNameStr);
         startActivity(intent);
 
     }
@@ -95,7 +100,9 @@ public class StudentDashboard extends AppCompatActivity {
     public void notificationDisplay() {
         count = 0; //fixes count bug
 
-        db.collection("Notifications").whereEqualTo("receiver", docId).get().addOnCompleteListener(task -> {
+        db.collection("Notifications").whereEqualTo("receiver", docId)
+                .whereEqualTo("isRead", false)
+                .get().addOnCompleteListener(task -> {
 
             if(task.isSuccessful()){
                 for(int i = 0; i < task.getResult().size(); i++){
@@ -112,12 +119,14 @@ public class StudentDashboard extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (count != 0) {
-            count = 0;
-            notification.setText("You have " + count + " new notifications");
-        } else {
         notificationDisplay();
-        }
+
+    }
+
+    public void pastSessionsHandler(View view) {
+        Intent intent = new Intent(this, PastSessions.class);
+        intent.putExtra("docId", docId);
+        startActivity(intent);
 
     }
 }

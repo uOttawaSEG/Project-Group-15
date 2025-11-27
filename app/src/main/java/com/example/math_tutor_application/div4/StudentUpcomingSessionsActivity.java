@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.math_tutor_application.R;
 import com.example.math_tutor_application.uml_classes.ApprovedTutor;
+import com.example.math_tutor_application.uml_classes.Notification;
 import com.example.math_tutor_application.uml_classes.RegisteredSessions;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -61,7 +63,8 @@ public class StudentUpcomingSessionsActivity extends AppCompatActivity {
                         RegisteredSessions s = doc.toObject(RegisteredSessions.class);
                         s.setDocumentId(doc.getId());
 
-                        if(s.getApprovedStudentID() == null || s.getApprovedTutorId() == null) {
+                        //null check
+                        if(s.getApprovedStudentID() == null || s.getApprovedTutorId() == null || s.getStatus() == null)  {
                             continue;
                         }
 
@@ -104,6 +107,8 @@ public class StudentUpcomingSessionsActivity extends AppCompatActivity {
 
 
     private void onCancelClicked(RegisteredSessions session) {
+        String fullName = getIntent().getStringExtra("fullName");
+
         if (session.getStartDate() == null) {
             Toast.makeText(this, "Session date missing", Toast.LENGTH_SHORT).show();
             return;
@@ -130,6 +135,12 @@ public class StudentUpcomingSessionsActivity extends AppCompatActivity {
                                 Toast.makeText(this, "Session canceled", Toast.LENGTH_SHORT).show();
                                 upcomingSessionsList.remove(session);
                                 adapter.notifyDataSetChanged();
+
+                                String message = "Student " + fullName + " has canceled their session for " + session.getCourse()
+                                        + " at " + DateFormat.getDateTimeInstance().format(session.getStartDate().toDate())
+                                        + " to " + DateFormat.getDateTimeInstance().format(session.getEndDate().toDate());
+
+                                sendNotification(message, session.getApprovedTutorId(), studentDocId);
                             })
                             .addOnFailureListener(e ->
                                     Toast.makeText(this, "Failed to cancel session", Toast.LENGTH_SHORT).show()
@@ -149,4 +160,15 @@ public class StudentUpcomingSessionsActivity extends AppCompatActivity {
     private boolean isNonEmpty(String s) {
         return s != null && !s.trim().isEmpty();
     }
+
+    private void sendNotification(String message, String receiver, String sender) {
+        Notification notification = new Notification();
+        notification.setMsg(message);
+        notification.setReceiver(receiver);
+        notification.setSender(sender);
+        notification.setTimestamp(new Timestamp(new Date()));
+        db.collection("Notifications").add(notification);
+
+    }
+
 }

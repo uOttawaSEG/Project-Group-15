@@ -18,6 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Math_tutor_application">
         <activity
+            android:name=".div4.PastSessions"
+            android:exported="false" />
+        <activity
             android:name=".div4.StudentUpcomingSessionsActivity"
             android:exported="false" />
         <activity

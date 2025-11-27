@@ -9,10 +9,10 @@
     android:elevation="2dp">
 
     <TextView
-        android:id="@+id/studentName"
+        android:id="@+id/tutorName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Student: John Doe"
+        android:text="Tutor: John Doe"
         android:textStyle="bold"
         android:textSize="16sp"
         android:textColor="#000000" />
@@ -38,17 +38,11 @@
         android:id="@+id/status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pending"
+        android:text="Status: Completed"
         android:textSize="14sp"
         android:textColor="#444444" />
 
-    <TextView
-        android:id="@+id/studentRegistration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Student Registration:"
-        android:textSize="14sp"
-        android:textColor="#444444" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -58,7 +52,7 @@
         android:layout_marginTop="8dp">
 
         <Button
-            android:id="@+id/approveBtn"
+            android:id="@+id/rateTutorBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Rate Tutor"

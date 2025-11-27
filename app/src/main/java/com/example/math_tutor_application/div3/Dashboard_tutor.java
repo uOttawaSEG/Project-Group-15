@@ -101,20 +101,16 @@ public class Dashboard_tutor extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (count != 0) {
-            count = 0;
-            notification.setText("You have " + count + " new notifications");
-        } else {
-            notificationDisplay();
-        }
-
+        notificationDisplay();
     }
 
     private void notificationDisplay() {
 
         count = 0; //fixes count bug
 
-        db.collection("Notifications").whereEqualTo("receiver", docID).get().addOnCompleteListener(task -> {
+        db.collection("Notifications").whereEqualTo("receiver", docID)
+                .whereEqualTo("isRead", false)
+                .get().addOnCompleteListener(task -> {
 
             if(task.isSuccessful()){
                 for(int i = 0; i < task.getResult().size(); i++){
