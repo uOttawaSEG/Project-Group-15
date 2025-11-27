@@ -62,6 +62,14 @@ public class StudentUpcomingSessionsAdapter extends RecyclerView.Adapter<Student
                 : "approved";
         holder.sessionStatus.setText("Status: " + status);
 
+        holder.course.setText("Course: " + s.getCourse());
+
+        if (s.getApprovedTutor() != null) {
+            holder.tutorName.setText("Tutor: " + s.getApprovedTutor().getFirstName() + " " + s.getApprovedTutor().getLastName());
+        } else {
+            holder.tutorName.setText("Tutor: N/A");
+        }
+
         // Wire up cancel button
         holder.cancelButton.setOnClickListener(v -> {
             if (listener != null) listener.onCancelClick(s);
@@ -76,7 +84,7 @@ public class StudentUpcomingSessionsAdapter extends RecyclerView.Adapter<Student
     // ViewHolder holds references to the item layout views
     public static class ViewHolder extends RecyclerView.ViewHolder {
         final TextView sessionTime;
-        final TextView sessionStatus;
+        final TextView sessionStatus, course, tutorName;
         final Button cancelButton;
 
         public ViewHolder(@NonNull View itemView) {
@@ -84,6 +92,8 @@ public class StudentUpcomingSessionsAdapter extends RecyclerView.Adapter<Student
             sessionTime = itemView.findViewById(R.id.sessionTime);
             sessionStatus = itemView.findViewById(R.id.sessionStatus);
             cancelButton = itemView.findViewById(R.id.cancelButton);
+            course = itemView.findViewById(R.id.course);
+            tutorName = itemView.findViewById(R.id.tutorName);
         }
     }
 }

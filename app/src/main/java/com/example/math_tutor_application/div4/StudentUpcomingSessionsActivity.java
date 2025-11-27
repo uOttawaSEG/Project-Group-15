@@ -9,8 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.math_tutor_application.R;
+import com.example.math_tutor_application.uml_classes.ApprovedTutor;
 import com.example.math_tutor_application.uml_classes.RegisteredSessions;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.text.DateFormat;
@@ -49,8 +51,8 @@ public class StudentUpcomingSessionsActivity extends AppCompatActivity {
 
     private void fetchUpcomingSessions() {
         db.collection("RegisteredSessions")
-                .whereEqualTo("approvedStudentID", studentDocId)
-                .orderBy("startDate")
+                //move the filter logic in the if statement, because firebase can either sort or filter
+                .orderBy("startDate", Query.Direction.DESCENDING)
                 .get()
                 .addOnSuccessListener(snap -> {
                     upcomingSessionsList.clear();
@@ -59,13 +61,34 @@ public class StudentUpcomingSessionsActivity extends AppCompatActivity {
                         RegisteredSessions s = doc.toObject(RegisteredSessions.class);
                         s.setDocumentId(doc.getId());
 
+                        if(s.getApprovedStudentID() == null || s.getApprovedTutorId() == null) {
+                            continue;
+                        }
+
+                        if (!s.getApprovedStudentID().equals(studentDocId) || s.getStatus().equals("rejected")) {
+                            continue;
+                        }
+
+
                         if (s.isPastSession()) {
                             db.collection("RegisteredSessions")
                                     .document(s.getDocumentId())
                                     .update("pastSession", true);
                         } else if (s.isUpcomingSession()) {
                             // Only add upcoming sessions to the list
-                            upcomingSessionsList.add(s);
+                            //also get tutor info
+                            db.collection("ApprovedTutors")
+                                    .whereEqualTo("documentId", s.getApprovedTutorId())
+                                    .get().addOnSuccessListener(tutorSnap -> {
+                                        if (tutorSnap.isEmpty()) {
+                                            return;
+                                        }
+                                        s.setApprovedTutor(tutorSnap.getDocuments().get(0).toObject(ApprovedTutor.class));
+                                        upcomingSessionsList.add(s);
+                                        adapter.notifyDataSetChanged();
+
+                                    });
+
                         }
                     }
 
@@ -102,12 +125,19 @@ public class StudentUpcomingSessionsActivity extends AppCompatActivity {
                 .setPositiveButton("Yes", (dialog, which) -> {
                     db.collection("RegisteredSessions")
                             .document(session.getDocumentId())
-                            .update("status", "canceled")
+                            .delete()
                             .addOnSuccessListener(aVoid -> {
                                 Toast.makeText(this, "Session canceled", Toast.LENGTH_SHORT).show();
                                 upcomingSessionsList.remove(session);
                                 adapter.notifyDataSetChanged();
                             })
+                            .addOnFailureListener(e ->
+                                    Toast.makeText(this, "Failed to cancel session", Toast.LENGTH_SHORT).show()
+                            );
+
+                    db.collection("Sessions")
+                            .document(session.getDocumentId())
+                            .update("isStudentRegister", false, "status", "pending")
                             .addOnFailureListener(e ->
                                     Toast.makeText(this, "Failed to cancel session", Toast.LENGTH_SHORT).show()
                             );

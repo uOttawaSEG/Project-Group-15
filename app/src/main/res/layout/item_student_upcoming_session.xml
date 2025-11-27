@@ -12,6 +12,20 @@
         android:text="Session Time"
         android:textSize="16sp"
         android:textStyle="bold" />
+    <TextView
+        android:id="@+id/course"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Course: Algebra"
+        android:textSize="14sp"
+        android:layout_marginTop="4dp" />
+    <TextView
+        android:id="@+id/tutorName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tutor: John Doe"
+        android:textSize="14sp"
+        android:layout_marginTop="4dp" />
 
     <TextView
         android:id="@+id/sessionStatus"
@@ -20,6 +34,9 @@
         android:text="Status: approved"
         android:textSize="14sp"
         android:layout_marginTop="4dp" />
+
+
+
 
     <Button
         android:id="@+id/cancelButton"
