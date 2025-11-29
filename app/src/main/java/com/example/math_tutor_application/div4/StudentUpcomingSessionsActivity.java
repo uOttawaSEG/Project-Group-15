@@ -72,12 +72,7 @@ public class StudentUpcomingSessionsActivity extends AppCompatActivity {
                             continue;
                         }
 
-
-                        if (s.isPastSession()) {
-                            db.collection("RegisteredSessions")
-                                    .document(s.getDocumentId())
-                                    .update("pastSession", true);
-                        } else if (s.isUpcomingSession()) {
+                        if (s.isUpcomingSession()) {
                             // Only add upcoming sessions to the list
                             //also get tutor info
                             db.collection("ApprovedTutors")

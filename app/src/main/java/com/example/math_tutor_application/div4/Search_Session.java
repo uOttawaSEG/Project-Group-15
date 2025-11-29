@@ -97,7 +97,7 @@ public class Search_Session extends AppCompatActivity {
             @Override
             public void onApprove(Sessions request) {
 
-                db.collection("RegisteredSessions").whereEqualTo("approvedStudentID", studentDocId)
+                 db.collection("RegisteredSessions").whereEqualTo("approvedStudentID", studentDocId)
                         .get().addOnCompleteListener(registeredSessionsTask -> {
 
                             if (!registeredSessionsTask.isSuccessful() || registeredSessionsTask.getResult() == null) {

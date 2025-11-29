@@ -150,7 +150,7 @@ public class SlotCreationTutor extends AppCompatActivity {
                         calendarStart.set(Calendar.SECOND, 0);
                         calendarStart.set(Calendar.MILLISECOND, 0);
                         updateText();
-                    }, calendarStart.get(Calendar.HOUR_OF_DAY), calendarStart.get(Calendar.MINUTE), true);
+                    }, calendarStart.get(Calendar.HOUR_OF_DAY), calendarStart.get(Calendar.MINUTE), false);
 
         } else {
             timePickerDialog = new TimePickerDialog(this,
@@ -160,7 +160,7 @@ public class SlotCreationTutor extends AppCompatActivity {
                         calendarEnd.set(Calendar.SECOND, 0);
                         calendarEnd.set(Calendar.MILLISECOND, 0);
                         updateTextEnd();
-                    }, calendarEnd.get(Calendar.HOUR_OF_DAY), calendarEnd.get(Calendar.MINUTE), true);
+                    }, calendarEnd.get(Calendar.HOUR_OF_DAY), calendarEnd.get(Calendar.MINUTE), false);
 
         }
         timePickerDialog.show();
