@@ -105,6 +105,8 @@ public class Search_Session extends AppCompatActivity {
 
                             }
 
+                            registeredSessions.clear();
+
                             for (QueryDocumentSnapshot doc : registeredSessionsTask.getResult()) {
                                 RegisteredSessions r = doc.toObject(RegisteredSessions.class);
                                 r.setDocumentId(doc.getId());
