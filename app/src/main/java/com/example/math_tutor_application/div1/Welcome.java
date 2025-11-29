@@ -39,7 +39,9 @@ public class Welcome extends AppCompatActivity {
 
     public void logoutHandler(View view) {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+        finish(); //secure
     }
 
     public void dashBoardHandler(View view) {
@@ -47,7 +49,7 @@ public class Welcome extends AppCompatActivity {
         Intent intent;
         if (message.contains("Admin")) {
             intent = new Intent(this, Dashboard_admin.class);
-        } else if (message.contains("tutor")) {
+        } else if (message.contains("tutor") || message.contains("Tutor")) {
             intent = new Intent(this, Dashboard_tutor.class);
             firstName = getIntent().getStringExtra("firstName");
             lastName = getIntent().getStringExtra("lastName");

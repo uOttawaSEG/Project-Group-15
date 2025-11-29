@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
@@ -152,7 +153,7 @@ public class PendingRequestActivity extends AppCompatActivity {
         //better and more robust way using Task to handle both student and session data
 
         db.collection("RegisteredSessions")
-                .whereEqualTo("approvedTutorId", approvedTutor.getDocumentId())
+                .orderBy("startDate", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful() && task.getResult() != null) {
@@ -164,7 +165,12 @@ public class PendingRequestActivity extends AppCompatActivity {
                             RegisteredSessions request = doc.toObject(RegisteredSessions.class);
                             request.setDocumentId(doc.getId());
                             request.setApprovedTutor(approvedTutor);
+                            if (!request.getApprovedTutorId().equals(approvedTutorDocId) || !request.isUpcomingSession())
+                            {
+                                continue;
+                            }
                             sessionsFromDB.add(request);
+
 
                             if (request.getApprovedStudentID() != null) {
                                 Task<Student> studentTask = db.collection("Students")

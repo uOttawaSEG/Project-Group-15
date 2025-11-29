@@ -142,10 +142,10 @@ public class TutorActivity extends AppCompatActivity {
 
             if (validInputFields()) {
                 // grab valid elements
-                String firstName0 = firstName.getText().toString();
-                String lastName0 = lastName.getText().toString();
-                String email0 = email.getText().toString();
-                String phoneNum = phone.getText().toString();
+                String firstName0 = firstName.getText().toString().trim();
+                String lastName0 = lastName.getText().toString().trim();
+                String email0 = email.getText().toString().trim();
+                String phoneNum = phone.getText().toString().trim();
                 String confirmedPassword = confirmPassword.getText().toString();
                 String highestDegree = degreeSpinner.getSelectedItem().toString();
                 ArrayList<String> courses = stringSplitter(coursesOffered.getText().toString());

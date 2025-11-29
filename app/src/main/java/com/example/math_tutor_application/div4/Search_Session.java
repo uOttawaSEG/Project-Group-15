@@ -160,6 +160,7 @@ public class Search_Session extends AppCompatActivity {
                                 notification.setSender(studentDocId);
                                 notification.setTimestamp(new Timestamp(new Date()));
                                 db.collection("Notifications").add(notification);
+                                fetchAndDisplay(selectedCourse);
 
 
                             });
@@ -270,7 +271,9 @@ public class Search_Session extends AppCompatActivity {
                     for (QueryDocumentSnapshot doc : task.getResult()) {
                         Sessions s = doc.toObject(Sessions.class);
                         s.setDocumentId(doc.getId());
+                        if (!s.getIsStudentRegister() && s.isUpcomingSession()) {
                         sessionsFromDB.add(s);
+                        }
 
                         if (s.getApprovedTutorId() != null) {
                             tutorTasks.add(db.collection("ApprovedTutors").document(s.getApprovedTutorId()).get());
