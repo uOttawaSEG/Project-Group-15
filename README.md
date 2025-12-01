@@ -1,5 +1,5 @@
 For Deliverable 4;  <br>
-Note: The demo video, UML diagram, and README file can be found in the div4_group15.zip file, which is attached as an asset to the 0.4 tag release. <br>
+Note: The demo video, UML diagram, final report, and README file can be found in the div4_group15.zip file, which is attached as an asset to the 0.4 tag release. <br>
 Note: Demo video shows the full application with a quick overview of div1,div2, and div3, followed by a detailed demo of div4. If you want to skip to div 4, skip to 2:46.  <br>
 <br>
 To log in as the  approvedStudent, approvedTutor, and Admin <br>
